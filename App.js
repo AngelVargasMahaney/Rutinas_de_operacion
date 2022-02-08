@@ -8,7 +8,7 @@ export default function App() {
   return (
     // <ContenedorScreens />
     <NativeBaseProvider>
-        <LoginScreen />
+        <ContenedorScreens />
     </NativeBaseProvider>
   );
 }

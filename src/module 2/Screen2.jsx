@@ -3,7 +3,7 @@ import React from 'react';
 
 const Screen2 = () => {
   return (
-    <View>
+    <View style={styles.Screen1Style}>
       <Text>Screen 2</Text>
     </View>
   );
@@ -11,4 +11,10 @@ const Screen2 = () => {
 
 export default Screen2;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  Screen1Style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});

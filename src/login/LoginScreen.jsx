@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     logo_blanco: {
         width: 147.61,
         height: 81.78,
-        marginTop: 30
+        marginTop: 70
     },
     portadaViewText: {
         color: 'white',

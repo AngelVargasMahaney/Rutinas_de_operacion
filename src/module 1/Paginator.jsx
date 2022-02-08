@@ -10,7 +10,7 @@ const Paginator = ({ data, scrollX }) => {
                     const inputRange = [(index - 1) * width, index * width, (index + 1) * width]
                     const dotWidth = scrollX.interpolate({
                         inputRange,
-                        outputRange: [10, 20, 10],
+                        outputRange: [10, 200, 10],
                         extrapolate: 'clamp'
                     })
                     const opacity = scrollX.interpolate({
@@ -22,11 +22,13 @@ const Paginator = ({ data, scrollX }) => {
                         styles.dot,
                         {
                             width: dotWidth,
-                            opacity
+                            height: 20,
+                            opacity,
+                            textAlign: 'center'
                         }
                     ]} key={index}>
-                        <Text style={{color: 'white'}}>
-                            {index+1}
+                        <Text style={{ color: 'white'}}>
+                            {index + 1} / {data.length}
                         </Text>
                     </Animated.View>
                 })

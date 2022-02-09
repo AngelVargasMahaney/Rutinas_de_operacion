@@ -8,6 +8,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Layout, Text } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import TemplateVersion2 from './src/Template/TemplateVersion2';
+import Screen1 from './src/module 2/Screen1';
 
 export default function App() {
   return (
@@ -18,7 +19,10 @@ export default function App() {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <TemplateVersion2 />
+        <NativeBaseProvider>
+          <Screen1 />
+        </NativeBaseProvider>
+
       </ApplicationProvider>
     </>
   );

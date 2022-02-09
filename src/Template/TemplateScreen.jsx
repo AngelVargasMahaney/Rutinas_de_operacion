@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const image = require('../../assets/backgrounds/Pantalla_login.png')
 const logo_color = require('../../assets/logos/Logo_color.png')
+
 const TemplateScreen = () => {
     return (
         <View style={styles.container}>
@@ -11,7 +12,7 @@ const TemplateScreen = () => {
             <View style={styles.rutOpFiller}></View>
             <View style={styles.imageRow}>
                 <Image
-                    source={require(logo_color}
+                    source={logo_color}
                     resizeMode="contain"
                     style={styles.image}
                 ></Image>

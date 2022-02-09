@@ -3,13 +3,14 @@ import React from 'react';
 
 const ContenedorItem = ({ item }) => {
     const { width } = useWindowDimensions()
+
+    const Component = item.component[1]
     return (
         <View style={styles.container, { width }}>
             <Image source={item.image} style={[styles.image, { width, resizeMode: 'contain' }]} />
 
             <View style={{ flex: 0.3 }}>
-                <Text>{item.id}</Text>
-                <Text>{item.name}</Text>
+                {item.component}
             </View>
         </View>
     );

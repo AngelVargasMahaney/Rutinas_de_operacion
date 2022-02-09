@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
+import { NativeBaseProvider } from 'native-base';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './src/login/LoginScreen';
 import ContenedorScreens from './src/module 1/ContenedorScreens';
 
 export default function App() {
   return (
-    //<ContenedorScreens/>
-    <LoginScreen/>
+    // <ContenedorScreens />
+    <NativeBaseProvider>
+        <ContenedorScreens />
+    </NativeBaseProvider>
   );
 }
 

@@ -33,11 +33,11 @@ const LoginScreen = () => {
             <View style={styles.bodyContainer}>
 
                 <View style={{ padding: 40 }}>
-                    <Text style={{ color: "white", fontSize: 34, fontWeight: '500', fontFamily: 'Roboto', ineHeight: 28.13 }}>
+                    <Text style={{ color: "white", fontSize: 34, fontWeight: 500, fontFamily: 'Roboto', ineHeight: 28.13 }}>
                         Bienvenido
                     </Text>
 
-                    <Text style={{ color: 'white', fontWeight: '300', fontFamily: 'Roboto', fontSize: 14, lineHeight: 16.41 }}>
+                    <Text style={{ color: 'white', fontWeight: 300, fontFamily: 'Roboto', fontSize: 14, lineHeight: 16.41 }}>
                         Iniciar Sesión para Continuar
                     </Text>
                     <>
@@ -69,7 +69,7 @@ const LoginScreen = () => {
                     </>
                 </View>
                 <View  style={{ flex:1, justifyContent: 'center', alignItems: 'flex-end', marginRight:30, marginBottom:20 }}>
-                    <Text style={{ color: "white", textAlign:'center', fontSize: 11, fontWeight: '300', fontFamily: 'Roboto', ineHeight: 12.89 }}>
+                    <Text style={{ color: "white", textAlign:'center', fontSize: 11, fontWeight: 300, fontFamily: 'Roboto', ineHeight: 12.89 }}>
                         Versión 1.0
                     </Text>
                 </View>

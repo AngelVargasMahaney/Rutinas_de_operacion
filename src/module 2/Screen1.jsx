@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
-import { Card, Layout, Text, Avatar, Button } from '@ui-kitten/components';
+import { Card, Layout, Text, Avatar, Button, Icon } from '@ui-kitten/components';
 import { areas } from '../services/areasLista';
+
 
 const Screen1 = () => {
   const [areasData, setAreasData] = useState([]);
@@ -41,30 +42,42 @@ const Screen1 = () => {
   return (
     <>
       <TemplateVersion2 />
-      <Layout style={styles.container} level='1'>
-        {areasData.map((obj, i) => {
-          return (
-            <Card style={styles.card, {
-              backgroundColor: obj.selected ? 'red' : 'blue'
-            }} key={i} onPress={() => {
-              cambiarColor(obj.id)
-            }}>
 
-              <Avatar
-                style={[styles.logo]}
-                shape={"square"}
-                size='giant'
-                resizeMode="contain"
-                source={obj.image} />
-              <Text style={{ textAlign: 'center', maxWidth: '100px', color: '#969696', fontSize: 14, fontWeight: 400, marginTop: 12 }}>
-                {obj.selected ? 'Elegido' : obj.name}
-              </Text>
-            </Card>
+      <Layout style={styles.mainContainer}>
 
-          )
-        })}
 
+        <Text style={styles.tittlesStyle}>
+          <Avatar source={require('../../assets/icons/Rectangle_orange.png')} style={{width:10,height:10}} />
+          ÁREA</Text>
+        <Layout style={styles.container} level='1'>
+          {areasData.map((obj, i) => {
+            return (
+              <Card key={obj.id} style={styles.card} onPress={() => {
+                cambiarColor(obj.id)
+              }}>
+                <Avatar
+                  style={styles.logo}
+                  shape={"square"}
+                  size='giant'
+                  resizeMode="contain"
+                  source={obj.image} />
+                {obj.selected ? null : <Avatar
+                  style={styles.logo2}
+                  shape={"square"}
+                  size='giant'
+                  resizeMode="contain"
+                  source={obj.image} />}
+
+                <Text style={{ textAlign: 'center', maxWidth: 100, color: '#969696', fontSize: 14, fontWeight: 400, marginTop: 12 }}>
+                  {obj.name}
+                </Text>
+              </Card>
+            )
+          })}
+
+        </Layout>
       </Layout>
+
     </>
   );
 };
@@ -72,14 +85,15 @@ const Screen1 = () => {
 export default Screen1;
 
 const styles = StyleSheet.create({
-  prueba: {
-
-    position: 'absolute',
-    zIndex: 1,
-    width: 100,
-    height: 100,
-    borderRadius: 10
-
+  tittlesStyle: {
+    fontSize: 17,
+    color: '#01286B',
+    fontWeight: '600'
+  },
+  mainContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   container: {
     justifyContent: 'center',
@@ -94,8 +108,16 @@ const styles = StyleSheet.create({
   },
   logo: {
     // filter: 'grayscale(100%)',
+
     width: 100,
     height: 100,
   },
+  logo2: {
+    tintColor: 'dark',
+    opacity: '0.5',
+    position: 'absolute',
+    width: 100,
+    height: 100,
+  }
 
 });

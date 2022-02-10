@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     rutOp: {
         color: "rgba(1,40,107,1)",
-        fontFamily: "roboto-700",
+        // fontFamily: "roboto-700",
         fontSize: 30,
         marginLeft: 25,
         marginTop: 61

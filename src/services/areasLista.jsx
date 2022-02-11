@@ -89,3 +89,29 @@ export let tareaRutinariasBD = [
         ]
     }
 ]
+
+export let tareaRutinariasOpcionesBd= [
+    {
+        idTareOpciones:1,
+        actPersona: '',
+        personalAnta: '',
+        contratistas: '',
+        ambasPersonas: false,
+        frecuencia: [
+            {
+                idFreq: '0',
+                description: 'dia',
+            },
+            {
+                idFreq: '1',
+                description: 'mes',
+            }
+        ],
+        vecesPorDia: '',
+        vecesSemana: '',
+        vecesMes: '',
+        tiempoAccion: '',
+        horasTurno: ''
+    },
+
+]

@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
-import { Card, Layout, Text, Avatar, Button, Icon, Select, SelectItem, CheckBox } from '@ui-kitten/components';
+import { Card, Layout, Text, Avatar, Button, Icon, Select, SelectItem, ButtonGroup, useTheme } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
-import { ScrollView } from 'native-base';
+import { Checkbox, ScrollView } from 'native-base';
 
 
 const Screen1 = () => {
@@ -78,107 +78,156 @@ const Screen1 = () => {
   );
 
   // checks
-  const [activeChecked, setActiveChecked] = useState(true);
+  const [groupValue, setGroupValue] = useState([]);
+
+  // console.log('Se eligieron los siguientes checks' + groupValue)
+  // console.log('Cantidad de casillas marcadas' + groupValue.length)
+
+  //Propio tema, estilos, etc
+  const [buttonState, setButtonState] = useState(true)
+
+  const comprobarButtonState = () => {
+    // console.log(groupValue)
+    if (groupValue.length !== 0) {
+      setButtonState(false);
+    } else {
+      setButtonState(true);
+    }
+  }
+
+  useEffect(() => {
+    comprobarButtonState()
+  }, [groupValue.length])
+
 
   return (
     <>
       <TemplateVersion2 />
-      <ScrollView>
-        <Layout style={styles.container} level='1'>
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              ÁREA
-            </Text>
+      {/* <Scrollview> */}
+      <Layout style={styles.container} level='1'>
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            ÁREA
+          </Text>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-              {areasData.map((obj, i) => {
-                return (
-                  <Card key={obj.id} style={styles.card} onPress={() => {
-                    traerSubProcesosMetodo(obj.id)
-                    cambiarColor(obj.id)
-                    setSelectedIndex(0)
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+            {areasData.map((obj, i) => {
+              return (
+                <Card key={obj.id} style={styles.card} onPress={() => {
+                  traerSubProcesosMetodo(obj.id)
+                  cambiarColor(obj.id)
+                  setSelectedIndex(0)
 
-                  }}>
-                    <Avatar
-                      style={[styles.logo,
-                      { backgroundColor: obj.selected ? 'red' : null }
-                      ]}
-                      shape={"square"}
-                      size='giant'
-                      resizeMode="contain"
-                      source={obj.image} />
+                }}>
+                  <Avatar
+                    style={[styles.logo,
+                    { 
+                      opacity: obj.selected ? '1' : '0.3' }
+                    ]}
+                    shape={"square"}
+                    size='giant'
+                    resizeMode="contain"
+                    source={obj.image} />
 
-                    <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 12 }}>
-                      {obj.name}
-                    </Text>
-                  </Card>
-                )
-              })
-              }
-
-            </View>
+                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 12 }}>
+                    {obj.name}
+                  </Text>
+                </Card>
+              )
+            })
+            }
 
           </View>
-          {/* View de los SubProcesos */}
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              SUB PROCESO
-            </Text>
-            <Select
-              placeholder='Seleccione un SubProceso'
-              value={displayValue}
 
-              selectedIndex={selectedIndex}
-              onSelect={(index) => {
-                console.log(index.row);
-                setSelectedIndex(index)
-                traerTareasRutinariasMetodo(index.row)
+        </View>
+        {/* View de los SubProcesos */}
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            SUB PROCESO
+          </Text>
+          <Select
+            placeholder='Seleccione un SubProceso'
+            value={displayValue}
+
+            selectedIndex={selectedIndex}
+            onSelect={(index) => {
+              console.log(index.row);
+              setSelectedIndex(index)
+              traerTareasRutinariasMetodo(index.row)
+            }
+            }>
+            {subProcesosPorId.map(renderOption)}
+          </Select>
+        </View>
+        {/* View de las Tareas Rutinarias */}
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            TAREAS RUTINARIAS
+
+          </Text>
+          <View>
+            <Checkbox.Group
+              defaultValue={groupValue}
+              colorScheme={'orange'}
+              accessibilityLabel="pick an item" onChange={values => {
+                setGroupValue(values || []);
+
+              }}>
+              {
+                tareasRutinariasPorId.map((obj, index) => {
+                  return (
+                    displayValue === undefined ? null :
+                      (
+                        <Checkbox value={obj.idTarea} key={obj.idTarea} my="1">
+                          <Text> {index + 1}. {obj.description}</Text>
+                        </Checkbox>
+
+                      )
+                  )
+                })
               }
-              }>
-              {subProcesosPorId.map(renderOption)}
-            </Select>
+            </Checkbox.Group>
           </View>
-          {/* View de las Tareas Rutinarias */}
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              TAREAS RUTINARIAS
-
-            </Text>
-            {
+          <View style={{ alignSelf: 'center', marginTop: 50 }}>
+            <Button style={[styles.button, {
+              backgroundColor: buttonState ? '#ECECEC' : '#01286B'
+            }]} disabled={buttonState}>
+              Siguiente
+            </Button>
+          </View>
+          {/* {
               tareasRutinariasPorId.map((obj, index) => {
 
                 return (
-                  displayValue === undefined ? null : 
+                  // displayValue === undefined ? null :
+                  //   <Text key={index}>{index + 1}. {obj.description}</Text>
                   
-                  <Text key={index}>{index + 1}. {obj.description}</Text>
+
                 )
               })
-            }
+            } */}
+        </View>
+      </Layout>
 
-
-          </View>
-        </Layout>
-
-      </ScrollView>
-
+      {/* </Scrollview> */}
     </>
   );
 };
@@ -186,6 +235,20 @@ const Screen1 = () => {
 export default Screen1;
 
 const styles = StyleSheet.create({
+  button: {
+    borderRadius: 40,
+    width: 200,
+    height: 40,
+    backgroundColor: '#01286B'
+  },
+  group: {
+    marginVertical: 4,
+  },
+  option: {
+    marginVertical: 4,
+    marginHorizontal: 12,
+
+  },
   tittlesStyle: {
     fontSize: 17,
     color: '#01286B',
@@ -193,15 +256,16 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 30
+    // margin: 30
+    margin: 10
   },
   card: {
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor: 'transparent',
   },
   logo: {
     // filter: 'grayscale(100%)',
-
     width: 100,
     height: 100,
   }

@@ -57,7 +57,7 @@ const LoginScreen = () => {
                                     </Stack>
                                     <Stack backgroundColor={"#023285"} style={styles.cajasTexto}>
                                         <FormControl.Label _text={{ color: '#669EFF', fontWeight: 400, fontSize: 14 }}>CONTRASEÑA</FormControl.Label>
-                                        <Input fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="lock" style={styles.iconUser} />} size={2} />} p={2} placeholder="*******" />
+                                        <Input fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="lock" style={styles.iconUser} />} size={2} />} p={2} placeholder="*******" secureTextEntry={true} />
                                     </Stack>
                                     <Button onPress={() => console.log("hello world")} backgroundColor={'white'} _text={{ color: '#01286B' }}>INGRESAR</Button>
                                 </Stack>

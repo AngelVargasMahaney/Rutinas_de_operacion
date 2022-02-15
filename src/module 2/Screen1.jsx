@@ -128,7 +128,7 @@ const Screen1 = () => {
                   <Avatar
                     style={[styles.logo,
                     {
-                      opacity: obj.selected ? '1' : '0.3'
+                      opacity: obj.selected ? 1 : 0.3
                     }
                     ]}
                     shape={"square"}

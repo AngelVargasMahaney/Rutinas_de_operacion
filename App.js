@@ -32,6 +32,7 @@ function MyStack() {
       <Stack.Screen name="Home"
         component={ContenedorScreens} />
     </Stack.Navigator>
+    //Psuehando
   )
 }
 

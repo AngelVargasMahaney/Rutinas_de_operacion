@@ -1,15 +1,42 @@
 import { StyleSheet, Text, View, useWindowDimensions, ImageBackground, Dimensions, ScrollView, Image, KeyboardAvoidingView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, FormControl, Icon, Input, NativeBaseProvider, Stack, WarningOutlineIcon } from 'native-base';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-
-
-
-
-
+import { postLogin } from '../services/loginService';
+import { useAuth } from '../context/authState';
+import Asyncstorage from "@react-native-async-storage/async-storage"
+import AwesomeAlert from 'react-native-awesome-alerts';
+import { useNavigation } from '@react-navigation/native';
 const image = require('../../assets/backgrounds/Pantalla_login.png')
 const logo_blanco = require('../../assets/logos/Logo_blanco.png')
 const LoginScreen = () => {
+
+    const [formularioDatos, setFormularioDatos] = useState({
+        email: '',
+        password: '',
+    })
+    const [Estado, setEstado] = useState(false);
+    const showAlert = () => {
+        setEstado(true);
+    };
+    const hideAlert = () => {
+        setEstado(false);
+    };
+
+    const { token, setToken } = useAuth()
+    const navigation = useNavigation();
+
+    const doLogin = () => {
+        postLogin(formularioDatos).then((response) => {
+            setToken(response.data.token)
+            Asyncstorage.setItem('token', response.data.token).then((response) => {
+                showAlert()
+            })
+        }, err => {
+            console.warn(err)
+            alert("Usuario no encontrado")
+        })
+    }
 
     return (
 
@@ -42,39 +69,51 @@ const LoginScreen = () => {
                     </Text>
                     <>
                         <View style={{ marginTop: 50 }}>
-
                             <FormControl>
-
                                 <Stack space={5}>
-
                                     <Stack backgroundColor={"#023285"} style={styles.cajasTexto}>
-
                                         <FormControl.Label _text={{ color: '#669EFF', fontWeight: 400, fontSize: 14 }}>USUARIO</FormControl.Label>
-
-
-
-                                        <Input fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="user" style={styles.iconUser} />} size={2} />} p={2} placeholder="usuarioantapaccay1" />
+                                        <Input onChangeText={value => setFormularioDatos({ ...formularioDatos, email: value })} fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="user" style={styles.iconUser} />} size={2} />} p={2} placeholder="usuarioantapaccay1" />
                                     </Stack>
                                     <Stack backgroundColor={"#023285"} style={styles.cajasTexto}>
                                         <FormControl.Label _text={{ color: '#669EFF', fontWeight: 400, fontSize: 14 }}>CONTRASEÑA</FormControl.Label>
-                                        <Input fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="lock" style={styles.iconUser} />} size={2} />} p={2} placeholder="*******" secureTextEntry={true} />
+                                        <Input onChangeText={value => setFormularioDatos({ ...formularioDatos, password: value })} fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="lock" style={styles.iconUser} />} size={2} />} p={2} placeholder="*******" secureTextEntry={true} />
                                     </Stack>
-                                    <Button onPress={() => console.log("hello world")} backgroundColor={'white'} _text={{ color: '#01286B' }}>INGRESAR</Button>
+                                    <Button onPress={() => doLogin()} backgroundColor={'white'} _text={{ color: '#01286B' }}>INGRESAR</Button>
                                 </Stack>
-
                             </FormControl>
-
-
                         </View>
                     </>
                 </View>
-                <View  style={{ flex:1, justifyContent: 'center', alignItems: 'flex-end', marginRight:30, marginBottom:20 }}>
-                    <Text style={{ color: "white", textAlign:'center', fontSize: 11, fontWeight: 300, fontFamily: 'Roboto', ineHeight: 12.89 }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end', marginRight: 30, marginBottom: 20 }}>
+                    <Text style={{ color: "white", textAlign: 'center', fontSize: 11, fontWeight: 300, fontFamily: 'Roboto', ineHeight: 12.89 }}>
                         Versión 1.0
                     </Text>
                 </View>
             </View>
-
+            <AwesomeAlert
+                show={Estado}
+                showProgress={false}
+                title="Bienvenido"
+                titleStyle={{ fontSize: 22, marginBottom: 10 }}
+                messageStyle={{ fontSize: 18, marginBottom: 10 }}
+                message="inicio de sesión exitoso"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showCancelButton={false}
+                showConfirmButton={true}
+                cancelText="No"
+                confirmText="Continuar"
+                cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
+                confirmButtonStyle={{ width: 100, alignItems: 'center' }}
+                confirmButtonColor="#AEDEF4"
+                cancelButtonColor="#DD6B55"
+                onConfirmPressed={() => {
+                    console.log('Ingresé')
+                    navigation.navigate('Home')
+                    hideAlert();
+                }}
+            />
         </ScrollView>
 
 

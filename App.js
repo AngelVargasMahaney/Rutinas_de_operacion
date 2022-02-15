@@ -10,22 +10,66 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import TemplateVersion2 from './src/Template/TemplateVersion2';
 import Screen1 from './src/module 2/Screen1';
 import Screen2 from './src/module 2/Screen2';
+import { AuthProvider } from './src/context/authState';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
+
+
+
+const Stack = createNativeStackNavigator();
+function MyStack() {
+  return (
+
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }
+    }>
+      <Stack.Screen name="Login"
+        component={LoginScreen}
+      />
+      <Stack.Screen name="Home"
+        component={ContenedorScreens} />
+    </Stack.Navigator>
+  )
+}
+
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    'Roboto': require('./assets/fonts/Roboto-Regular.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     // <ContenedorScreens />
     // <NativeBaseProvider>
     //     <TemplateScreen />
     // </NativeBaseProvider>
-    <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NativeBaseProvider>
-          <Screen2 />
-        </NativeBaseProvider>
+    // <AuthProvider>
+    //   <IconRegistry icons={EvaIconsPack} />
+    //   <ApplicationProvider {...eva} theme={eva.light}>
+    //     <NativeBaseProvider>
+    //       <NavigationContainer>
+    //         <MyStack />
+    //       </NavigationContainer>
+    //     </NativeBaseProvider>
 
-      </ApplicationProvider>
-    </>
+    //   </ApplicationProvider>
+    // </AuthProvider>
+    <AuthProvider>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <IconRegistry icons={EvaIconsPack} />
+          <ApplicationProvider {...eva} theme={eva.light}>
+            <MyStack />
+          </ApplicationProvider>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </AuthProvider>
   );
 }
 

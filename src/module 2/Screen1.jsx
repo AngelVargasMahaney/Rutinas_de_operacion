@@ -101,7 +101,7 @@ const Screen1 = () => {
 
 
   return (
-    <>
+    <View style={{backgroundColor: 'white'}}>
       <TemplateVersion2 />
       {/* <Scrollview> */}
       <Layout style={styles.container} level='1'>
@@ -127,8 +127,9 @@ const Screen1 = () => {
                 }}>
                   <Avatar
                     style={[styles.logo,
-                    { 
-                      opacity: obj.selected ? '1' : '0.3' }
+                    {
+                      opacity: obj.selected ? '1' : '0.3'
+                    }
                     ]}
                     shape={"square"}
                     size='giant'
@@ -228,7 +229,7 @@ const Screen1 = () => {
       </Layout>
 
       {/* </Scrollview> */}
-    </>
+    </View>
   );
 };
 
@@ -257,7 +258,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     // margin: 30
-    margin: 10
+    margin: 10,
+    backgroundColor:'#FFFFFF'
   },
   card: {
     justifyContent: 'center',

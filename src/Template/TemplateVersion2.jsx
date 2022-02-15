@@ -34,7 +34,6 @@ const TemplateVersion2 = () => {
                 resizeMode="contain"
                 source={require('../../assets/logos/Logo_color.png')} />
             <OverflowMenu
-            
                 anchor={renderMenuAction}
                 visible={menuVisible}
                 onBackdropPress={toggleMenu}>
@@ -46,12 +45,12 @@ const TemplateVersion2 = () => {
     const renderTitle = (props) => (
         <View style={styles.titleContainer}>
             <Text style={styles.rutOp}>RUT-OP</Text>
-            
         </View>
     );
 
     return (
         <TopNavigation
+          
             title={renderTitle}
             accessoryRight={renderOverflowMenuAction}
         />
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginTop: 61,
-        width:89,
-        height:50,
+        width: 89,
+        height: 50,
     },
     rutOp: {
         color: "rgba(1,40,107,1)",

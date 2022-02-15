@@ -101,7 +101,7 @@ const Screen1 = () => {
 
 
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <View style={{ backgroundColor: 'white' }}>
       <TemplateVersion2 />
       {/* <Scrollview> */}
       <Layout style={styles.container} level='1'>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
     width: 200,
-    height: 40,
+    height: 42,
     backgroundColor: '#01286B'
   },
   group: {
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // margin: 30
     margin: 10,
-    backgroundColor:'#FFFFFF'
+    backgroundColor: '#FFFFFF'
   },
   card: {
     justifyContent: 'center',

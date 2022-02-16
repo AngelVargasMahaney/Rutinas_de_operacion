@@ -18,9 +18,10 @@ const Screen1 = () => {
 
   const traerAreas = () => {
     //Aquí obtener las áreas desde el servicio
-    setAreasData(areasBd)
-    getAllAreas().then((rpta)=>{
-      console.warn(rpta)
+    getAllAreas().then((rpta) => {
+      console.log(rpta)
+      console.log(rpta.data.data)
+      setAreasData(rpta.data.data)
     })
   }
   const traerSubProcesos = () => {
@@ -39,8 +40,11 @@ const Screen1 = () => {
 
   const cambiarColor = (idCard) => {
     setEsteEsMiId(idCard)
-    const despintarOtros = areasBd.map((obj, i) => {
-      if (idCard == obj.id) {
+    const despintarOtros = areasData.map((obj, i) => {
+
+      console.log(idCard)
+
+      if (idCard === obj.id) {
         return {
           ...obj,
           selected: true
@@ -51,37 +55,71 @@ const Screen1 = () => {
         selected: false
       }
     })
+    console.log(despintarOtros)
     setAreasData(despintarOtros)
   }
-
+  const [estaEsMiArea, setEstaEsMiArea] = useState(0)
   useEffect(() => {
     traerAreas()
     traerSubProcesos()
     traerTareasRutinarias()
   }, []);
-
   const traerSubProcesosMetodo = (idCard) => {
-    const trayendo = subProcesos.find(function (e) {
-      return e.idArea === idCard
-    })
-    setSubProcesosPorId(trayendo.subProcess)
+    // console.log(idCard)
+    // console.log(areasData[idCard-1])
+    // const trayendo = areasData.find(function (e) {
+    //   return e.idArea === idCard
+    // })
+    // console.log(idCard + "SEAW")
+    const trayendo = areasData.find((e) => (e.id) === idCard)
+    // console.log(trayendo.processes_complete)
+    setSubProcesosPorId(trayendo.processes_complete)
+    setEstaEsMiArea(trayendo.id)
+    // console.log(estaEsMiArea)
   }
+
+  const [prueba, setPrueba] = useState([])
+  const onSelectIdArea = (idArea, index) => {
+    let dataFiltrada = subProcesosPorId[index].tasks
+    console.log(dataFiltrada)
+    setTareasRutinariasPorId(dataFiltrada)
+
+  }
+
 
   const traerTareasRutinariasMetodo = (idCard) => {
 
-    const trayendoTareas = tareasRutinarias.find(function (e) {
-      return e.idSubProcess === idCard
-    })
-    // console.log(trayendoTareas)
-    setTareasRutinariasPorId(trayendoTareas.tareasAll)
+    //  console.log('cerdo') 
+    // const trayendoTareas = tareasRutinarias.find(function (e) {
+    //   return e.idSubProcess === idCard
+    // })
+    // // console.log(trayendoTareas)
+    // setTareasRutinariasPorId(trayendoTareas.tareasAll)
   }
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const displayValue = subProcesosPorId[selectedIndex.row];
+  // console.log(selectedIndex)
+  // const displayValue = subProcesosPorId[selectedIndex.row];
+  // console.log(selectedIndex.row)
+
+  const [displayValue, setDisplayValue] = useState('Seleccione un SubProceso')
+  const [displayID, setDisplayID] = useState(0)
+
+  const listarSubprocesos = (idSubProcess) => {
+    console.log(subProcesosPorId)
+    const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
+    console.log(subProcess)
+    setDisplayValue(subProcess.name)
+    setPrueba(subProcess)
+    setDisplayID(subProcess.id)
+  }
+
+
 
   const renderOption = (title) => (
     //  traerTareasRutinariasMetodo(displayValue)
-    <SelectItem key={title} title={title} />
+    // console.log(title),
+    <SelectItem key={title.id} title={title.name} />
   );
 
   // checks
@@ -126,24 +164,26 @@ const Screen1 = () => {
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
             {areasData.map((obj, i) => {
               return (
+
                 <Card key={obj.id} style={styles.card} onPress={() => {
                   traerSubProcesosMetodo(obj.id)
                   cambiarColor(obj.id)
                   setSelectedIndex(0)
+                  setDisplayValue('Seleccione un SubProceso')
 
                 }}>
                   <Avatar
                     style={[styles.logo,
                     {
-                      opacity: obj.selected ? 1 : 0.3
+                      opacity: obj.selected ? 1 : 0.3,
                     }
                     ]}
-                    shape={"square"}
+
                     size='giant'
                     resizeMode="contain"
-                    source={obj.image} />
+                    source={obj.url_image} />
 
-                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 12 }}>
+                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
                     {obj.name}
                   </Text>
                 </Card>
@@ -168,15 +208,33 @@ const Screen1 = () => {
           <Select
             placeholder='Seleccione un SubProceso'
             value={displayValue}
-
             selectedIndex={selectedIndex}
-            onSelect={(index) => {
-              console.log(index.row);
+            onSelect={(index, i) => {
+              // console.log((index.row) + 1);
+
               setSelectedIndex(index)
-              traerTareasRutinariasMetodo(index.row)
+
+              if (estaEsMiArea === 1) {
+                listarSubprocesos((index.row) + 1)
+              } else if (estaEsMiArea === 2) {
+                listarSubprocesos((index.row) + 5)
+              } else if (estaEsMiArea === 3) {
+                listarSubprocesos((index.row) + 14)
+              }
+              traerTareasRutinariasMetodo((index.row) + 1)
+
+              onSelectIdArea(estaEsMiArea, index.row)
+
             }
-            }>
-            {subProcesosPorId.map(renderOption)}
+            }
+          >
+            {
+              // subProcesosPorId.map((obj, index) =>{
+              //   console.log(obj)
+              //   renderOption(obj.name)
+              // })
+              subProcesosPorId.map((obj) => renderOption(obj))
+            }
           </Select>
         </View>
         {/* View de las Tareas Rutinarias */}
@@ -202,10 +260,11 @@ const Screen1 = () => {
               {
                 tareasRutinariasPorId.map((obj, index) => {
                   return (
-                    displayValue === undefined ? null :
+                    displayValue === 'Seleccione un SubProceso' ? null :
                       (
-                        <Checkbox value={obj.idTarea} key={obj.idTarea} my="1">
-                          <Text> {index + 1}. {obj.description}</Text>
+                        <Checkbox value={obj.id} key={obj.id} my="1">
+                          <Text> {index + 1}. {obj.detail_tasks[0].name}</Text>
+                          {/* <Text> Tarea N° {index + 1}</Text> */}
                         </Checkbox>
 
                       )
@@ -277,6 +336,7 @@ const styles = StyleSheet.create({
     // filter: 'grayscale(100%)',
     width: 100,
     height: 100,
+    borderRadius: 18
   }
 
 });

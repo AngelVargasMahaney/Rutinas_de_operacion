@@ -50,7 +50,6 @@ const TemplateVersion2 = () => {
 
     return (
         <TopNavigation
-          
             title={renderTitle}
             accessoryRight={renderOverflowMenuAction}
         />

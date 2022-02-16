@@ -9,12 +9,12 @@ export default [
         id: '0',
         component: <Screen1 />
     },
-    {
-        id: '1',
-        name: 'Screen 2',
-        image: require('../../assets/areas_photos/Flotacion.png'),
-        component: <Screen2 />
-    },
+    // {
+    //     id: '1',
+    //     name: 'Screen 2',
+    //     image: require('../../assets/areas_photos/Flotacion.png'),
+    //     component: <Screen2 />
+    // },
     // {
     //     id: '2',
     //     name: 'Screen 3',

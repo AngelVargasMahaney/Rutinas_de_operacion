@@ -60,7 +60,7 @@ const LoginScreen = () => {
             <View style={styles.bodyContainer}>
 
                 <View style={{ padding: 40 }}>
-                    <Text style={{ color: "white", fontSize: 34,  fontFamily: 'Roboto', lineHeight: 28.13 }}>
+                    <Text style={{ color: "white", fontSize: 34,  fontFamily: 'Roboto', lineHeight: 28.13, paddingTop:5}}>
                         Bienvenido
                     </Text>
 

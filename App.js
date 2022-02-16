@@ -66,6 +66,7 @@ export default function App() {
         <NavigationContainer>
           <IconRegistry icons={EvaIconsPack} />
           <ApplicationProvider {...eva} theme={eva.light}>
+            {/* <ContenedorScreens /> */}
             <MyStack />
           </ApplicationProvider>
         </NavigationContainer>

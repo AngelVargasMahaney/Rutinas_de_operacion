@@ -1,9 +1,11 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { Card, Layout, Text, Avatar, Button, Icon, Select, SelectItem, ButtonGroup, useTheme } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
 import { Checkbox, ScrollView } from 'native-base';
+import { getAllAreas } from '../services/services';
+import { AuthContext } from '../context/authState';
 
 
 const Screen1 = () => {
@@ -12,9 +14,14 @@ const Screen1 = () => {
   const [subProcesosPorId, setSubProcesosPorId] = useState([]);
   const [tareasRutinarias, setTareasRutinarias] = useState([])
   const [tareasRutinariasPorId, setTareasRutinariasPorId] = useState([])
+
+
   const traerAreas = () => {
     //Aquí obtener las áreas desde el servicio
     setAreasData(areasBd)
+    getAllAreas().then((rpta)=>{
+      console.warn(rpta)
+    })
   }
   const traerSubProcesos = () => {
     setSubProcesos(subProcesosBd)
@@ -101,7 +108,7 @@ const Screen1 = () => {
 
 
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <View style={{ backgroundColor: 'white' }}>
       <TemplateVersion2 />
       {/* <Scrollview> */}
       <Layout style={styles.container} level='1'>
@@ -239,7 +246,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
     width: 200,
-    height: 40,
+    height: 42,
     backgroundColor: '#01286B'
   },
   group: {
@@ -259,7 +266,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // margin: 30
     margin: 10,
-    backgroundColor:'#FFFFFF'
+    backgroundColor: '#FFFFFF'
   },
   card: {
     justifyContent: 'center',

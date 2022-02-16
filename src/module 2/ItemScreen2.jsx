@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import React, { useState } from 'react'
 import { HStack, Spacer } from 'native-base'
 import { Avatar, Select, SelectItem, Text } from '@ui-kitten/components'
@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker'
 
 const ItemScreen2 = ({ item }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const width = useWindowDimensions().width
 
     const opcionesSelect1 = [
         {
@@ -28,191 +29,189 @@ const ItemScreen2 = ({ item }) => {
         { label: 'true', value: 'Si' }
     ]);
     return (
-        <>
-            <HStack space={1} justifyContent="space-between" >
-                <Text style={styles.tittlesStyle}>
-                    <Avatar
-                        shape={"square"}
-                        size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
-                        source={require('../../assets/icons/Rectangle_orange.png')}
-                    />
-                    Número de Personas que realizan la actividad
-                </Text>
-                <Spacer />
-                <Text style={styles.textRightStyle}>
-                    {item.actPersona}
-                </Text>
-            </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
-                    <Avatar
-                        shape={"square"}
-                        size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
-                        source={require('../../assets/icons/Rectangle_orange.png')}
-                    />
-                    Personal de Antapaccay
-                </Text>
-                <Spacer />
-                <Text style={styles.textRightStyle}>
-                    {item.actPersona}
-                </Text>
-            </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
-                    <Avatar
-                        shape={"square"}
-                        size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
-                        source={require('../../assets/icons/Rectangle_orange.png')}
-                    />
-                    Contratistas
-                </Text>
-                <Spacer />
-                <Text style={styles.textRightStyle}>
-                    {item.actPersona}
-                </Text>
-            </HStack>
-            <HStack space={1} justifyContent="space-between" marginY={5}>
-                <Text style={styles.tittlesStyle}>
-                    <Avatar
-                        shape={"square"}
-                        size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
-                        source={require('../../assets/icons/Rectangle_orange.png')}
-                    />
-                    Ambas Personas
-                </Text>
-                <Spacer />
-                <View>
-                    <DropDownPicker
-                        style={styles.selectStyles}
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                        arrowIconStyle={{
-                            width: 20,
-                            height: 20,
-                            backgroundColor: 'blue',
-                            
-                        }}
+        <View space={1} justifyContent="space-between">
 
-                        placeholder={'0'}
-                        placeholderStyle={{
-                            color: '#FFFFFF'
-                        }}
+            <HStack style={{ marginVertical: 7 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    {/* <Select
-                        style={styles.selectStyles}
-      
-                        size='small'
-                        placeholder="Default"
-                        value={displayValue?.optionDescription}
-                        selectedIndex={selectedIndex}
-                        onSelect={(index) => setSelectedIndex(index)}>
-                        {opcionesSelect1.map((item, i) => (
-                            <SelectItem
-                                title={item.optionDescription}
-                                key={i} />
-                        ))}
-                    </Select> */}
+                    <Text numberOfLines={3} style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        N° de personas que realizan la actividad</Text>
                 </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    dw
+                </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    Frecuencia
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        Personal de Antapaccay</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    N° Veces al Día
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        Contratistas</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    N° Veces a la Semana
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        Ambas Personas</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    N° Veces al Mes
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        Frecuencia</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    Tiempo de cada Acción (horas)
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        N° de veces al Día</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-            <HStack space={1} justifyContent="space-between">
-                <Text style={styles.tittlesStyle}>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
-                        style={{ width: 10, height: 10, marginRight: 7 }}
+                        style={{ width: 10, height: 10, marginTop: 5 }}
                         source={require('../../assets/icons/Rectangle_orange.png')}
                     />
-                    Horas Turno por Persona
-                </Text>
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        N° de veces a la Semana</Text>
+                </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    {item.actPersona}
+                    dw
                 </Text>
             </HStack>
-        </>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        N° de veces al Mes</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    dw
+                </Text>
+            </HStack>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                        Tiempo de cada Acción(horas)</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    dw
+                </Text>
+            </HStack>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                        Horas Turno por Persona</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    dw
+                </Text>
+            </HStack>
+
+
+        </View>
     )
 }
 
@@ -233,8 +232,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#01286B',
         fontWeight: '400',
-        marginLeft: 25,
-        marginTop: 10
+        marginLeft: 10,
+
+
     },
     textRightStyle: {
         marginTop: 10,

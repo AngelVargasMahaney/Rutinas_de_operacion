@@ -16,46 +16,43 @@ const Screen4 = () => {
         <View >
           <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
             <DataTable.Header style={{ backgroundColor: '#01286b' }} >
-              <DataTable.Title
-
-              >
+              <DataTable.Title >
                 <Text style={{ color: '#ffffff', fontSize: 14 }}>RESUMEN DE LAS TAREAS REALIZADAS</Text>
               </DataTable.Title>
             </DataTable.Header>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-              {/* falta agregar text */}
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
                 <Text
                   style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
                   numberOfLines={3}
-                ><Image
+                ><Avatar
                   shape={"square"}
                   size={"tiny"}
-                  style={{ with: 10, height: 10 }}
+                  style={{ width: 10, height: 10 }}
                   source={Rectangle_orange} >
-                  </Image> AREA</Text></DataTable.Cell>
+                  </Avatar> AREA</Text></DataTable.Cell>
               <DataTable.Cell numeric style={{
-                marginRight:-20,
+                marginRight: -20,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                  Chancado {'\n'} Primario</Text></DataTable.Cell>
+                  Chancado Primario</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
                 <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
-                  <Image
+                  <Avatar
                     shape={"square"}
                     size={"tiny"}
-                    style={{ with: 10, height: 10 }}
+                    style={{ width: 10, height: 10 }}
                     source={Rectangle_orange} >
-                  </Image> SUB PROCESO</Text></DataTable.Cell>
+                  </Avatar> SUB PROCESO</Text></DataTable.Cell>
               <DataTable.Cell numeric style={{
-                marginRight:-20,
+                marginRight: -20,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -67,14 +64,14 @@ const Screen4 = () => {
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
                 <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
-                  <Image
+                  <Avatar
                     shape={"square"}
                     size={"tiny"}
-                    style={{ with: 10, height: 10 }}
+                    style={{ width: 10, height: 10 }}
                     source={Rectangle_orange} >
-                  </Image> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+                  </Avatar> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
               <DataTable.Cell numeric style={{
-                marginRight:-20,
+                marginRight: -20,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -84,14 +81,14 @@ const Screen4 = () => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Image
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
                   shape={"square"}
                   size={"tiny"}
-                  style={{ with: 10, height: 10 }}
+                  style={{ width: 10, height: 10 }}
                   source={Rectangle_orange} >
-                </Image> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
+                </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
               <DataTable.Cell numeric style={{
-                marginRight:-20,
+                marginRight: -20,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -101,16 +98,16 @@ const Screen4 = () => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Image
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
                   shape={"square"}
                   size={"tiny"}
-                  style={{ with: 10, height: 10 }}
+                  style={{ width: 10, height: 10 }}
                   source={Rectangle_orange} >
-                </Image> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+                </Avatar> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
               <DataTable.Cell
-               
+
                 numeric style={{
-                  marginRight:-20,
+                  marginRight: -20,
                   flex: 0.45,
                   justifyContent: 'center',
                   alignItems: 'center',

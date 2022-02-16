@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import LoginScreen from './src/login/LoginScreen';
+import SaveScreen from './src/save/SaveScreen';
 import ContenedorScreens from './src/module 1/ContenedorScreens';
 import TemplateScreen from './src/Template/TemplateScreen';
 import * as eva from '@eva-design/eva';
@@ -26,6 +27,9 @@ function MyStack() {
       headerShown: false,
     }
     }>
+      <Stack.Screen name="Save"
+        component={SaveScreen}
+      />
       <Stack.Screen name="Login"
         component={LoginScreen}
       />

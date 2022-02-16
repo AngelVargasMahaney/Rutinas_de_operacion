@@ -5,28 +5,28 @@ import Screen4 from "../module 2/Screen4";
 
 
 export default [
-    {
-        id: '0',
-        component: <Screen1 />
-    },
-    {
-        id: '1',
-        name: 'Screen 2',
-        image: require('../../assets/areas_photos/Flotacion.png'),
-        component: <Screen2 />
-    },
+    // {
+    //     id: '0',
+    //     component: <Screen1 />
+    // },
+    // {
+    //     id: '1',
+    //     name: 'Screen 2',
+    //     image: require('../../assets/areas_photos/Flotacion.png'),
+    //     component: <Screen2 />
+    // },
     // {
     //     id: '2',
     //     name: 'Screen 3',
     //     image: require('../../assets/areas_photos/Flotacion.png'),
     //     component: <Screen3 />
     // },
-    // {
-    //     id: '3',
-    //     name: 'Screen 4',
-    //     image: require('../../assets/areas_photos/Flotacion.png'),
-    //     component: <Screen4 />
-    // },
+    {
+        id: '3',
+        name: 'Screen 4',
+        image: require('../../assets/areas_photos/Flotacion.png'),
+        component: <Screen4 />
+    },
     // {
     //     id: '2',
     //     name: 'Screen 3',

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { DataTable } from 'react-native-paper';
-import { Avatar } from '@ui-kitten/components';
+import { Avatar, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
@@ -12,77 +12,115 @@ const Screen4 = () => {
   return (
     <>
       <TemplateVersion2 />
+      <Layout style={styles.container} level=''>
+        <View >
+          <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
+            <DataTable.Header style={{ backgroundColor: '#01286b' }} >
+              <DataTable.Title
 
-      <View style={styles.Container}>
-        <DataTable style={{ borderWidth: 1 }}>
-          <DataTable.Header >
-            <DataTable.Title style={{ backgroundColor: '#f1f8ff', justifyContent: 'center', alignItems: 'center' }}>RESUMEN DE LAS TAREAS REALIZADAS</DataTable.Title>
-          </DataTable.Header>
+              >
+                <Text style={{ color: '#ffffff', fontSize: 14 }}>RESUMEN DE LAS TAREAS REALIZADAS</Text>
+              </DataTable.Title>
+            </DataTable.Header>
 
-          <DataTable.Row >
-            {/* falta agregar text */}
-            <DataTable.Cell >
-              <Text style={styles.tittlesStyle}><Avatar
-                shape={"square"}
-                size={"tiny"}
-                style={{ with: 10, height: 10 }}
-                source={Rectangle_orange} >
-              </Avatar> AREA</Text></DataTable.Cell>
-            <DataTable.Cell numeric>Chancado Primario</DataTable.Cell>
-          </DataTable.Row>
-
-          <DataTable.Row >
-
-            <DataTable.Cell >
-              <Text style={styles.tittlesStyle}>
-                <Avatar
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+              {/* falta agregar text */}
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
+                <Text
+                  style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
+                  numberOfLines={3}
+                ><Image
                   shape={"square"}
                   size={"tiny"}
                   style={{ with: 10, height: 10 }}
                   source={Rectangle_orange} >
-                </Avatar> SUB PROCESO</Text></DataTable.Cell>
-            <DataTable.Cell numeric >Operación sala control chancado</DataTable.Cell>
-          </DataTable.Row>
+                  </Image> AREA</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight:-20,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
+                  Chancado {'\n'} Primario</Text></DataTable.Cell>
+            </DataTable.Row>
 
-          <DataTable.Row>
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
-            <DataTable.Cell >
-              <Text style={styles.tittlesStyle}>
-                <Avatar
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                  <Image
+                    shape={"square"}
+                    size={"tiny"}
+                    style={{ with: 10, height: 10 }}
+                    source={Rectangle_orange} >
+                  </Image> SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight:-20,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
+                  Operación sala control chancado</Text></DataTable.Cell>
+            </DataTable.Row >
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                  <Image
+                    shape={"square"}
+                    size={"tiny"}
+                    style={{ with: 10, height: 10 }}
+                    source={Rectangle_orange} >
+                  </Image> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight:-20,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>10</Text></DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Image
                   shape={"square"}
                   size={"tiny"}
                   style={{ with: 10, height: 10 }}
                   source={Rectangle_orange} >
-                </Avatar> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
-            <DataTable.Cell numeric>10</DataTable.Cell>
-          </DataTable.Row>
+                </Image> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight:-20,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>11.84</Text></DataTable.Cell>
+            </DataTable.Row>
 
-          <DataTable.Row>
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
 
-            <DataTable.Cell>
-              <Text style={styles.tittlesStyle}><Avatar
-                shape={"square"}
-                size={"tiny"}
-                style={{ with: 10, height: 10 }}
-                source={Rectangle_orange} >
-              </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
-            <DataTable.Cell numeric>11.84</DataTable.Cell>
-          </DataTable.Row>
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Image
+                  shape={"square"}
+                  size={"tiny"}
+                  style={{ with: 10, height: 10 }}
+                  source={Rectangle_orange} >
+                </Image> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell
+               
+                numeric style={{
+                  marginRight:-20,
+                  flex: 0.45,
+                  justifyContent: 'center',
+                  alignItems: 'center',
 
-          <DataTable.Row>
+                }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, left: 10 }}>{porcentajeCumplimiento}</Text></DataTable.Cell>
+            </DataTable.Row>
 
-            <DataTable.Cell>
-              <Text style={styles.tittlesStyle}><Avatar
-                shape={"square"}
-                size={"tiny"}
-                style={{ with: 10, height: 10 }}
-                source={Rectangle_orange} >
-              </Avatar> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
-            <DataTable.Cell numeric>{porcentajeCumplimiento}</DataTable.Cell>
-          </DataTable.Row>
-
-        </DataTable>
-      </View>
+          </DataTable>
+        </View>
+      </Layout>
     </>
   );
 }
@@ -92,5 +130,9 @@ export default Screen4;
 const styles = StyleSheet.create({
   Container: {
     paddingTop: 20,
+  },
+  container: {
+    justifyContent: 'center',
+    margin: 20
   },
 });

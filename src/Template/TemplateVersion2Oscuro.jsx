@@ -5,7 +5,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 
 const MenuIcon = (props) => (
-    <Icon {...props} name='more-vertical' />
+    <Icon {...props} fill='#FFFFFF' name='more-vertical' />
 );
 
 

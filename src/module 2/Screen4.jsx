@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { DataTable } from 'react-native-paper';
-import { Avatar, Layout } from '@ui-kitten/components';
+import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = () => {
 
   const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState('10%')
+
+  const [buttonState, setButtonState] = useState(true)
 
   return (
     <>
@@ -117,6 +119,20 @@ const Screen4 = () => {
 
           </DataTable>
         </View>
+        <View style={{ justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'center', marginTop: 150 }}>
+            <Button style={[styles.button, {
+              backgroundColor: '#01286B',
+            }, { color: 'white' }, { marginBottom: 25 }]}>
+              Atrás
+            </Button>
+            <Button style={[styles.button, {
+              backgroundColor: '#ea3e18',
+            }, { color: 'white' }, { marginBottom: 25 }]}>
+              Guardar
+            </Button>
+          </View>
+        </View>
       </Layout>
     </>
   );
@@ -131,5 +147,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     margin: 20
+  },
+  button: {
+    borderRadius: 40,
+    width: 200,
+    height: 42,
+    backgroundColor: '#01286B'
   },
 });

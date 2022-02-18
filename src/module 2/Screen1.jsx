@@ -1,11 +1,13 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View, ScrollView, Image } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
-import { Card, Layout, Text, Avatar, Button, Icon, Select, SelectItem, ButtonGroup, useTheme } from '@ui-kitten/components';
+import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
-import { Checkbox, ScrollView } from 'native-base';
+import { Checkbox, Radio, Icon } from 'native-base';
 import { getAllAreas } from '../services/services';
 import { AuthContext } from '../context/authState';
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import ModalComponent from '../modals/ModalComponent';
 
 
 const Screen1 = () => {
@@ -14,13 +16,13 @@ const Screen1 = () => {
   const [subProcesosPorId, setSubProcesosPorId] = useState([]);
   const [tareasRutinarias, setTareasRutinarias] = useState([])
   const [tareasRutinariasPorId, setTareasRutinariasPorId] = useState([])
-
+  const width = useWindowDimensions().width
 
   const traerAreas = () => {
     //Aquí obtener las áreas desde el servicio
     getAllAreas().then((rpta) => {
       console.log(rpta)
-      console.log(rpta.data.data)
+      // console.log(rpta.data.data)
       setAreasData(rpta.data.data)
     })
   }
@@ -42,7 +44,7 @@ const Screen1 = () => {
     setEsteEsMiId(idCard)
     const despintarOtros = areasData.map((obj, i) => {
 
-      console.log(idCard)
+      // console.log(idCard)
 
       if (idCard === obj.id) {
         return {
@@ -55,7 +57,7 @@ const Screen1 = () => {
         selected: false
       }
     })
-    console.log(despintarOtros)
+    // console.log(despintarOtros)
     setAreasData(despintarOtros)
   }
   const [estaEsMiArea, setEstaEsMiArea] = useState(0)
@@ -81,7 +83,7 @@ const Screen1 = () => {
   const [prueba, setPrueba] = useState([])
   const onSelectIdArea = (idArea, index) => {
     let dataFiltrada = subProcesosPorId[index].tasks
-    console.log(dataFiltrada)
+    // console.log(dataFiltrada)
     setTareasRutinariasPorId(dataFiltrada)
 
   }
@@ -106,15 +108,20 @@ const Screen1 = () => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    console.log(subProcesosPorId)
+    // console.log(subProcesosPorId)
     const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
-    console.log(subProcess)
+    // console.log(subProcess)
     setDisplayValue(subProcess.name)
     setPrueba(subProcess)
     setDisplayID(subProcess.id)
   }
-
-
+  const [estadoCheck, setEstadoCheck] = useState(false)
+  const MenuIcon = (props) => (
+    estadoCheck ? <Icon {...props} name='square-outline' /> : <Icon {...props} name='checkmark-square-2-outline' />
+  );
+  const FlechasIcon = (props) => (
+    estadoCheck ? <Icon {...props} name='arrowhead-down-outline' /> : <Icon {...props} name='arrowhead-up-outline' />
+  );
 
   const renderOption = (title) => (
     //  traerTareasRutinariasMetodo(displayValue)
@@ -140,11 +147,20 @@ const Screen1 = () => {
     }
   }
 
+  const [selectedIndexMenu, setSelectedIndexMenu] = useState(null)
+  const [value, setValue] = useState('')
   useEffect(() => {
     comprobarButtonState()
   }, [groupValue.length])
 
+  const [objetoParaModal, setObjetoParaModal] = useState([])
+  const [modalMoreData, setModalMoreData] = useState(false)
+  const activarModalDataExtra = (obj, key) => {
+    setObjetoParaModal(obj, key)
+    setModalMoreData(true)
+  }
 
+  const [checked, setChecked] = useState(false);
   return (
     <View style={{ backgroundColor: 'white' }}>
       <TemplateVersion2 />
@@ -181,7 +197,7 @@ const Screen1 = () => {
 
                     size='giant'
                     resizeMode="contain"
-                    source={obj.url_image} />
+                    source={{ uri: obj.url_image }} />
 
                   <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
                     {obj.name}
@@ -249,30 +265,50 @@ const Screen1 = () => {
             TAREAS RUTINARIAS
 
           </Text>
-          <View>
-            <Checkbox.Group
-              defaultValue={groupValue}
-              colorScheme={'orange'}
-              accessibilityLabel="pick an item" onChange={values => {
-                setGroupValue(values || []);
+          <>
 
-              }}>
+
+
+            <Menu>
               {
-                tareasRutinariasPorId.map((obj, index) => {
-                  return (
-                    displayValue === 'Seleccione un SubProceso' ? null :
-                      (
-                        <Checkbox value={obj.id} key={obj.id} my="1">
-                          <Text> {index + 1}. {obj.detail_tasks[0].name}</Text>
-                          {/* <Text> Tarea N° {index + 1}</Text> */}
-                        </Checkbox>
+                tareasRutinariasPorId.map((obj, indexT) => {
+                  let todeArray = obj.detail_tasks
+                  let tamano = todeArray.length
+                  console.log(todeArray)
 
-                      )
+                  let myHope = []
+                  todeArray.forEach((element, index) => {
+                    
+                    myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
+                    // console.log(element)
+                    // console.log("----------------------< BARRA SEPARADORA >----------------------------")
+                  });
+
+                  return (
+                    <Radio.Group name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
+                      setValue(nextValue);
+                    }}>
+                      <Radio value={obj.id} colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
+                        {displayValue === 'Seleccione un SubProceso' ? null :
+                          (
+                            tamano > 1 ? (
+                              <MenuGroup onPress={()=>{activarModalDataExtra(obj.detail_tasks, obj.id)}} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
+                                {myHope}
+                              </MenuGroup>
+                            ) :
+                              <MenuGroup key={obj.id} title={(indexT + 1) + ". " + todeArray[0].name} />
+                          )}
+                      </Radio>
+                    </Radio.Group>
+                    // )
                   )
                 })
               }
-            </Checkbox.Group>
-          </View>
+            </Menu>
+
+          </>
+         
+
           <View style={{ alignSelf: 'center', marginTop: 50 }}>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
@@ -292,12 +328,19 @@ const Screen1 = () => {
               })
             } */}
         </View>
-      </Layout>
+
+      </Layout >
+            
+      {
+        
+        <ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} />}
+
 
       {/* </Scrollview> */}
-    </View>
-  );
-};
+    </View >
+  )
+  
+}
 
 export default Screen1;
 

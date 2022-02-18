@@ -27,14 +27,14 @@ function MyStack() {
       headerShown: false,
     }
     }>
-      <Stack.Screen name="Save"
-        component={SaveScreen}
-      />
       <Stack.Screen name="Login"
         component={LoginScreen}
       />
       <Stack.Screen name="Home"
         component={ContenedorScreens} />
+      <Stack.Screen name="Save"
+        component={SaveScreen}
+      />
     </Stack.Navigator>
     //Psuehando
   )

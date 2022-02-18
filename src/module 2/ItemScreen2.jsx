@@ -46,7 +46,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    1
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -64,7 +64,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    1
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -82,7 +82,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    0
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -100,7 +100,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    No
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -118,7 +118,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    D
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -136,7 +136,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    1
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -153,8 +153,8 @@ const ItemScreen2 = ({ item }) => {
                         N° de veces a la Semana</Text>
                 </View>
                 <Spacer />
-                <Text style={styles.textRightStyle}>
-                    dw
+                <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
+                    -
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -171,8 +171,8 @@ const ItemScreen2 = ({ item }) => {
                         N° de veces al Mes</Text>
                 </View>
                 <Spacer />
-                <Text style={styles.textRightStyle}>
-                    dw
+                <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
+                    -
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -190,7 +190,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    8.5
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
@@ -206,7 +206,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle}>
-                    dw
+                    8.5
                 </Text>
             </HStack>
 

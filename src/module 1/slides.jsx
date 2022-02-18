@@ -5,7 +5,6 @@ import Screen4 from "../module 2/Screen4";
 
 
 export default [
-<<<<<<< HEAD
     {
         id: '0',
         component: <Screen1 />
@@ -16,8 +15,6 @@ export default [
     //     image: require('../../assets/areas_photos/Flotacion.png'),
     //     component: <Screen2 />
     // },
-=======
->>>>>>> 37bf81e4ae6fe10461f3084ccaf711150c4ac199
     // {
     //     id: '0',
     //     component: <Screen1 />
@@ -34,12 +31,12 @@ export default [
     //     image: require('../../assets/areas_photos/Flotacion.png'),
     //     component: <Screen3 />
     // },
-    {
-        id: '3',
-        name: 'Screen 4',
-        image: require('../../assets/areas_photos/Flotacion.png'),
-        component: <Screen4 />
-    },
+    // {
+    //     id: '3',
+    //     name: 'Screen 4',
+    //     image: require('../../assets/areas_photos/Flotacion.png'),
+    //     component: <Screen4 />
+    // },
     // {
     //     id: '2',
     //     name: 'Screen 3',

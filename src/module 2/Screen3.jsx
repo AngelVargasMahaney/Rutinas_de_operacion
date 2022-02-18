@@ -6,16 +6,22 @@ import { Box, Button, TextArea } from 'native-base';
 
 const Screen3 = () => {
 
+  const [buttonState, setButtonState] = useState(true)
+
 
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
 
   const verificarSeleccion = () => {
-
+    if (textAreaValue !== '') {
+      setButtonState(false)
+    } else {
+      setButtonState(true)
+    }
   }
   useEffect(() => {
-
-  }, [botonSi, botonNo])
+    verificarSeleccion()
+  })
 
 
   const [activado, setActivado] = useState(false)
@@ -43,21 +49,21 @@ const Screen3 = () => {
             </Text>
             <View style={styles.grupoSiRow}>
               <View style={styles.grupoSi}>
-                <Button style={{backgroundColor:botonSi ? "#56ff85":"#ececec"}}
-                onPress={()=>{
-                  setBotonSi(true)
-                  setBotonNo(false)
-                }}>
+                <Button style={{ backgroundColor: botonSi ? "#56ff85" : "#ececec" }}
+                  onPress={() => {
+                    setBotonSi(true)
+                    setBotonNo(false)
+                  }}>
                   SI
                 </Button>
               </View>
               <View style={styles.grupoNoDirection}></View>
               <View style={styles.grupoNo}>
-                <Button style={{backgroundColor:botonNo ? "#ff4e4e":"#ececec"}}
-                onPress={()=>{
-                  setBotonNo(true)
-                  setBotonSi(false)
-                }}>
+                <Button style={{ backgroundColor: botonNo ? "#ff4e4e" : "#ececec" }}
+                  onPress={() => {
+                    setBotonNo(true)
+                    setBotonSi(false)
+                  }}>
                   NO
                 </Button>
               </View>
@@ -67,36 +73,51 @@ const Screen3 = () => {
         </Layout>
         {botonSi ?
           (
-          <> 
-            <Layout style={styles.container} level='1'>
-              <Text style={styles.tittlesStyle}>
-                <Avatar
-                  shape={"square"}
-                  size='tiny'
-                  style={{ width: 10, height: 10 }}
-                  source={require('../../assets/icons/Rectangle_orange.png')} /> Comentarios:
-              </Text></Layout>
-            <Box alignItems="center" w="100%">
-              <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
-            </Box></>
+            <>
+              <Layout style={styles.container} level='1'>
+                <Text style={styles.tittlesStyle}>
+                  <Avatar
+                    shape={"square"}
+                    size='tiny'
+                    style={{ width: 10, height: 10 }}
+                    source={require('../../assets/icons/Rectangle_orange.png')} /> Comentarios:
+                </Text></Layout>
+              <Box alignItems="center" w="100%">
+                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
+              </Box></>
           ) : null
         }
         {botonNo ?
           (
-          <> 
-            <Layout style={styles.container} level='1'>
-              <Text style={styles.tittlesStyle}>
-                <Avatar
-                  shape={"square"}
-                  size='tiny'
-                  style={{ width: 10, height: 10 }}
-                  source={require('../../assets/icons/Rectangle_orange.png')} /> Justificación/Observaciones:
-              </Text></Layout>
-            <Box alignItems="center" w="100%">
-              <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
-            </Box></>
+            <>
+              <Layout style={styles.container} level='1'>
+                <Text style={styles.tittlesStyle}>
+                  <Avatar
+                    shape={"square"}
+                    size='tiny'
+                    style={{ width: 10, height: 10 }}
+                    source={require('../../assets/icons/Rectangle_orange.png')} /> Justificación/Observaciones:
+                </Text></Layout>
+              <Box alignItems="center" w="100%">
+                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
+              </Box></>
           ) : null
         }
+
+        <View style={{ justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'center', marginTop: 150 }}>
+            <Button style={[styles.button, {
+              backgroundColor: '#01286B',
+            }, { color: 'white' }, { marginBottom: 25 }]}>
+              Atrás
+            </Button>
+            <Button style={[styles.button, {
+              backgroundColor: buttonState ? '#ECECEC' : '#01286B'
+            }]} disabled={buttonState}>
+              Siguiente
+            </Button>
+          </View>
+        </View>
       </ScrollView>
     </>
   );
@@ -162,6 +183,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 20,
     marginRight: 2
-  }
+  },
+  button: {
+    borderRadius: 40,
+    width: 200,
+    height: 42,
+    backgroundColor: '#01286B'
+  },
 });
 

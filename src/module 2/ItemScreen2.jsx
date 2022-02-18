@@ -1,7 +1,7 @@
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import React, { useState } from 'react'
 import { HStack, Spacer } from 'native-base'
-import { Avatar, Select, SelectItem, Text } from '@ui-kitten/components'
+import { Avatar, Button, Card, Modal, Radio, RadioGroup, Select, SelectItem, Text } from '@ui-kitten/components'
 import DropDownPicker from 'react-native-dropdown-picker'
 
 const ItemScreen2 = ({ item }) => {
@@ -19,6 +19,8 @@ const ItemScreen2 = ({ item }) => {
         },
     ]
 
+    const [visible, setVisible] = React.useState(false);
+
     const displayValue = opcionesSelect1[selectedIndex.row];
     console.log(displayValue)
 
@@ -30,6 +32,23 @@ const ItemScreen2 = ({ item }) => {
     ]);
     return (
         <View space={1} justifyContent="space-between">
+            <Modal
+                visible={visible}
+                backdropStyle={styles.backdrop}
+                onBackdropPress={() => setVisible(false)}>
+                <Card disabled={true}>
+                    <RadioGroup
+                        selectedIndex={selectedIndex}
+                        onChange={index => setSelectedIndex(index)}>
+                        <Radio>Diario</Radio>
+                        <Radio>Semanal</Radio>
+                        <Radio>Mensual</Radio>
+                    </RadioGroup>
+                    <Button onPress={() => setVisible(false)}>
+                        Aceptar
+                    </Button>
+                </Card>
+            </Modal>
 
             <HStack style={{ marginVertical: 7 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
@@ -117,8 +136,8 @@ const ItemScreen2 = ({ item }) => {
                         Frecuencia</Text>
                 </View>
                 <Spacer />
-                <Text style={styles.textRightStyle}>
-                    D
+                <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
+                    dw
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>

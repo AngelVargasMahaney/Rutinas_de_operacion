@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { Avatar, Layout } from '@ui-kitten/components'
 import TemplateVersion2Oscuro from '../Template/TemplateVersion2Oscuro'
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 import { Button } from 'native-base'
 
 const ScreenSave = () => {
     const [buttonState, setButtonState] = useState(false)
-
+    const navigation =useNavigation();
     return (
         <><TemplateVersion2Oscuro />
             <ScrollView style={styles.Container} >
@@ -35,7 +36,9 @@ const ScreenSave = () => {
                         <View style={{ alignSelf: 'center', marginTop: 150 }}>
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
-                            }, { marginBottom: 25 }]}>
+                            }, { marginBottom: 25 }]}
+                            onPress={() => navigation.navigate('Login')}
+                            >
                                 <Text style={{ color: '#EA3E18' }}>Finalizar</Text>
                             </Button>
                         </View>

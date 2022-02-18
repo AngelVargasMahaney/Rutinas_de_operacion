@@ -3,12 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
+import { useNavigation } from "@react-navigation/native";
+import AwesomeAlert from 'react-native-awesome-alerts';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = () => {
 
-   const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(56)
-   const [variableColor, setVariableColor ] = useState("#32FF00")
+  const navigation = useNavigation();
+
+
+  const [Estado, setEstado] = useState(false);
+  const showAlert = () => {
+    setEstado(true);
+  };
+  const hideAlert = () => {
+    setEstado(false);
+  };
+
+  const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(10)
+  const [variableColor, setVariableColor] = useState("#32FF00")
 
   const verificarPorcentaje = () => {
     if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento <= 25) {
@@ -136,7 +149,7 @@ const Screen4 = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: variableColor
-                }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12}}>{porcentajeCumplimiento}%</Text></DataTable.Cell>
+                }}><Text style={styles.tittlesStyle, { color: 'white', fontSize: 12 }}>{porcentajeCumplimiento}%</Text></DataTable.Cell>
             </DataTable.Row>
 
           </DataTable>
@@ -151,10 +164,34 @@ const Screen4 = () => {
             <Button style={[styles.button, {
               backgroundColor: '#ea3e18',
             }, { color: 'white' }, { marginBottom: 25 }]}
-              
+              onPress={() =>showAlert()}
             >
               Guardar
             </Button>
+            <AwesomeAlert
+              show={Estado}
+              showProgress={false}
+              title="Iniciando Guardado"
+              titleStyle={{ fontSize: 22, marginBottom: 10 }}
+              messageStyle={{ fontSize: 18, marginBottom: 10 }}
+              message="Esta seguro de guardar?"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              showConfirmButton={true}
+              cancelText="No"
+              confirmText="Si"
+              cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
+              confirmButtonStyle={{ width: 100, alignItems: 'center' }}
+              confirmButtonColor="#AEDEF4"
+              cancelButtonColor="#DD6B55"
+              onCancelPressed={() => {
+                hideAlert();
+              }}
+              onConfirmPressed={() => {
+                navigation.navigate('Save')
+                hideAlert();
+              }} />
           </View>
         </View>
       </Layout>

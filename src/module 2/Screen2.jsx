@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions, ScrollView,  } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Box, FlatList, HStack, ScrollView, Spacer, VStack } from 'native-base';
+import { Box, FlatList, HStack, Spacer, VStack } from 'native-base';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { tareaRutinariasOpcionesBd } from '../services/areasLista';
@@ -33,34 +33,35 @@ const Screen2 = () => {
   }, [])
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
+   
+      <>
       <TemplateVersion2 />
+      <ScrollView style={{ backgroundColor: 'white' }}>
       <Layout style={styles.container} level='1'>
+
         <View style={{ justifyContent: 'center' }}>
           {/* <Text style={styles.tittlesStyle}>
-            <Avatar
-              shape={"square"}
-              size='tiny'
-              style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
-            Número de Personas que realizan la actividad
-          </Text> */}
+      <Avatar
+        shape={"square"}
+        size='tiny'
+        style={{ width: 10, height: 10 }}
+        source={require('../../assets/icons/Rectangle_orange.png')}
+      />
+      Número de Personas que realizan la actividad
+    </Text> */}
 
-          <FlatList scrollEnabled={false} data={tareasOpciones} renderItem={({ item }) =>
-            <>
-              <ItemScreen2 item={item} />
-              {/* <ItemScreen2 item={item} text={'Personal de Antapaccay'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'Contratistas'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'Ambas Personas'} tipoItem={2} />
-              <ItemScreen2 item={item} text={'Frecuencia'} tipoItem={2} />
-              <ItemScreen2 item={item} text={'N° Veces al Día'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'N° Veces a la Semana'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'N° Veces al Mes'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'Tiempo de cada Acción (horas)'} tipoItem={1} />
-              <ItemScreen2 item={item} text={'Horas Turno por Persona'} tipoItem={1} /> */}
-            </>
-          }
+          <FlatList data={tareasOpciones} renderItem={({ item }) => <>
+            <ItemScreen2 item={item} />
+            {/* <ItemScreen2 item={item} text={'Personal de Antapaccay'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'Contratistas'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'Ambas Personas'} tipoItem={2} />
+        <ItemScreen2 item={item} text={'Frecuencia'} tipoItem={2} />
+        <ItemScreen2 item={item} text={'N° Veces al Día'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'N° Veces a la Semana'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'N° Veces al Mes'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'Tiempo de cada Acción (horas)'} tipoItem={1} />
+        <ItemScreen2 item={item} text={'Horas Turno por Persona'} tipoItem={1} /> */}
+          </>}
             keyExtractor={item => item.idTareOpciones} />
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
@@ -75,8 +76,9 @@ const Screen2 = () => {
             </Button>
           </View>
         </View>
+
       </Layout>
-    </View>
+    </ScrollView></>
   );
 };
 

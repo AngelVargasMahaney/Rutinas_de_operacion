@@ -137,7 +137,7 @@ const ItemScreen2 = ({ item }) => {
                 </View>
                 <Spacer />
                 <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
-                    dw
+                    D
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>

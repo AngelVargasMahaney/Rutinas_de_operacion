@@ -5,11 +5,11 @@ import Screen4 from "../module 2/Screen4";
 
 
 export default [
-    // {
-    //     id: '0',
-    //     name: 'Screen 1',
-    //     component: <Screen1 />
-    // },
+    {
+        id: '0',
+        name: 'Screen 1',
+        component: <Screen1 />
+    },
     {
         id: '1',
         name: 'Screen 2',

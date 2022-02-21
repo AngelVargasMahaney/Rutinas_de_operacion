@@ -59,9 +59,10 @@ const ContenedorScreens = () => {
                         />
                     </ScrollView>
                 </View>
+                {currentIndex !== 0 ? <PrevButton scrollToBack={scrollToBack} /> : null}
+            <NextButton scrollToNext={scrollToNext} />
                 <Paginator data={slides} scrollX={scrollX} />
-                {/* {currentIndex !== 0 ? <PrevButton scrollToBack={scrollToBack} /> : null}
-            <NextButton scrollToNext={scrollToNext} /> */}
+               
             </View >
         </>
     );

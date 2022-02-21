@@ -97,7 +97,7 @@ const LoginScreen = () => {
                 title="Bienvenido"
                 titleStyle={{ fontSize: 22, marginBottom: 10 }}
                 messageStyle={{ fontSize: 18, marginBottom: 10 }}
-                message="inicio de sesión exitoso"
+                message="Inicio de Sesión Exitoso"
                 closeOnTouchOutside={true}
                 closeOnHardwareBackPress={false}
                 showCancelButton={false}

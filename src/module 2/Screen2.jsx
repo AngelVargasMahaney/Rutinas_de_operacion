@@ -14,13 +14,13 @@ const Screen2 = (props) => {
   // console.log(props.route.params.value);
   // console.log(props.route.params.midataParaObjetoScreen2);
   const soyLaTarea = props.route.params.value
-  let soyElObejtoTarea = props.route.params.midataParaObjetoScreen2  
+  let soyElObejtoTarea = [props.route.params.midataParaObjetoScreen2]  
   const [tareasOpciones, setTareasOpciones] = useState([])
   const traerTareasOpciones = () => {
     setTareasOpciones(soyElObejtoTarea)
   }
   useEffect(() => {
-    traerTareasOpciones(soyElObejtoTarea)
+    traerTareasOpciones()
   }, [])
 console.log(tareasOpciones)
   //Propio tema, estilos, etc
@@ -60,7 +60,7 @@ console.log(tareasOpciones)
             <ItemScreen2 item={item} />
 
           }
-            keyExtractor={item => item.idTareOpciones} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
+            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
               <Button onPress={() => navigation.navigate('Home')} style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}>

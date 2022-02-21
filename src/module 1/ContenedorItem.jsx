@@ -5,10 +5,12 @@ const ContenedorItem = ({ item }) => {
     const { width } = useWindowDimensions()
 
     return (
-        
+
         <View style={styles.container, { width }}>
             <View>
-                {item.component}
+                {
+                    item.component
+                }
             </View>
         </View>
     );

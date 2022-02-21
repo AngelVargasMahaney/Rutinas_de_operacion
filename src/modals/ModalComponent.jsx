@@ -2,9 +2,10 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Button, Card, Modal, Text } from '@ui-kitten/components';
+import { ScrollView } from 'native-base';
 
 const ModalComponent = (props) => {
-    console.log(props)
+    // console.log(props)
 
     // const containerStyle = { backgroundColor: 'white', padding: 20 };
 
@@ -29,20 +30,25 @@ const ModalComponent = (props) => {
                 visible={props.visible}
                 backdropStyle={styles.backdrop}
                 onBackdropPress={props.onClose}>
-                <Card disabled={true}>
+                <ScrollView>
+                    <Card disabled={true}>
 
-                    {
-                        todeArray.map((obj, index) => {
-                            console.log(obj)
-                            return(
-                                <Text>{obj.name}</Text>
-                            )
-                        })
-                    }
-
-                   
-                </Card>
+                        {
+                            todeArray.map((obj, index) => {
+                                console.log(obj)
+                                return (
+                                    <Text key={index}> {props.objetoIdParaModal}.{index + 1} {obj.name}</Text>
+                                )
+                            })
+                        }
+                    </Card>
+                </ScrollView>
+                <Button onPress={
+                    props.onClose}>
+                    Cerrar
+                </Button>
             </Modal>
+
 
         </View>
     );

@@ -1,14 +1,14 @@
-import { Button, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import React from 'react';
+import { Button } from '@ui-kitten/components';
 
-const NextButton = ({ scrollToNext }) => {
+const NextButton = ({ scrollToNext, buttonState }) => {
     return (
-        <TouchableHighlight
-            style={styles.submit}
+        <Button
             onPress={scrollToNext}
             underlayColor='#fff'>
             <Text style={[styles.submitText]}>Siguiente</Text>
-        </TouchableHighlight>
+        </Button>
     );
 };
 

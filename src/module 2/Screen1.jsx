@@ -1,16 +1,20 @@
-import { StyleSheet, useWindowDimensions, View, ScrollView, Image } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, useWindowDimensions, View, Image, Animated } from 'react-native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
-import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem } from '@ui-kitten/components';
+import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem, RadioGroup } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
-import { Checkbox, Radio, Icon } from 'native-base';
+import { Checkbox, Radio, Icon, ScrollView } from 'native-base';
 import { getAllAreas } from '../services/services';
 import { AuthContext } from '../context/authState';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import ModalComponent from '../modals/ModalComponent';
+import { useNavigation } from '@react-navigation/native';
+import NextButton from '../module 1/NextButton';
+import Paginator from '../module 1/Paginator';
 
 
-const Screen1 = () => {
+const Screen1 = (props) => {
+
   const [areasData, setAreasData] = useState([]);
   const [subProcesos, setSubProcesos] = useState([])
   const [subProcesosPorId, setSubProcesosPorId] = useState([]);
@@ -21,7 +25,7 @@ const Screen1 = () => {
   const traerAreas = () => {
     //Aquí obtener las áreas desde el servicio
     getAllAreas().then((rpta) => {
-      console.log(rpta)
+      // console.log(rpta)
       // console.log(rpta.data.data)
       setAreasData(rpta.data.data)
     })
@@ -39,7 +43,9 @@ const Screen1 = () => {
 
   const [esteEsMiId, setEsteEsMiId] = useState("");
   const [selected, setSelected] = useState(false);
-
+  const StarIcon = (props) => (
+    <Icon {...props} name='star' />
+  );
   const cambiarColor = (idCard) => {
     setEsteEsMiId(idCard)
     const despintarOtros = areasData.map((obj, i) => {
@@ -140,183 +146,210 @@ const Screen1 = () => {
 
   const comprobarButtonState = () => {
     // console.log(groupValue)
-    if (groupValue.length !== 0) {
-      setButtonState(false);
-    } else {
+    if (value === 0) {
       setButtonState(true);
+    } else {
+      setButtonState(false);
     }
   }
 
   const [selectedIndexMenu, setSelectedIndexMenu] = useState(null)
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(0)
   useEffect(() => {
     comprobarButtonState()
-  }, [groupValue.length])
+  }, [value])
 
   const [objetoParaModal, setObjetoParaModal] = useState([])
+  const [objetoIdParaModal, setObjetoIdParaModal] = useState(0)
   const [modalMoreData, setModalMoreData] = useState(false)
   const activarModalDataExtra = (obj, key) => {
-    setObjetoParaModal(obj, key)
+    setObjetoParaModal(obj)
+    setObjetoIdParaModal(key)
     setModalMoreData(true)
   }
-
+  console.log(value)
+  const [midataParaObjetoScreen2, setMidataParaObjetoScreen2] = useState([])
+  const miDataParaScreen2 = (objet) =>{
+    setMidataParaObjetoScreen2(objet)
+  }
   const [checked, setChecked] = useState(false);
+
+  const navigation = useNavigation();
   return (
     <View style={{ backgroundColor: 'white' }}>
-      <TemplateVersion2 />
-      {/* <Scrollview> */}
-      <Layout style={styles.container} level='1'>
-        <View>
-          <Text style={styles.tittlesStyle}>
-            <Avatar
-              shape={"square"}
-              size='tiny'
-              style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
-            ÁREA
-          </Text>
+      <ScrollView>
 
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-            {areasData.map((obj, i) => {
-              return (
+        <Layout style={styles.container} level='1'>
+          <TemplateVersion2 />
+          <View>
+            <Text style={styles.tittlesStyle}>
+              <Avatar
+                shape={"square"}
+                size='tiny'
+                style={{ width: 10, height: 10 }}
+                source={require('../../assets/icons/Rectangle_orange.png')}
+              />
+              ÁREA
+            </Text>
 
-                <Card key={obj.id} style={styles.card} onPress={() => {
-                  traerSubProcesosMetodo(obj.id)
-                  cambiarColor(obj.id)
-                  setSelectedIndex(0)
-                  setDisplayValue('Seleccione un SubProceso')
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+              {areasData.map((obj, i) => {
+                return (
 
-                }}>
-                  <Avatar
-                    style={[styles.logo,
-                    {
-                      opacity: obj.selected ? 1 : 0.3,
-                    }
-                    ]}
+                  <Card key={obj.id} style={styles.card} onPress={() => {
+                    traerSubProcesosMetodo(obj.id)
+                    cambiarColor(obj.id)
+                    setSelectedIndex(0)
+                    setDisplayValue('Seleccione un SubProceso')
 
-                    size='giant'
-                    resizeMode="contain"
-                    source={{ uri: obj.url_image }} />
+                  }}>
+                    <Avatar
+                      style={[styles.logo,
+                      {
+                        opacity: obj.selected ? 1 : 0.3,
+                      }
+                      ]}
 
-                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
-                    {obj.name}
-                  </Text>
-                </Card>
-              )
-            })
-            }
+                      size='giant'
+                      resizeMode="contain"
+                      source={{ uri: obj.url_image }} />
+
+                    <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
+                      {obj.name}
+                    </Text>
+                  </Card>
+                )
+              })
+              }
+
+            </View>
 
           </View>
+          {/* View de los SubProcesos */}
+          <View>
+            <Text style={styles.tittlesStyle}>
+              <Avatar
+                shape={"square"}
+                size='tiny'
+                style={{ width: 10, height: 10 }}
+                source={require('../../assets/icons/Rectangle_orange.png')}
+              />
+              SUB PROCESO
+            </Text>
+            <Select
+              placeholder='Seleccione un SubProceso'
+              value={displayValue}
+              selectedIndex={selectedIndex}
+              onSelect={(index, i) => {
+                // console.log((index.row) + 1);
 
-        </View>
-        {/* View de los SubProcesos */}
-        <View>
-          <Text style={styles.tittlesStyle}>
-            <Avatar
-              shape={"square"}
-              size='tiny'
-              style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
-            SUB PROCESO
-          </Text>
-          <Select
-            placeholder='Seleccione un SubProceso'
-            value={displayValue}
-            selectedIndex={selectedIndex}
-            onSelect={(index, i) => {
-              // console.log((index.row) + 1);
+                setSelectedIndex(index)
 
-              setSelectedIndex(index)
+                if (estaEsMiArea === 1) {
+                  listarSubprocesos((index.row) + 1)
+                } else if (estaEsMiArea === 2) {
+                  listarSubprocesos((index.row) + 5)
+                } else if (estaEsMiArea === 3) {
+                  listarSubprocesos((index.row) + 14)
+                }
+                traerTareasRutinariasMetodo((index.row) + 1)
 
-              if (estaEsMiArea === 1) {
-                listarSubprocesos((index.row) + 1)
-              } else if (estaEsMiArea === 2) {
-                listarSubprocesos((index.row) + 5)
-              } else if (estaEsMiArea === 3) {
-                listarSubprocesos((index.row) + 14)
+                onSelectIdArea(estaEsMiArea, index.row)
+
               }
-              traerTareasRutinariasMetodo((index.row) + 1)
-
-              onSelectIdArea(estaEsMiArea, index.row)
-
-            }
-            }
-          >
-            {
-              // subProcesosPorId.map((obj, index) =>{
-              //   console.log(obj)
-              //   renderOption(obj.name)
-              // })
-              subProcesosPorId.map((obj) => renderOption(obj))
-            }
-          </Select>
-        </View>
-        {/* View de las Tareas Rutinarias */}
-        <View>
-          <Text style={styles.tittlesStyle}>
-            <Avatar
-              shape={"square"}
-              size='tiny'
-              style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
-            TAREAS RUTINARIAS
-
-          </Text>
-          <>
-
-
-
-            <Menu>
+              }
+            >
               {
-                tareasRutinariasPorId.map((obj, indexT) => {
-                  let todeArray = obj.detail_tasks
-                  let tamano = todeArray.length
-                  console.log(todeArray)
-
-                  let myHope = []
-                  todeArray.forEach((element, index) => {
-                    
-                    myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
-                    // console.log(element)
-                    // console.log("----------------------< BARRA SEPARADORA >----------------------------")
-                  });
-
-                  return (
-                    <Radio.Group name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
-                      setValue(nextValue);
-                    }}>
-                      <Radio value={obj.id} colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
-                        {displayValue === 'Seleccione un SubProceso' ? null :
-                          (
-                            tamano > 1 ? (
-                              <MenuGroup onPress={()=>{activarModalDataExtra(obj.detail_tasks, obj.id)}} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
-                                {myHope}
-                              </MenuGroup>
-                            ) :
-                              <MenuGroup key={obj.id} title={(indexT + 1) + ". " + todeArray[0].name} />
-                          )}
-                      </Radio>
-                    </Radio.Group>
-                    // )
-                  )
-                })
+                // subProcesosPorId.map((obj, index) =>{
+                //   console.log(obj)
+                //   renderOption(obj.name)
+                // })
+                subProcesosPorId.map((obj) => renderOption(obj))
               }
-            </Menu>
-
-          </>
-         
-
-          <View style={{ alignSelf: 'center', marginTop: 50 }}>
-            <Button style={[styles.button, {
-              backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState}>
-              Siguiente
-            </Button>
+            </Select>
           </View>
-          {/* {
+          {/* View de las Tareas Rutinarias */}
+          <View>
+            <Text style={styles.tittlesStyle}>
+              <Avatar
+                shape={"square"}
+                size='tiny'
+                style={{ width: 10, height: 10 }}
+                source={require('../../assets/icons/Rectangle_orange.png')}
+              />
+              TAREAS RUTINARIAS
+
+            </Text>
+            <>
+
+
+
+              <View>
+                {
+                  tareasRutinariasPorId.map((obj, indexT) => {
+                   
+                    let todeArray = obj.detail_tasks
+                    let tamano = todeArray.length
+                    // console.log(todeArray)
+
+                    // let myHope = []
+                    // todeArray.forEach((element, index) => {
+
+                    //   myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
+                    //   // console.log(element)
+                    //   // console.log("----------------------< BARRA SEPARADORA >----------------------------")
+                    // });
+
+                    return (
+                      displayValue === "Seleccione un SubProceso" ? null : (
+                        <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
+                          setValue(nextValue);
+                          miDataParaScreen2(obj)
+                        }}>
+                          <Radio key={obj.id} value={obj.id} colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
+                            {
+
+                              displayValue === 'Seleccione un SubProceso' ? null :
+                                (
+                                  tamano > 1 ? (
+                                    <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                      <Button
+                                        style={{ width: 2 }, { height: 2 }}
+                                        appearance='ghost'
+                                        status='danger'
+                                        accessoryLeft={StarIcon}
+                                        onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
+                                      />
+                                    </Text>
+                                    // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
+                                    //   {myHope}
+                                    // </Button>
+                                  ) :
+                                    <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                )}
+                          </Radio>
+
+                        </Radio.Group>
+                      )
+                      // )
+
+                    )
+                  })
+                }
+              </View>
+
+            </>
+
+
+            <View style={{ alignSelf: 'center', marginTop: 50 }}>
+              <Button style={[styles.button, {
+                backgroundColor: buttonState ? '#ECECEC' : '#01286B'
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2 }) }}>
+                Siguiente
+              </Button>
+              {/* <NextButton/> */}
+            </View>
+            {/* {
               tareasRutinariasPorId.map((obj, index) => {
 
                 return (
@@ -327,19 +360,20 @@ const Screen1 = () => {
                 )
               })
             } */}
-        </View>
-
-      </Layout >
-            
-      {
-        
-        <ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} />}
+          </View>
 
 
-      {/* </Scrollview> */}
-    </View >
+        </Layout>
+
+        {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
+
+
+
+
+      </ScrollView>
+    </View>
   )
-  
+
 }
 
 export default Screen1;

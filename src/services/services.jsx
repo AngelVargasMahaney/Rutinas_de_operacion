@@ -8,3 +8,8 @@ export const getAllAreas = async () => {
     });
     return rpta
 }
+
+export const obtenerDataTarea = async (id) => {
+    const rpta = await authAxios.get(`${URL_BACKEND}/task/getTask/${id}`)
+    return rpta
+}

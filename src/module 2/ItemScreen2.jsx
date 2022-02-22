@@ -1,14 +1,17 @@
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
-import React, { useState } from 'react'
-import { HStack, ScrollView, Spacer } from 'native-base'
-import { Avatar, Button, Card, Modal, Radio, RadioGroup, Select, SelectItem, Text } from '@ui-kitten/components'
+import React, { useEffect, useState } from 'react'
+import { HStack, ScrollView, Spacer, Select } from 'native-base'
+import { Avatar, Button, Card, IndexPath, Modal, Radio, RadioGroup, Text } from '@ui-kitten/components'
 import DropDownPicker from 'react-native-dropdown-picker'
 
 const ItemScreen2 = ({ item }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const width = useWindowDimensions().width
     const height = useWindowDimensions().height
-
+    const [service, setService] = useState('')
+    const tareasDetalladas = item.detail_tasks
+    // console.log("Soy el screeen ITEMSCREEN2")
+    // console.log(tareasDetalladas)
     const opcionesSelect1 = [
         {
             "idOption": 0,
@@ -32,8 +35,37 @@ const ItemScreen2 = ({ item }) => {
         { label: 'false', value: 'No' },
         { label: 'true', value: 'Si' }
     ]);
+
+    const [opcionSeleccionadaModalIndex, setOpcionSeleccionadaModalIndex] = useState(0)
+    const [valorDelSelect, setValorDelSelect] = useState('Seleccione una Subtarea')
+    const [subTareasPorId, setSubTareasPorId] = useState([])
+
+    const listarSubTareas = (idSubtarea) => {
+        // console.log(idSubtarea)
+        const subProcess = tareasDetalladas.find((e) => (e.id) === idSubtarea)
+        // console.log(subProcess)
+        // console.log("dadwaawe")
+        // setValorDelSelect(subProcess.name)
+    }
+    const [pruebaSelect, setPruebaSelect] = useState(0)
+    const renderSelectOptions = (titulo) => (
+
+        <SelectItem key={titulo.id} title={titulo.name} />
+    )
+
+    const [dataFiltrada, setDataFiltrada] = useState([])
+
+    const obtenerDataSubtareaPorId = (idSubtarea) => {
+
+        const miDataFiltrada = tareasDetalladas.find((e) => (e.id) === idSubtarea)
+        // console.warn(miDataFiltrada)
+        setDataFiltrada(miDataFiltrada)
+    }
+
+
     return (
         <View space={1} justifyContent="space-between">
+
             <Modal
                 visible={visible}
                 backdropStyle={styles.backdrop}
@@ -120,9 +152,22 @@ const ItemScreen2 = ({ item }) => {
                         Ambas Personas</Text>
                 </View>
                 <Spacer />
-                <Text style={styles.textRightStyle}>
-                    {item.both_person === null ? 'No' : "Si"}
-                </Text>
+                {
+                    item.antapaccay_staff !== 0 && item.contractors !== 0 ?
+
+                        <Text style={styles.textRightStyle}>No</Text>
+                        :
+                        <Select selectedValue={service} width="65" style={styles.selectRightsStyle} accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
+                            bg: "teal.600"
+
+                        }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+                            <Select.Item label="Si" value="1" />
+                            <Select.Item label="No" value="0" />
+                        </Select>
+
+
+                }
+
             </HStack>
             {
                 item.detail_tasks.length === 1 ? (
@@ -159,8 +204,14 @@ const ItemScreen2 = ({ item }) => {
                                     N° de veces al Día</Text>
                             </View>
                             <Spacer />
-                            <Text style={styles.textRightStyle}>
-                                1
+                            <Text style={[styles.textRightStyle, {
+                                backgroundColor: item.day_times < 1 ? '#ECECEC' : '#EA3E18',
+                                color: item.day_times < 1 ? '#969696' : '#FFFFFF'
+                            }]}>
+                                {
+                                    item.day_times >= 1 ?
+                                        (item.day_times) : ('-')
+                                }
                             </Text>
                         </HStack>
                         <HStack style={{ marginVertical: 5 }}>
@@ -177,8 +228,13 @@ const ItemScreen2 = ({ item }) => {
                                     N° de veces a la Semana</Text>
                             </View>
                             <Spacer />
-                            <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                                -
+                            <Text style={[styles.textRightStyle, {
+                                backgroundColor: item.week_times < 1 ? '#ECECEC' : '#EA3E18',
+                                color: item.week_times < 1 ? '#969696' : '#FFFFFF'
+                            }]}>
+                                {
+                                    item.week_times >= 1 ? item.week_times : ('-')
+                                }
                             </Text>
                         </HStack>
                         <HStack style={{ marginVertical: 5 }}>
@@ -195,8 +251,13 @@ const ItemScreen2 = ({ item }) => {
                                     N° de veces al Mes</Text>
                             </View>
                             <Spacer />
-                            <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                                -
+                            <Text style={[styles.textRightStyle, {
+                                backgroundColor: item.month_times < 1 ? '#ECECEC' : '#EA3E18',
+                                color: item.month_times < 1 ? '#969696' : '#FFFFFF'
+                            }]}>
+                                {
+                                    item.month_times >= 1 ? item.month_times : ('-')
+                                }
                             </Text>
                         </HStack>
                     </>
@@ -259,10 +320,124 @@ const ItemScreen2 = ({ item }) => {
 
             <Modal
                 visible={modalMasInfo}
+                style={{ maxWidth: 300 }}
                 backdropStyle={styles.backdrop}
                 onBackdropPress={() => setModalMasInfo(false)}>
                 <Card disabled={true}>
-                    <Text>Aquí consumir el objeto detail_tasks de mi obejto padre</Text>
+
+                    {/* <Select
+                        value={valorDelSelect}
+                        placeholder={"Seleccion una Subtarea"}
+                        selectedIndex={opcionSeleccionadaModalIndex}
+                        onSelect={(index) => {
+                            // console.log(index);
+                            setOpcionSeleccionadaModalIndex(index)
+                            listarSubTareas((index.row))
+                        }
+                        }
+                    >
+                        {tareasDetalladas.map((obj) => renderSelectOptions(obj))}
+                    </Select> */}
+                    <Select
+                        selectedValue={pruebaSelect}
+                        minWidth="200"
+                        accessibilityLabel="Seleccione la SubTarea"
+                        placeholder="Seleccione la SubTarea"
+                        _selectedItem={{
+                            bg: "teal.600",
+                            color: "red"
+                        }}
+                        mt={1}
+                        onValueChange={itemValue => {
+                            setPruebaSelect(itemValue)
+                            obtenerDataSubtareaPorId(itemValue)
+                        }}>
+                        {
+                            tareasDetalladas.map((obj) => {
+
+                                return (
+                                    <Select.Item
+                                        key={obj.id}
+                                        label={obj.name}
+                                        value={obj.id}
+                                    />
+                                )
+                            })
+                        }
+                    </Select>
+
+                    <HStack style={{ marginVertical: 5 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                            <Avatar
+                                shape={"square"}
+                                size='tiny'
+                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                source={require('../../assets/icons/Rectangle_orange.png')}
+                            />
+                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                Frecuencia</Text>
+                        </View>
+                        <Spacer />
+                        <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
+                            D
+                        </Text>
+                    </HStack>
+                    <HStack style={{ marginVertical: 5 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                            <Avatar
+                                shape={"square"}
+                                size='tiny'
+                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                source={require('../../assets/icons/Rectangle_orange.png')}
+                            />
+                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                N° de veces al Día</Text>
+                        </View>
+                        <Spacer />
+                        <Text style={styles.textRightStyle}>
+                            1
+                        </Text>
+                    </HStack>
+                    <HStack style={{ marginVertical: 5 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                            <Avatar
+                                shape={"square"}
+                                size='tiny'
+                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                source={require('../../assets/icons/Rectangle_orange.png')}
+                            />
+                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                N° de veces a la Semana</Text>
+                        </View>
+                        <Spacer />
+                        <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
+                            -
+                        </Text>
+                    </HStack>
+                    <HStack style={{ marginVertical: 5 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                            <Avatar
+                                shape={"square"}
+                                size='tiny'
+                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                source={require('../../assets/icons/Rectangle_orange.png')}
+                            />
+                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                N° de veces al Mes</Text>
+                        </View>
+                        <Spacer />
+                        <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
+                            -
+                        </Text>
+                    </HStack>
                     <Button onPress={() => setModalMasInfo(false)}>
                         Aceptar
                     </Button>
@@ -303,6 +478,15 @@ const styles = StyleSheet.create({
         width: 40,
         height: 25,
         textAlign: 'center',
+        borderRadius: 5
+    },
+    selectRightsStyle: {
+        marginTop: 10,
+        marginRight: 25,
+        color: '#FFFFFF',
+        backgroundColor: '#EA3E18',
+        width: 40,
+        height: 25,
         borderRadius: 5
     }
 })

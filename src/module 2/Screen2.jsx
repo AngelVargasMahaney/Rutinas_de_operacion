@@ -14,7 +14,7 @@ const Screen2 = (props) => {
   // console.log(props.route.params.value);
   // console.log(props.route.params.midataParaObjetoScreen2);
   const soyLaTarea = props.route.params.value
-  let soyElObejtoTarea = [props.route.params.midataParaObjetoScreen2]  
+  let soyElObejtoTarea = [props.route.params.midataParaObjetoScreen2]
   const [tareasOpciones, setTareasOpciones] = useState([])
   const traerTareasOpciones = () => {
     setTareasOpciones(soyElObejtoTarea)
@@ -22,7 +22,7 @@ const Screen2 = (props) => {
   useEffect(() => {
     traerTareasOpciones()
   }, [])
-console.log(tareasOpciones)
+  console.log(tareasOpciones)
   //Propio tema, estilos, etc
   const [buttonState, setButtonState] = useState(false)
 
@@ -56,10 +56,15 @@ console.log(tareasOpciones)
             />
             Número de Personas que realizan la actividad
           </Text> */}
-          <FlatList ListHeaderComponent={<TemplateVersion2 />} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
-            <ItemScreen2 item={item} />
+          <FlatList
+            ListHeaderComponent={
+              <>
+                <TemplateVersion2 />
+                <Text>Título </Text>
+              </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
+                <ItemScreen2 item={item} />
 
-          }
+              }
             keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
               <Button onPress={() => navigation.navigate('Home')} style={[styles.button, {
                 backgroundColor: '#01286B',

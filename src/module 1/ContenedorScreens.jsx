@@ -1,11 +1,11 @@
 import { FlatList, StyleSheet, Text, View, Animated } from 'react-native';
 import React, { useRef, useState } from 'react';
+import slides from './slides';
 import ContenedorItem from './ContenedorItem';
 import Paginator from './Paginator';
 import NextButton from './NextButton';
 import PrevButton from './PrevButton';
 import { ScrollView } from 'native-base';
-import slides from './slides';
 
 const ContenedorScreens = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -61,6 +61,7 @@ const ContenedorScreens = () => {
                 </View>
                 {currentIndex !== 0 ? <PrevButton scrollToBack={scrollToBack} /> : null}
             <NextButton scrollToNext={scrollToNext} />
+            
                 <Paginator data={slides} scrollX={scrollX} />
                
             </View >

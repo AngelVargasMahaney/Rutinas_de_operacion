@@ -9,11 +9,7 @@ export default [
     {
         id: '0',
         name: 'Screen 1',
-<<<<<<< HEAD
-        component: <Screen1 />
-=======
         component: <Screen1/>
->>>>>>> 8d7530af4d683d2a8fa21c0423e453c2b61f2657
     },
     {
         id: '1',

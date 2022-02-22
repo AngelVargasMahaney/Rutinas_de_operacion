@@ -16,10 +16,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
-<<<<<<< HEAD
 import Screen4 from './src/module 2/Screen4';
-=======
->>>>>>> 8d7530af4d683d2a8fa21c0423e453c2b61f2657
 import Screen3 from './src/module 2/Screen3';
 
 
@@ -36,24 +33,6 @@ function MyStack() {
         component={LoginScreen}
       />
       <Stack.Screen name="Home"
-<<<<<<< HEAD
-        component={Screen1}
-      />
-       {/* <Stack.Screen name="Screen2"
-        component={Screen2}
-      /> */}
-      <Stack.Screen name="Screen3"
-        component={Screen3}
-      />
-      <Stack.Screen name="Screen4"
-        component={Screen4}
-      />
-      {/* <Stack.Screen name="Home"
-        component={ContenedorScreens} /> */}
-      <Stack.Screen name="Save"
-        component={SaveScreen}
-      />
-=======
         component={Screen1} />
       <Stack.Screen name="Screen2"
         component={Screen2} />
@@ -61,7 +40,6 @@ function MyStack() {
         component={Screen3} />
     
      
->>>>>>> 8d7530af4d683d2a8fa21c0423e453c2b61f2657
     </Stack.Navigator>
     //Psuehando
   )

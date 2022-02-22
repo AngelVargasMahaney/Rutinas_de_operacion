@@ -19,7 +19,7 @@ const Paginator = ({ data, scrollX }) => {
                         extrapolate: 'clamp'
                     })
                     return <Animated.View style={[
-                        styles.dot,
+                        styles.dot,  
                         {
                             width: dotWidth,
                             height: 20,

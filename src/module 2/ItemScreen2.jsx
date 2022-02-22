@@ -23,7 +23,8 @@ const ItemScreen2 = ({ item }) => {
         },
     ]
 
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
+    const [modalMasInfo, setModalMasInfo] = useState(false);
 
     const displayValue = opcionesSelect1[selectedIndex.row];
     // console.log(displayValue)
@@ -63,26 +64,6 @@ const ItemScreen2 = ({ item }) => {
 
 
     return (
-<<<<<<< HEAD
-            <View space={1} justifyContent="space-between">
-                <Modal
-                    visible={visible}
-                    backdropStyle={styles.backdrop}
-                    onBackdropPress={() => setVisible(false)}>
-                    <Card disabled={true}>
-                        <RadioGroup
-                            selectedIndex={selectedIndex}
-                            onChange={index => setSelectedIndex(index)}>
-                            <Radio>Diario</Radio>
-                            <Radio>Semanal</Radio>
-                            <Radio>Mensual</Radio>
-                        </RadioGroup>
-                        <Button onPress={() => setVisible(false)}>
-                            Aceptar
-                        </Button>
-                    </Card>
-                </Modal>
-=======
         <View space={1} justifyContent="space-between">
 
             <Modal
@@ -102,91 +83,72 @@ const ItemScreen2 = ({ item }) => {
                     </Button>
                 </Card>
             </Modal>
->>>>>>> fd2401b95f3f5024fe9e7cc215b8caabcfc5f43c
 
-                <HStack style={{ marginVertical: 7 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text numberOfLines={3} style={[styles.tittlesStyle, { width: width / 2 }]} >
-
-
-                            N° de personas que realizan la actividad</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        1
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+            <HStack style={{ marginVertical: 7 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text numberOfLines={3} style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                            Personal de Antapaccay</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        1
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                        N° de personas que realizan la actividad</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    {item.quantity_people}
+                </Text>
+            </HStack>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                            Contratistas</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        0
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                        Personal de Antapaccay</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    {item.antapaccay_staff}
+                </Text>
+            </HStack>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-<<<<<<< HEAD
-                            Ambas Personas</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        No
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-=======
+                        Contratistas</Text>
+                </View>
+                <Spacer />
+                <Text style={styles.textRightStyle}>
+                    {item.contractors}
+                </Text>
+            </HStack>
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
                         Ambas Personas</Text>
                 </View>
                 <Spacer />
@@ -219,81 +181,26 @@ const ItemScreen2 = ({ item }) => {
                                     source={require('../../assets/icons/Rectangle_orange.png')}
                                 />
                                 <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
->>>>>>> fd2401b95f3f5024fe9e7cc215b8caabcfc5f43c
 
 
-                            Frecuencia</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
-                        D
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                                    Frecuencia</Text>
+                            </View>
+                            <Spacer />
+                            <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
+                                D
+                            </Text>
+                        </HStack>
+                        <HStack style={{ marginVertical: 5 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                <Avatar
+                                    shape={"square"}
+                                    size='tiny'
+                                    style={{ width: 10, height: 10, marginTop: 5 }}
+                                    source={require('../../assets/icons/Rectangle_orange.png')}
+                                />
+                                <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-<<<<<<< HEAD
-                            N° de veces al Día</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        1
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-
-
-                            N° de veces a la Semana</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                        -
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-
-
-                            N° de veces al Mes</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                        -
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-=======
                                     N° de veces al Día</Text>
                             </View>
                             <Spacer />
@@ -364,37 +271,28 @@ const ItemScreen2 = ({ item }) => {
                                 source={require('../../assets/icons/Rectangle_orange.png')}
                             />
                             <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
->>>>>>> fd2401b95f3f5024fe9e7cc215b8caabcfc5f43c
 
 
-                            Tiempo de cada Acción(horas)</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        8.5
-                    </Text>
-                </HStack>
-                <HStack style={{ marginVertical: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                        <Avatar
-                            shape={"square"}
-                            size='tiny'
-                            style={{ width: 10, height: 10, marginTop: 5 }}
-                            source={require('../../assets/icons/Rectangle_orange.png')}
-                        />
-                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-                            Horas Turno por Persona</Text>
-                    </View>
-                    <Spacer />
-                    <Text style={styles.textRightStyle}>
-                        8.5
-                    </Text>
-                </HStack>
+                                Esta tarea posee 3 Subtareas, presione el botón + para mayor información</Text>
+                        </View>
+                        <Spacer />
+                        <Text style={styles.textRightStyle} onPress={() => setModalMasInfo(true)}>
+                            +
+                        </Text>
+                    </HStack>
+                )
+            }
+            <HStack style={{ marginVertical: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                    <Avatar
+                        shape={"square"}
+                        size='tiny'
+                        style={{ width: 10, height: 10, marginTop: 5 }}
+                        source={require('../../assets/icons/Rectangle_orange.png')}
+                    />
+                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-<<<<<<< HEAD
-            </View>
-=======
                         Tiempo de cada Acción(horas)</Text>
                 </View>
                 <Spacer />
@@ -548,7 +446,6 @@ const ItemScreen2 = ({ item }) => {
 
 
         </View>
->>>>>>> fd2401b95f3f5024fe9e7cc215b8caabcfc5f43c
     )
 }
 

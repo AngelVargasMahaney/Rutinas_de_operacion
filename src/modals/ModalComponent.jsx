@@ -37,6 +37,7 @@ const ModalComponent = (props) => {
                             todeArray.map((obj, index) => {
                                 console.log(obj)
                                 return (
+                                    
                                     <Text key={index}> {props.objetoIdParaModal}.{index + 1} {obj.name}</Text>
                                 )
                             })

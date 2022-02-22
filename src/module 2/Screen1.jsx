@@ -114,9 +114,10 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    // console.log(subProcesosPorId)
+    console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
     // console.log(subProcess)
+
     setDisplayValue(subProcess.name)
     setPrueba(subProcess)
     setDisplayID(subProcess.id)
@@ -169,7 +170,7 @@ const Screen1 = (props) => {
   }
   console.log(value)
   const [midataParaObjetoScreen2, setMidataParaObjetoScreen2] = useState([])
-  const miDataParaScreen2 = (objet) =>{
+  const miDataParaScreen2 = (objet) => {
     setMidataParaObjetoScreen2(objet)
   }
   const [checked, setChecked] = useState(false);
@@ -260,6 +261,7 @@ const Screen1 = (props) => {
               }
             >
               {
+                // console.log(subProcesosPorId),
                 // subProcesosPorId.map((obj, index) =>{
                 //   console.log(obj)
                 //   renderOption(obj.name)
@@ -287,7 +289,7 @@ const Screen1 = (props) => {
               <View>
                 {
                   tareasRutinariasPorId.map((obj, indexT) => {
-                   
+
                     let todeArray = obj.detail_tasks
                     let tamano = todeArray.length
                     // console.log(todeArray)
@@ -367,8 +369,8 @@ const Screen1 = (props) => {
 
         {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
 
-
-
+  
+     
 
       </ScrollView>
     </View>

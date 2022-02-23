@@ -9,6 +9,7 @@ import NextButton from '../module 1/NextButton';
 import { useNavigation } from '@react-navigation/native';
 
 const Screen2 = (props) => {
+  const dataScreen4 = props.route.params.dataScreen4
   console.log("SOY EL SCREEN 2-> ");
   console.log(props);
   // console.log(props.route.params.value);
@@ -67,21 +68,21 @@ const Screen2 = (props) => {
                     size='tiny'
                     style={{ width: 10, height: 10 }}
                     source={require('../../assets/icons/Rectangle_orange.png')}
-                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name} ->:v
+                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name}
                 </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
                 <ItemScreen2 item={item} />
 
               }
             keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
-              <Button onPress={() => navigation.navigate('Home')} style={[styles.button, {
+              <Button onPress={() => navigation.goBack()} style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}>
                 Atrás
               </Button>
               <Button style={[styles.button, {
                 backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState}>
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', {dataScreen4}) }}>
                 Siguiente
               </Button>
             </View>} />

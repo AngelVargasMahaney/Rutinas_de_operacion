@@ -7,8 +7,9 @@ import { useNavigation } from "@react-navigation/native";
 import AwesomeAlert from 'react-native-awesome-alerts';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
-const Screen4 = () => {
-
+const Screen4 = (props) => {
+   const dataScreen4 = props.route.params.dataScreen4
+   console.log(dataScreen4)
   const navigation = useNavigation();
 
 
@@ -158,7 +159,9 @@ const Screen4 = () => {
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]}>
+            }, { color: 'white' }, { marginBottom: 25 }]}
+            onPress={() =>{navigation.goBack()}}
+            >
               Atrás
             </Button>
             <Button style={[styles.button, {

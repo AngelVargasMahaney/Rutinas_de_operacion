@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { Avatar, Layout } from '@ui-kitten/components';
 import { Box, Button, TextArea } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 
-const Screen3 = () => {
-
+const Screen3 = (props) => {
+   const dataScreen4 = props.route.params.dataScreen4
+  // console.log(props)
   const [buttonState, setButtonState] = useState(true)
 
 
@@ -30,13 +32,14 @@ const Screen3 = () => {
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };
+  const navigation = useNavigation();
 
   console.log(botonSi);
   return (
     <>
 
       <TemplateVersion2 />
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "white" }}>
         <Layout style={styles.container} level='1'>
           <View>
             <Text style={styles.tittlesStyle}>
@@ -108,12 +111,12 @@ const Screen3 = () => {
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]}>
+            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() =>{navigation.goBack()}}>
               Atrás
             </Button>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState}>
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4',{dataScreen4}) }}>
               Siguiente
             </Button>
           </View>

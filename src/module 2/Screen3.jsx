@@ -11,7 +11,9 @@ const Screen3 = (props) => {
   // console.log(props)
   const [buttonState, setButtonState] = useState(true)
 
-
+  const [activado, setActivado] = useState(false)
+  const [textAreaValue, setTextoIngresado] = useState('')
+  
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
 
@@ -27,10 +29,7 @@ const Screen3 = (props) => {
     verificarSeleccion()
   })
 
-
-  const [activado, setActivado] = useState(false)
-  const [textAreaValue, setTextoIngresado] = useState('')
-
+  console.log(textAreaValue);
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };

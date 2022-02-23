@@ -7,6 +7,7 @@ import { tareaRutinariasOpcionesBd } from '../services/areasLista';
 import ItemScreen2 from './ItemScreen2';
 import NextButton from '../module 1/NextButton';
 import { useNavigation } from '@react-navigation/native';
+import Paginator from '../module 1/Paginator';
 
 const Screen2 = (props) => {
   const dataScreen4 = props.route.params.dataScreen4
@@ -89,7 +90,7 @@ const Screen2 = (props) => {
 
 
         </View>
-
+            
       </Layout>
 
     </>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
@@ -8,8 +8,9 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = (props) => {
-   const dataScreen4 = props.route.params.dataScreen4
-   console.log(dataScreen4)
+  const dataScreen4 = props.route.params.dataScreen4
+
+  console.log(dataScreen4)
   const navigation = useNavigation();
 
 
@@ -22,6 +23,11 @@ const Screen4 = (props) => {
   };
 
   const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(10)
+  const calculandoPorcentaje = () => {
+
+    const porcentaje = (((dataScreen4.cantTareasCompletas + 1) * 100) / dataScreen4.cantTareasSubproceso)
+    setPorcentajeCumplimiento(porcentaje);
+  }
   const [variableColor, setVariableColor] = useState("#32FF00")
 
   const verificarPorcentaje = () => {
@@ -39,12 +45,22 @@ const Screen4 = (props) => {
     }
   }
   console.log(variableColor)
+  const startLoading = () => {
+    setLoading(true);
+    setVariableColor('#FFFFFF')
+    setTimeout(() => {
+      setLoading(false)
+      verificarPorcentaje()
+    }, 1000);
+  };
 
   useEffect(() => {
-    verificarPorcentaje()
-  })
+    calculandoPorcentaje()
+    startLoading()
+  },[])
+  const [loading, setLoading] = useState(false);
 
-
+  
   const [buttonState, setButtonState] = useState(true)
 
   return (
@@ -76,7 +92,7 @@ const Screen4 = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                  Chancado Primario</Text></DataTable.Cell>
+                  {dataScreen4.areaNombre}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -95,7 +111,7 @@ const Screen4 = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                  Operación sala control chancado</Text></DataTable.Cell>
+                  {dataScreen4.subProcesoNombre}</Text></DataTable.Cell>
             </DataTable.Row >
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -113,7 +129,7 @@ const Screen4 = (props) => {
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>10</Text></DataTable.Cell>
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -130,7 +146,7 @@ const Screen4 = (props) => {
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>11.84</Text></DataTable.Cell>
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
@@ -149,8 +165,23 @@ const Screen4 = (props) => {
                   flex: 0.45,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: variableColor
-                }}><Text style={styles.tittlesStyle, { color: 'white', fontSize: 12 }}>{porcentajeCumplimiento}%</Text></DataTable.Cell>
+                  backgroundColor: variableColor,
+                  
+                }}>
+                {
+                  loading ?
+                    <ActivityIndicator
+                      //visibility of Overlay Loading Spinner
+                      visible={loading}
+                      //Text with the Spinner
+                      size="small"
+                      color="#AAAAAA"
+                      //Text style of the Spinner Text
+                      textStyle={styles.spinnerTextStyle}
+                    /> : <Text style={[styles.tittlesStyle, {color: variableColor >50 ? 'blue' :'white' , fontSize: 12 }]}>{porcentajeCumplimiento}%</Text>
+                }
+
+              </DataTable.Cell>
             </DataTable.Row>
 
           </DataTable>
@@ -160,14 +191,14 @@ const Screen4 = (props) => {
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
             }, { color: 'white' }, { marginBottom: 25 }]}
-            onPress={() =>{navigation.goBack()}}
+              onPress={() => { navigation.goBack() }}
             >
               Atrás
             </Button>
             <Button style={[styles.button, {
               backgroundColor: '#ea3e18',
             }, { color: 'white' }, { marginBottom: 25 }]}
-              onPress={() =>showAlert()}
+              onPress={() => showAlert()}
             >
               Guardar
             </Button>

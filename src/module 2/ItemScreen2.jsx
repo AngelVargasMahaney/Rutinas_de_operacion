@@ -184,7 +184,8 @@ const ItemScreen2 = ({ item }) => {
 
             </HStack>
             {
-                item.detail_tasks.length === 1 ? (
+                // item.detail_tasks.length === 1 && item.type_task === 0 ? (
+                    item.detail_tasks.length === 1 ? (
                     <>
                         <HStack style={{ marginVertical: 5 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
@@ -413,12 +414,12 @@ const ItemScreen2 = ({ item }) => {
                         </View>
                         <Spacer />
                         <Text style={[styles.textRightStyle, {
-                            backgroundColor: dataFiltrada.day_times < 1 ? '#ECECEC' : '#EA3E18',
-                            color: dataFiltrada.day_times < 1 ? '#969696' : '#FFFFFF'
+                            backgroundColor: dataFiltrada?.day_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada?.day_times < 1 ? '#969696' : '#FFFFFF'
                         }]}>
                             {
-                                dataFiltrada.day_times >= 1 ?
-                                    (dataFiltrada.day_times) : ('-')
+                                dataFiltrada?.day_times >= 1 ?
+                                    (dataFiltrada?.day_times) : ('-')
                             }
                         </Text>
                     </HStack>
@@ -437,11 +438,11 @@ const ItemScreen2 = ({ item }) => {
                         </View>
                         <Spacer />
                         <Text style={[styles.textRightStyle, {
-                            backgroundColor: dataFiltrada.week_times < 1 ? '#ECECEC' : '#EA3E18',
-                            color: dataFiltrada.week_times < 1 ? '#969696' : '#FFFFFF'
+                            backgroundColor: dataFiltrada?.week_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada?.week_times < 1 ? '#969696' : '#FFFFFF'
                         }]}>
                             {
-                                dataFiltrada.week_times >= 1 ? dataFiltrada.week_times : ('-')
+                                dataFiltrada?.week_times >= 1 ? dataFiltrada?.week_times : ('-')
                             }
                         </Text>
                     </HStack>
@@ -460,11 +461,11 @@ const ItemScreen2 = ({ item }) => {
                         </View>
                         <Spacer />
                         <Text style={[styles.textRightStyle, {
-                            backgroundColor: dataFiltrada.month_times < 1 ? '#ECECEC' : '#EA3E18',
-                            color: dataFiltrada.month_times < 1 ? '#969696' : '#FFFFFF'
+                            backgroundColor: dataFiltrada?.month_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada?.month_times < 1 ? '#969696' : '#FFFFFF'
                         }]}>
                             {
-                                dataFiltrada.month_times >= 1 ? dataFiltrada.month_times : ('-')
+                                dataFiltrada?.month_times >= 1 ? dataFiltrada?.month_times : ('-')
                             }
                         </Text>
                     </HStack>

@@ -6,7 +6,8 @@ import { Box, Button, TextArea } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 const Screen3 = (props) => {
-   const dataScreen4 = props.route.params.dataScreen4
+  const dataScreen4 = props.route.params.dataScreen4
+
   // console.log(props)
   const [buttonState, setButtonState] = useState(true)
 
@@ -15,6 +16,7 @@ const Screen3 = (props) => {
   const [botonNo, setBotonNo] = useState(false)
 
   const verificarSeleccion = () => {
+    
     if (textAreaValue !== '') {
       setButtonState(false)
     } else {
@@ -111,12 +113,12 @@ const Screen3 = (props) => {
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() =>{navigation.goBack()}}>
+            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() => { navigation.goBack() }}>
               Atrás
             </Button>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4',{dataScreen4}) }}>
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4', { dataScreen4 }) }}>
               Siguiente
             </Button>
           </View>

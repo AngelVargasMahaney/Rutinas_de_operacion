@@ -157,10 +157,22 @@ const ItemScreen2 = ({ item }) => {
 
                         <Text style={styles.textRightStyle}>No</Text>
                         :
-                        <Select selectedValue={service} width="65" style={styles.selectRightsStyle} accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
-                            bg: "teal.600"
-
-                        }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+                        <Select selectedValue={service}
+                            width="66"
+                            height="8"
+                            _dark={{
+                                bg: "#ea3e18"
+                            }}
+                            _light={{
+                                bg: "#ea3e18"
+                            }}
+                            style={styles.selectRightsStyle}
+                                                        
+                            accessibilityLabel="-"
+                            placeholder="-"
+                            _selectedItem={{
+                                bg: "#ea3e18"
+                            }} mt={1} onValueChange={itemValue => setService(itemValue)}>
                             <Select.Item label="Si" value="1" />
                             <Select.Item label="No" value="0" />
                         </Select>

@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, FlatList, Text, View, useWindowDimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Box, FlatList, HStack, ScrollView, Spacer, VStack } from 'native-base';
+import { Box, HStack, ScrollView, Spacer, VStack } from 'native-base';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { tareaRutinariasOpcionesBd } from '../services/areasLista';
 import ItemScreen2 from './ItemScreen2';
+import NextButton from '../module 1/NextButton';
+import { useNavigation } from '@react-navigation/native';
 
 const Screen2 = (props) => {
   console.log("SOY EL SCREEN 2-> ");
@@ -15,14 +17,15 @@ const Screen2 = (props) => {
   let soyElObejtoTarea = [props.route.params.midataParaObjetoScreen2]
   const [tareasOpciones, setTareasOpciones] = useState([])
   const traerTareasOpciones = () => {
-    setTareasOpciones(tareaRutinariasOpcionesBd)
+    setTareasOpciones(soyElObejtoTarea)
   }
   useEffect(() => {
     traerTareasOpciones()
   }, [])
   console.log(tareasOpciones)
+  console.log(props)
   //Propio tema, estilos, etc
-  const [buttonState, setButtonState] = useState(true)
+  const [buttonState, setButtonState] = useState(false)
 
   const comprobarButtonState = () => {
     // console.log(groupValue)
@@ -36,11 +39,14 @@ const Screen2 = (props) => {
   useEffect(() => {
     comprobarButtonState()
   }, [])
+  const navigation = useNavigation();
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
-      <TemplateVersion2 />
+    <>
+
+
       <Layout style={styles.container} level='1'>
+
         <View style={{ justifyContent: 'center' }}>
           {/* <Text style={styles.tittlesStyle}>
             <Avatar
@@ -55,7 +61,14 @@ const Screen2 = (props) => {
             ListHeaderComponent={
               <>
                 <TemplateVersion2 />
-                <Text>Título </Text>
+                <Text style={styles.tittlesStyle}>
+                  <Avatar
+                    shape={"square"}
+                    size='tiny'
+                    style={{ width: 10, height: 10 }}
+                    source={require('../../assets/icons/Rectangle_orange.png')}
+                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name} ->:v
+                </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
                 <ItemScreen2 item={item} />
 
@@ -72,9 +85,13 @@ const Screen2 = (props) => {
                 Siguiente
               </Button>
             </View>} />
+
+
         </View>
+
       </Layout>
-    </View>
+
+    </>
   );
 };
 

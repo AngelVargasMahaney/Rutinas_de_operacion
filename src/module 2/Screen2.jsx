@@ -7,6 +7,7 @@ import { tareaRutinariasOpcionesBd } from '../services/areasLista';
 import ItemScreen2 from './ItemScreen2';
 import NextButton from '../module 1/NextButton';
 import { useNavigation } from '@react-navigation/native';
+import Paginator from '../module 1/Paginator';
 
 const Screen2 = (props) => {
   console.log("SOY EL SCREEN 2-> ");
@@ -67,14 +68,14 @@ const Screen2 = (props) => {
                     size='tiny'
                     style={{ width: 10, height: 10 }}
                     source={require('../../assets/icons/Rectangle_orange.png')}
-                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name} ->:v
+                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name} -:v
                 </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
                 <ItemScreen2 item={item} />
 
               }
             keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
-              <Button onPress={() => navigation.navigate('Home')} style={[styles.button, {
+              <Button onPress={() => navigation.navigate('Screen3')} style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}>
                 Atrás
@@ -88,7 +89,7 @@ const Screen2 = (props) => {
 
 
         </View>
-
+            
       </Layout>
 
     </>

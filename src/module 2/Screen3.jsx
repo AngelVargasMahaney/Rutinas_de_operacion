@@ -3,12 +3,17 @@ import React, { useEffect, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { Avatar, Layout } from '@ui-kitten/components';
 import { Box, Button, TextArea } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 
-const Screen3 = () => {
+const Screen3 = (props) => {
 
+  
+  const navigation = useNavigation();
   const [buttonState, setButtonState] = useState(true)
 
-
+  const [activado, setActivado] = useState(false)
+  const [textAreaValue, setTextoIngresado] = useState('')
+  
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
 
@@ -23,10 +28,7 @@ const Screen3 = () => {
     verificarSeleccion()
   })
 
-
-  const [activado, setActivado] = useState(false)
-  const [textAreaValue, setTextoIngresado] = useState('')
-
+  console.log(textAreaValue);
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };
@@ -36,7 +38,7 @@ const Screen3 = () => {
     <>
 
       <TemplateVersion2 />
-      <ScrollView>
+      <ScrollView style={{backgroundColor:"white"}}>
         <Layout style={styles.container} level='1'>
           <View>
             <Text style={styles.tittlesStyle}>
@@ -113,7 +115,8 @@ const Screen3 = () => {
             </Button>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState}>
+            }]} disabled={buttonState}
+            onPress={() => navigation.navigate('Screen4')}>
               Siguiente
             </Button>
           </View>

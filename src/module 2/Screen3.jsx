@@ -6,9 +6,8 @@ import { Box, Button, TextArea } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 const Screen3 = (props) => {
-
-  
-  const navigation = useNavigation();
+   const dataScreen4 = props.route.params.dataScreen4
+  // console.log(props)
   const [buttonState, setButtonState] = useState(true)
 
   const [activado, setActivado] = useState(false)
@@ -32,13 +31,14 @@ const Screen3 = (props) => {
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };
+  const navigation = useNavigation();
 
   console.log(botonSi);
   return (
     <>
 
       <TemplateVersion2 />
-      <ScrollView style={{backgroundColor:"white"}}>
+      <ScrollView style={{ backgroundColor: "white" }}>
         <Layout style={styles.container} level='1'>
           <View>
             <Text style={styles.tittlesStyle}>
@@ -110,13 +110,12 @@ const Screen3 = (props) => {
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]}>
+            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() =>{navigation.goBack()}}>
               Atrás
             </Button>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState}
-            onPress={() => navigation.navigate('Screen4')}>
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4',{dataScreen4}) }}>
               Siguiente
             </Button>
           </View>

@@ -38,7 +38,11 @@ function MyStack() {
         component={Screen2} />
       <Stack.Screen name="Screen3"
         component={Screen3} />
+<<<<<<< HEAD
          <Stack.Screen name="Screen4"
+=======
+      <Stack.Screen name="Screen4"
+>>>>>>> 8c45b593933b9f16df344e65ad59ef6525b8c881
         component={Screen4} />
     
      

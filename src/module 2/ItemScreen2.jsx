@@ -139,7 +139,7 @@ const ItemScreen2 = ({ item }) => {
                 </Text>
             </HStack>
             <HStack style={{ marginVertical: 5 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginVertical: 20 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
@@ -157,25 +157,27 @@ const ItemScreen2 = ({ item }) => {
 
                         <Text style={styles.textRightStyle}>No</Text>
                         :
-                        <Select selectedValue={service}
-                            width="66"
-                            height="8"
-                            _dark={{
-                                bg: "#ea3e18"
-                            }}
-                            _light={{
-                                bg: "#ea3e18"
-                            }}
-                            style={styles.selectRightsStyle}
-                                                        
-                            accessibilityLabel="-"
-                            placeholder="-"
-                            _selectedItem={{
-                                bg: "#ea3e18"
-                            }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-                            <Select.Item label="Si" value="1" />
-                            <Select.Item label="No" value="0" />
-                        </Select>
+                        <Text style={styles.selectRightsStyle}>
+                            <Select selectedValue={service}
+                                width="45"
+                                height="8"
+                                _dark={{
+                                    bg: "#ea3e18"
+                                }}
+                                _light={{
+                                    bg: "#ea3e18"
+                                }}
+                                color="white"
+                                accessibilityLabel="-"
+                                dropdownCloseIcon={true}
+                                placeholder="-"
+                                _selectedItem={{
+                                    bg: "#ea3e18"
+                                }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+                                <Select.Item label="Si" value="1" />
+                                <Select.Item label="No" value="0" />
+                            </Select>
+                        </Text>
 
 
                 }
@@ -275,7 +277,7 @@ const ItemScreen2 = ({ item }) => {
                     </>
                 ) : (
                     <HStack style={{ marginVertical: 5 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginVertical: 25 }}>
                             <Avatar
                                 shape={"square"}
                                 size='tiny'
@@ -288,7 +290,7 @@ const ItemScreen2 = ({ item }) => {
                                 Esta tarea posee 3 Subtareas, presione el botón + para mayor información</Text>
                         </View>
                         <Spacer />
-                        <Text style={styles.textRightStyle} onPress={() => setModalMasInfo(true)}>
+                        <Text style={[styles.textRightStyle, { marginTop: 30 }]} onPress={() => setModalMasInfo(true)}>
                             +
                         </Text>
                     </HStack>
@@ -410,8 +412,14 @@ const ItemScreen2 = ({ item }) => {
                                 N° de veces al Día</Text>
                         </View>
                         <Spacer />
-                        <Text style={styles.textRightStyle}>
-                            1
+                        <Text style={[styles.textRightStyle, {
+                            backgroundColor: dataFiltrada.day_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada.day_times < 1 ? '#969696' : '#FFFFFF'
+                        }]}>
+                            {
+                                dataFiltrada.day_times >= 1 ?
+                                    (dataFiltrada.day_times) : ('-')
+                            }
                         </Text>
                     </HStack>
                     <HStack style={{ marginVertical: 5 }}>
@@ -428,8 +436,13 @@ const ItemScreen2 = ({ item }) => {
                                 N° de veces a la Semana</Text>
                         </View>
                         <Spacer />
-                        <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                            -
+                        <Text style={[styles.textRightStyle, {
+                            backgroundColor: dataFiltrada.week_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada.week_times < 1 ? '#969696' : '#FFFFFF'
+                        }]}>
+                            {
+                                dataFiltrada.week_times >= 1 ? dataFiltrada.week_times : ('-')
+                            }
                         </Text>
                     </HStack>
                     <HStack style={{ marginVertical: 5 }}>
@@ -446,8 +459,13 @@ const ItemScreen2 = ({ item }) => {
                                 N° de veces al Mes</Text>
                         </View>
                         <Spacer />
-                        <Text style={[styles.textRightStyle, { backgroundColor: '#ECECEC' }, { color: '#969696' }]}>
-                            -
+                        <Text style={[styles.textRightStyle, {
+                            backgroundColor: dataFiltrada.month_times < 1 ? '#ECECEC' : '#EA3E18',
+                            color: dataFiltrada.month_times < 1 ? '#969696' : '#FFFFFF'
+                        }]}>
+                            {
+                                dataFiltrada.month_times >= 1 ? dataFiltrada.month_times : ('-')
+                            }
                         </Text>
                     </HStack>
                     <Button onPress={() => setModalMasInfo(false)}>
@@ -483,7 +501,8 @@ const styles = StyleSheet.create({
 
     },
     textRightStyle: {
-        marginTop: 10,
+        marginTop: 15,
+        marginBottom: 15,
         marginRight: 25,
         color: '#FFFFFF',
         backgroundColor: '#EA3E18',
@@ -496,9 +515,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginRight: 25,
         color: '#FFFFFF',
-        backgroundColor: '#EA3E18',
+        paddingTop: 20,
         width: 40,
         height: 25,
-        borderRadius: 5
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

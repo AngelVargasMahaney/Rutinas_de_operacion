@@ -14,19 +14,26 @@ import Paginator from '../module 1/Paginator';
 
 
 const Screen1 = (props) => {
-
+  let contador = 0
   const [areasData, setAreasData] = useState([]);
   const [subProcesos, setSubProcesos] = useState([])
   const [subProcesosPorId, setSubProcesosPorId] = useState([]);
   const [tareasRutinarias, setTareasRutinarias] = useState([])
   const [tareasRutinariasPorId, setTareasRutinariasPorId] = useState([])
+  const [dataScreen4, setDataScreen4] = useState({
+    areaNombre: '',
+    subProcesoNombre: '',
+    cantTareasSubproceso: 0,
+    horasTotalesSubproceso: 0,
+    cantTareasCompletas: 0
+  })
   const width = useWindowDimensions().width
 
   const traerAreas = () => {
     //Aquí obtener las áreas desde el servicio
     getAllAreas().then((rpta) => {
       // console.log(rpta)
-      // console.log(rpta.data.data)
+      console.log(rpta.data.data)
       setAreasData(rpta.data.data)
     })
   }
@@ -116,9 +123,11 @@ const Screen1 = (props) => {
   const listarSubprocesos = (idSubProcess) => {
     console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
-    // console.log(subProcess)
-
+    console.log(subProcess)
+    dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
+    dataScreen4.subProcesoNombre = subProcess.name
+    dataScreen4.cantTareasSubproceso = subProcess.tasks.length
     setPrueba(subProcess)
     setDisplayID(subProcess.id)
   }
@@ -176,6 +185,10 @@ const Screen1 = (props) => {
   const [checked, setChecked] = useState(false);
 
   const navigation = useNavigation();
+  useEffect(() => {
+    console.log(dataScreen4)
+  })
+
   return (
     <View style={{ backgroundColor: 'white' }}>
       <ScrollView>
@@ -202,7 +215,9 @@ const Screen1 = (props) => {
                     cambiarColor(obj.id)
                     setSelectedIndex(0)
                     setDisplayValue('Seleccione un SubProceso')
+                    dataScreen4.areaNombre = obj.name
 
+                    console.log(obj)
                   }}>
                     <Avatar
                       style={[styles.logo,
@@ -288,8 +303,14 @@ const Screen1 = (props) => {
 
               <View>
                 {
+                  // console.log(tareasRutinariasPorId),
                   tareasRutinariasPorId.map((obj, indexT) => {
-
+                    console.log(obj)
+                    if (obj.complete === 1) {
+                      contador++
+                    }
+                    dataScreen4.cantTareasCompletas = contador
+                    // console.log("Mi contador es = " + contador)
                     let todeArray = obj.detail_tasks
                     let tamano = todeArray.length
                     // console.log(todeArray)
@@ -308,28 +329,37 @@ const Screen1 = (props) => {
                           setValue(nextValue);
                           miDataParaScreen2(obj)
                         }}>
-                          <Radio key={obj.id} value={obj.id} colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
-                            {
+                          {obj.complete === 1 ?
+                            (
+                              <Checkbox key={obj.id} colorScheme="orange" isDisabled defaultIsChecked value="two">
+                                {(indexT + 1) + ". " + todeArray[0].name}
+                              </Checkbox>
+                            ) :
+                            (<Radio key={obj.id} value={obj.id}
 
-                              displayValue === 'Seleccione un SubProceso' ? null :
-                                (
-                                  tamano > 1 ? (
-                                    <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
-                                      <Button
-                                        style={{ width: 2 }, { height: 2 }}
-                                        appearance='ghost'
-                                        status='danger'
-                                        accessoryLeft={StarIcon}
-                                        onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
-                                      />
-                                    </Text>
-                                    // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
-                                    //   {myHope}
-                                    // </Button>
-                                  ) :
-                                    <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
-                                )}
-                          </Radio>
+                              colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
+                              {
+
+                                displayValue === 'Seleccione un SubProceso' ? null :
+                                  (
+                                    tamano > 1 ? (
+                                      <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                        <Button
+                                          style={{ width: 2 }, { height: 2 }}
+                                          appearance='ghost'
+                                          status='danger'
+                                          accessoryLeft={StarIcon}
+                                          onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
+                                        />
+                                      </Text>
+                                      // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
+                                      //   {myHope}
+                                      // </Button>
+                                    ) :
+                                      <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                  )}
+                            </Radio>)}
+
 
                         </Radio.Group>
                       )
@@ -346,7 +376,7 @@ const Screen1 = (props) => {
             <View style={{ alignSelf: 'center', marginTop: 50 }}>
               <Button style={[styles.button, {
                 backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2 }) }}>
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2, dataScreen4 }) }}>
                 Siguiente
               </Button>
               {/* <NextButton/> */}
@@ -369,8 +399,8 @@ const Screen1 = (props) => {
 
         {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
 
-  
-     
+
+
 
       </ScrollView>
     </View>

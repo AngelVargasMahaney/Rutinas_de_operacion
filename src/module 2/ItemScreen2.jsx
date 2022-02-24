@@ -9,6 +9,8 @@ const ItemScreen2 = ({ item }) => {
     const width = useWindowDimensions().width
     const height = useWindowDimensions().height
     const [service, setService] = useState('')
+    const [frecuenciaSelect, setFrecuenciaSelect] = useState(0)
+    console.log(frecuenciaSelect)
     const tareasDetalladas = item.detail_tasks
     // console.log("Soy el screeen ITEMSCREEN2")
     // console.log(tareasDetalladas)
@@ -84,7 +86,7 @@ const ItemScreen2 = ({ item }) => {
                 </Card>
             </Modal>
 
-            <HStack style={{ marginVertical: 7 }}>
+            <HStack style={{ marginVertical: 15 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
@@ -102,7 +104,7 @@ const ItemScreen2 = ({ item }) => {
                     {item.quantity_people}
                 </Text>
             </HStack>
-            <HStack style={{ marginVertical: 5 }}>
+            <HStack style={{ marginVertical: 15 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
@@ -120,7 +122,7 @@ const ItemScreen2 = ({ item }) => {
                     {item.antapaccay_staff}
                 </Text>
             </HStack>
-            <HStack style={{ marginVertical: 5 }}>
+            <HStack style={{ marginVertical: 15 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
@@ -138,8 +140,8 @@ const ItemScreen2 = ({ item }) => {
                     {item.contractors}
                 </Text>
             </HStack>
-            <HStack style={{ marginVertical: 5 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginVertical: 20 }}>
+            <HStack style={{ marginVertical: 15 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
                         size='tiny'
@@ -154,10 +156,7 @@ const ItemScreen2 = ({ item }) => {
                 <Spacer />
                 {
                     item.antapaccay_staff !== 0 && item.contractors !== 0 ?
-
-                        <Text style={styles.textRightStyle}>No</Text>
-                        :
-                        <Text style={styles.selectRightsStyle}>
+                        <Text style={styles.textRightStyle}>
                             <Select selectedValue={service}
                                 width="45"
                                 height="8"
@@ -173,11 +172,14 @@ const ItemScreen2 = ({ item }) => {
                                 placeholder="-"
                                 _selectedItem={{
                                     bg: "#ea3e18"
-                                }} mt={1} onValueChange={itemValue => setService(itemValue)}>
+                                }} onValueChange={itemValue => setService(itemValue)}>
                                 <Select.Item label="Si" value="1" />
                                 <Select.Item label="No" value="0" />
                             </Select>
                         </Text>
+
+                        :
+                        <Text style={styles.textRightStyle}>No</Text>
 
 
                 }
@@ -185,9 +187,10 @@ const ItemScreen2 = ({ item }) => {
             </HStack>
             {
                 // item.detail_tasks.length === 1 && item.type_task === 0 ? (
-                    item.detail_tasks.length === 1 ? (
+                item.detail_tasks.length === 1 ? (
+                    // item.detail_tasks.length !== 0 ? (
                     <>
-                        <HStack style={{ marginVertical: 5 }}>
+                        <HStack style={{ marginVertical: 15 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                 <Avatar
                                     shape={"square"}
@@ -201,11 +204,31 @@ const ItemScreen2 = ({ item }) => {
                                     Frecuencia</Text>
                             </View>
                             <Spacer />
-                            <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
-                                D
+                            <Text style={[styles.textRightStyle]}>
+                                <Select selectedValue={frecuenciaSelect}
+                                    width="45"
+                                    height="8"
+                                    _dark={{
+                                        bg: "#ea3e18"
+                                    }}
+                                    _light={{
+                                        bg: "#ea3e18"
+                                    }}
+                                    color="white"
+                                    accessibilityLabel="-"
+                                    dropdownCloseIcon={true}
+                                    placeholder="-"
+                                    _selectedItem={{
+                                        bg: "#ea3e18"
+                                    }} onValueChange={itemValue => setFrecuenciaSelect(itemValue)}>
+                                    <Select.Item label="D" value="1" />
+                                    <Select.Item label="S" value="2" />
+                                    <Select.Item label="M" value="3" />
+                                </Select>
                             </Text>
+
                         </HStack>
-                        <HStack style={{ marginVertical: 5 }}>
+                        <HStack style={{ marginVertical: 15 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                 <Avatar
                                     shape={"square"}
@@ -220,16 +243,16 @@ const ItemScreen2 = ({ item }) => {
                             </View>
                             <Spacer />
                             <Text style={[styles.textRightStyle, {
-                                backgroundColor: item.day_times < 1 ? '#ECECEC' : '#EA3E18',
+                                backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 2 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
                                 color: item.day_times < 1 ? '#969696' : '#FFFFFF'
                             }]}>
                                 {
-                                    item.day_times >= 1 ?
+                                    (frecuenciaSelect == 1 && item.day_times >= 1) ?
                                         (item.day_times) : ('-')
                                 }
                             </Text>
                         </HStack>
-                        <HStack style={{ marginVertical: 5 }}>
+                        <HStack style={{ marginVertical: 15 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                 <Avatar
                                     shape={"square"}
@@ -244,15 +267,15 @@ const ItemScreen2 = ({ item }) => {
                             </View>
                             <Spacer />
                             <Text style={[styles.textRightStyle, {
-                                backgroundColor: item.week_times < 1 ? '#ECECEC' : '#EA3E18',
+                                backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
                                 color: item.week_times < 1 ? '#969696' : '#FFFFFF'
                             }]}>
                                 {
-                                    item.week_times >= 1 ? item.week_times : ('-')
+                                    (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
                                 }
                             </Text>
                         </HStack>
-                        <HStack style={{ marginVertical: 5 }}>
+                        <HStack style={{ marginVertical: 15 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                 <Avatar
                                     shape={"square"}
@@ -267,37 +290,149 @@ const ItemScreen2 = ({ item }) => {
                             </View>
                             <Spacer />
                             <Text style={[styles.textRightStyle, {
-                                backgroundColor: item.month_times < 1 ? '#ECECEC' : '#EA3E18',
+                                backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
                                 color: item.month_times < 1 ? '#969696' : '#FFFFFF'
                             }]}>
                                 {
-                                    item.month_times >= 1 ? item.month_times : ('-')
+                                    (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
                                 }
                             </Text>
                         </HStack>
                     </>
                 ) : (
-                    <HStack style={{ marginVertical: 5 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginVertical: 25 }}>
-                            <Avatar
-                                shape={"square"}
-                                size='tiny'
-                                style={{ width: 10, height: 10, marginTop: 5 }}
-                                source={require('../../assets/icons/Rectangle_orange.png')}
-                            />
-                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                    <>
+                        <HStack style={{ marginVertical: 15 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10}}>
+                                <Avatar
+                                    shape={"square"}
+                                    size='tiny'
+                                    style={{ width: 10, height: 10, marginTop: 5 }}
+                                    source={require('../../assets/icons/Rectangle_orange.png')}
+                                />
+                                <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                Esta tarea posee 3 Subtareas, presione el botón + para mayor información</Text>
-                        </View>
-                        <Spacer />
-                        <Text style={[styles.textRightStyle, { marginTop: 30 }]} onPress={() => setModalMasInfo(true)}>
-                            +
-                        </Text>
-                    </HStack>
+                                    Esta tarea posee 3 Subtareas, presione el botón + para mayor información</Text>
+                            </View>
+                            <Spacer />
+                            <Text style={[styles.textRightStyle, { marginTop: 5 }]} onPress={() => setModalMasInfo(true)}>
+                                +
+                            </Text>
+                        </HStack>
+                        <>
+                            <HStack style={{ marginVertical: 15 }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                    <Avatar
+                                        shape={"square"}
+                                        size='tiny'
+                                        style={{ width: 10, height: 10, marginTop: 5 }}
+                                        source={require('../../assets/icons/Rectangle_orange.png')}
+                                    />
+                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                        Frecuencia</Text>
+                                </View>
+                                <Spacer />
+                                <Text style={[styles.textRightStyle]}>
+                                    <Select selectedValue={frecuenciaSelect}
+                                        width="45"
+                                        height="8"
+                                        _dark={{
+                                            bg: "#ea3e18"
+                                        }}
+                                        _light={{
+                                            bg: "#ea3e18"
+                                        }}
+                                        color="white"
+                                        accessibilityLabel="-"
+                                        dropdownCloseIcon={true}
+                                        placeholder="-"
+                                        _selectedItem={{
+                                            bg: "#ea3e18"
+                                        }} onValueChange={itemValue => setFrecuenciaSelect(itemValue)}>
+                                        <Select.Item label="D" value="1" />
+                                        <Select.Item label="S" value="2" />
+                                        <Select.Item label="M" value="3" />
+                                    </Select>
+                                </Text>
+
+                            </HStack>
+                            <HStack style={{ marginVertical: 15 }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                    <Avatar
+                                        shape={"square"}
+                                        size='tiny'
+                                        style={{ width: 10, height: 10, marginTop: 5 }}
+                                        source={require('../../assets/icons/Rectangle_orange.png')}
+                                    />
+                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                        N° de veces al Día</Text>
+                                </View>
+                                <Spacer />
+                                <Text style={[styles.textRightStyle, {
+                                    backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 2 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
+                                    color: item.day_times < 1 ? '#969696' : '#FFFFFF'
+                                }]}>
+                                    {
+                                        (frecuenciaSelect == 1 && item.day_times >= 1) ?
+                                            (item.day_times) : ('-')
+                                    }
+                                </Text>
+                            </HStack>
+                            <HStack style={{ marginVertical: 15 }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                    <Avatar
+                                        shape={"square"}
+                                        size='tiny'
+                                        style={{ width: 10, height: 10, marginTop: 5 }}
+                                        source={require('../../assets/icons/Rectangle_orange.png')}
+                                    />
+                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                        N° de veces a la Semana</Text>
+                                </View>
+                                <Spacer />
+                                <Text style={[styles.textRightStyle, {
+                                    backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
+                                    color: item.week_times < 1 ? '#969696' : '#FFFFFF'
+                                }]}>
+                                    {
+                                        (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
+                                    }
+                                </Text>
+                            </HStack>
+                            <HStack style={{ marginVertical: 15 }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                    <Avatar
+                                        shape={"square"}
+                                        size='tiny'
+                                        style={{ width: 10, height: 10, marginTop: 5 }}
+                                        source={require('../../assets/icons/Rectangle_orange.png')}
+                                    />
+                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+
+
+                                        N° de veces al Mes</Text>
+                                </View>
+                                <Spacer />
+                                <Text style={[styles.textRightStyle, {
+                                    backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
+                                    color: item.month_times < 1 ? '#969696' : '#FFFFFF'
+                                }]}>
+                                    {
+                                        (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
+                                    }
+                                </Text>
+                            </HStack>
+                        </>
+                    </>
                 )
             }
-            <HStack style={{ marginVertical: 5 }}>
+            <HStack style={{ marginVertical: 15 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
@@ -315,7 +450,7 @@ const ItemScreen2 = ({ item }) => {
                     {item.action_time}
                 </Text>
             </HStack>
-            <HStack style={{ marginVertical: 5 }}>
+            <HStack style={{ marginVertical: 15 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                     <Avatar
                         shape={"square"}
@@ -335,7 +470,7 @@ const ItemScreen2 = ({ item }) => {
 
             <Modal
                 visible={modalMasInfo}
-                style={{ maxWidth: 300 }}
+                style={{ maxWidth: 500 }}
                 backdropStyle={styles.backdrop}
                 onBackdropPress={() => setModalMasInfo(false)}>
                 <Card disabled={true}>
@@ -381,7 +516,7 @@ const ItemScreen2 = ({ item }) => {
                         }
                     </Select>
 
-                    <HStack style={{ marginVertical: 5 }}>
+                    {/* <HStack style={{ marginVertical: 15 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                             <Avatar
                                 shape={"square"}
@@ -396,10 +531,10 @@ const ItemScreen2 = ({ item }) => {
                         </View>
                         <Spacer />
                         <Text style={styles.textRightStyle} onPress={() => setVisible(true)}>
-                            D
+                            Dedos
                         </Text>
-                    </HStack>
-                    <HStack style={{ marginVertical: 5 }}>
+                    </HStack> */}
+                    <HStack style={{ marginVertical: 15 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                             <Avatar
                                 shape={"square"}
@@ -423,7 +558,7 @@ const ItemScreen2 = ({ item }) => {
                             }
                         </Text>
                     </HStack>
-                    <HStack style={{ marginVertical: 5 }}>
+                    <HStack style={{ marginVertical: 15 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                             <Avatar
                                 shape={"square"}
@@ -446,7 +581,7 @@ const ItemScreen2 = ({ item }) => {
                             }
                         </Text>
                     </HStack>
-                    <HStack style={{ marginVertical: 5 }}>
+                    <HStack style={{ marginVertical: 15 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                             <Avatar
                                 shape={"square"}
@@ -483,6 +618,9 @@ const ItemScreen2 = ({ item }) => {
 export default ItemScreen2
 
 const styles = StyleSheet.create({
+    backdrop: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
     selectStyles: {
         backgroundColor: '#EA3E18',
         fontSize: 16,
@@ -502,8 +640,8 @@ const styles = StyleSheet.create({
 
     },
     textRightStyle: {
-        marginTop: 15,
-        marginBottom: 15,
+
+        marginTop: -3,
         marginRight: 25,
         color: '#FFFFFF',
         backgroundColor: '#EA3E18',

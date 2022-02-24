@@ -5,7 +5,7 @@ import { Button, Card, Modal, Text } from '@ui-kitten/components';
 import { ScrollView } from 'native-base';
 
 const ModalComponent = (props) => {
-    // console.log(props)
+     console.log(props)
 
     // const containerStyle = { backgroundColor: 'white', padding: 20 };
 
@@ -37,7 +37,7 @@ const ModalComponent = (props) => {
                             todeArray.map((obj, index) => {
                                 console.log(obj)
                                 return (
-                                    
+
                                     <Text key={index}> {props.objetoIdParaModal}.{index + 1} {obj.name}</Text>
                                 )
                             })

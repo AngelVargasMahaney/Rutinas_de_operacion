@@ -22,6 +22,9 @@ const Screen1 = (props) => {
   const [tareasRutinariasPorId, setTareasRutinariasPorId] = useState([])
   const [dataScreen4, setDataScreen4] = useState({
     areaNombre: '',
+    areaId: 0,
+    processId:0,
+    
     subProcesoNombre: '',
     cantTareasSubproceso: 0,
     horasTotalesSubproceso: 0,

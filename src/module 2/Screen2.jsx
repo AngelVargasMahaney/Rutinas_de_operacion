@@ -63,13 +63,8 @@ const Screen2 = (props) => {
             ListHeaderComponent={
               <>
                 <TemplateVersion2 />
-                <Text style={styles.tittlesStyle}>
-                  <Avatar
-                    shape={"square"}
-                    size='tiny'
-                    style={{ width: 10, height: 10 }}
-                    source={require('../../assets/icons/Rectangle_orange.png')}
-                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name}
+                <Text style={[styles.tittlesStyle, { textAlign: 'center' }]}>
+                  {(dataScreen4.areaNombre).toUpperCase() + " > " + (dataScreen4.subProcesoNombre).toUpperCase()}
                 </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
                 <ItemScreen2 item={item} />
@@ -83,14 +78,14 @@ const Screen2 = (props) => {
               </Button>
               <Button style={[styles.button, {
                 backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', {dataScreen4}) }}>
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { dataScreen4 }) }}>
                 Siguiente
               </Button>
             </View>} />
 
 
         </View>
-            
+
       </Layout>
 
     </>
@@ -114,6 +109,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#01286B',
     fontWeight: '400',
-
+    margin:20
   },
 });

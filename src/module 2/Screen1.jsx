@@ -124,9 +124,9 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    console.log(idSubProcess)
+    // console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
-    console.log(subProcess)
+    // console.log(subProcess)
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
     dataScreen4.subProcesoNombre = subProcess.name
@@ -181,7 +181,7 @@ const Screen1 = (props) => {
     setObjetoIdParaModal(key)
     setModalMoreData(true)
   }
-  console.log(value)
+  // console.log(value)
   const [midataParaObjetoScreen2, setMidataParaObjetoScreen2] = useState([])
   const miDataParaScreen2 = (objet) => {
     setMidataParaObjetoScreen2(objet)
@@ -224,7 +224,7 @@ const Screen1 = (props) => {
                     dataScreen4.areaId = obj.id
                     dataScreen4.processId = 0
                     dataScreen4.taskId = 0
-                    console.log(obj)
+                    // console.log(obj)
                   }}>
                     <Avatar
                       style={[styles.logo,
@@ -314,7 +314,7 @@ const Screen1 = (props) => {
                   // console.log(tareasRutinariasPorId),
                   tareasRutinariasPorId.map((obj, indexT) => {
                    
-                    console.log(obj)
+                    // console.log(obj)
                     if (obj.complete === 1) {
                       contador++
                     }

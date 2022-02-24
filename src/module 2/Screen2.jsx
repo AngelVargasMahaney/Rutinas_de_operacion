@@ -16,9 +16,9 @@ const Screen2 = (props) => {
     bothPerson:0,
     frequency:0
   }
-  console.log("SOY EL SCREEN 2-> ");
-  console.log(props);
-  console.log(miObjetoNuevo);
+  // console.log("SOY EL SCREEN 2-> ");
+  // console.log(props);
+  // console.log(miObjetoNuevo);
   // console.log(props.route.params.value);
   // console.log(props.route.params.midataParaObjetoScreen2);
   const soyLaTarea = props.route.params.value
@@ -30,8 +30,8 @@ const Screen2 = (props) => {
   useEffect(() => {
     traerTareasOpciones()
   }, [])
-  console.log(tareasOpciones)
-  console.log(props)
+  // console.log(tareasOpciones)
+  // console.log(props)
   //Propio tema, estilos, etc
   const [buttonState, setButtonState] = useState(false)
 

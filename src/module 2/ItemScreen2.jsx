@@ -12,7 +12,7 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
     const [service, setService] = useState('')
 
     const [frecuenciaSelect, setFrecuenciaSelect] = useState(0)
-    console.log(frecuenciaSelect)
+    // console.log(frecuenciaSelect)
     const tareasDetalladas = item.detail_tasks
     // console.log("Soy el screeen ITEMSCREEN2")
     // console.log(tareasDetalladas)

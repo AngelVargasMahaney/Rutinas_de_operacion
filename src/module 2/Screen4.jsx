@@ -8,7 +8,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = (props) => {
-  const dataScreen4 = props.route.params.dataScreen4
+  const dataScreen4 = props.route.params.miObjetoNuevo
 
   console.log(dataScreen4)
   const navigation = useNavigation();
@@ -25,10 +25,10 @@ const Screen4 = (props) => {
   const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(10)
   const calculandoPorcentaje = () => {
 
-    const porcentaje = (((dataScreen4.cantTareasCompletas + 1) * 100) / dataScreen4.cantTareasSubproceso)
+    const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
     setPorcentajeCumplimiento(porcentaje);
   }
-  const [variableColor, setVariableColor] = useState("#32FF00")
+  const [variableColor, setVariableColor] = useState("#FFFFFF")
 
   const verificarPorcentaje = () => {
     if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento <= 25) {
@@ -66,8 +66,9 @@ const Screen4 = (props) => {
   return (
     <>
       <TemplateVersion2 />
+      <View style={{backgroundColor: 'white'}}>
       <Layout style={styles.container} level=''>
-        <View >
+       
           <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
             <DataTable.Header style={{ backgroundColor: '#01286b' }} >
               <DataTable.Title >
@@ -185,8 +186,8 @@ const Screen4 = (props) => {
             </DataTable.Row>
 
           </DataTable>
-        </View>
-        <View style={{ justifyContent: 'center' }}>
+        
+        <View style={{ justifyContent: 'center', backgroundColor:'white' }}>
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
@@ -229,6 +230,7 @@ const Screen4 = (props) => {
           </View>
         </View>
       </Layout>
+      </View>
     </>
   );
 }
@@ -241,7 +243,8 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 20
+    margin: 20,
+    backgroundColor:'white'
   },
   button: {
     borderRadius: 40,

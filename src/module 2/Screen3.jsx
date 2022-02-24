@@ -6,34 +6,57 @@ import { Box, Button, TextArea } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 const Screen3 = (props) => {
-   const dataScreen4 = props.route.params.dataScreen4
-  // console.log(props)
+  const dataScreen4 = props.route.params.miObjetoNuevo
+  const miObjetoNuevo = {
+    ...dataScreen4,
+    boolean_routine: 0,
+    comments: ''
+  }
+  //  console.log(dataScreen4)
   const [buttonState, setButtonState] = useState(true)
 
   const [activado, setActivado] = useState(false)
   const [textAreaValue, setTextoIngresado] = useState('')
-  
+
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
 
   const verificarSeleccion = () => {
+
     if (textAreaValue !== '') {
       setButtonState(false)
     } else {
       setButtonState(true)
     }
   }
-  useEffect(() => {
-    verificarSeleccion()
-  })
 
-  console.log(textAreaValue);
+  // console.log(textAreaValue + "cerdo");
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };
+  miObjetoNuevo.comments = textAreaValue
   const navigation = useNavigation();
 
-  console.log(botonSi);
+  const completoRutina = () => {
+    let completado = 0
+    if (botonSi === true) {
+      completado = 1
+    } else {
+      completado = 0
+    }
+    miObjetoNuevo.boolean_routine = completado
+  }
+
+  useEffect(() => {
+    verificarSeleccion()
+  }, [textAreaValue])
+
+  useEffect(() => {
+    completoRutina()
+    console.log(miObjetoNuevo)
+  })
+
+  // console.log(botonSi);
   return (
     <>
 
@@ -110,12 +133,12 @@ const Screen3 = (props) => {
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() =>{navigation.goBack()}}>
+            }, { color: 'white' }, { marginBottom: 25 }]} onPress={() => { navigation.goBack() }}>
               Atrás
             </Button>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4',{dataScreen4}) }}>
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen4', { miObjetoNuevo }) }}>
               Siguiente
             </Button>
           </View>

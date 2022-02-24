@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
@@ -8,7 +8,8 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = (props) => {
-  const dataScreen4 = props.route.params.dataScreen4
+  const dataScreen4 = props.route.params.miObjetoNuevo
+
   console.log(dataScreen4)
   const navigation = useNavigation();
 
@@ -22,7 +23,12 @@ const Screen4 = (props) => {
   };
 
   const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(10)
-  const [variableColor, setVariableColor] = useState("#32FF00")
+  const calculandoPorcentaje = () => {
+
+    const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
+    setPorcentajeCumplimiento(porcentaje);
+  }
+  const [variableColor, setVariableColor] = useState("#FFFFFF")
 
   const verificarPorcentaje = () => {
     if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento <= 25) {
@@ -39,132 +45,191 @@ const Screen4 = (props) => {
     }
   }
   console.log(variableColor)
+  const startLoading = () => {
+    setLoading(true);
+    setVariableColor('#FFFFFF')
+    setTimeout(() => {
+      setLoading(false)
+      verificarPorcentaje()
+    }, 1000);
+  };
 
   useEffect(() => {
-    verificarPorcentaje()
-  })
+    calculandoPorcentaje()
+    startLoading()
+  },[])
+  const [loading, setLoading] = useState(false);
 
-
+  
   const [buttonState, setButtonState] = useState(true)
 
   return (
     <>
       <TemplateVersion2 />
-      <View style={{ backgroundColor: "white" }}>
-        <Layout style={styles.container} level=''>
-          <View >
-            <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
-              <DataTable.Header style={{ backgroundColor: '#01286b' }} >
-                <DataTable.Title >
-                  <Text style={{ color: '#ffffff', fontSize: 14 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
-                </DataTable.Title>
-              </DataTable.Header>
+      <View style={{backgroundColor: 'white'}}>
+      <Layout style={styles.container} level=''>
+       
+          <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
+            <DataTable.Header style={{ backgroundColor: '#01286b' }} >
+              <DataTable.Title >
+                <Text style={{ color: '#ffffff', fontSize: 14 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
+              </DataTable.Title>
+            </DataTable.Header>
 
-              <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-                <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
-                  <Text
-                    style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
-                    numberOfLines={3}
-                  ><Avatar
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
+                <Text
+                  style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
+                  numberOfLines={3}
+                ><Avatar
+                  shape={"square"}
+                  size={"tiny"}
+                  style={{ width: 10, height: 10 }}
+                  source={Rectangle_orange} >
+                  </Avatar> AREA</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight: -15.5,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
+                  {dataScreen4.areaNombre}</Text></DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                  <Avatar
                     shape={"square"}
                     size={"tiny"}
                     style={{ width: 10, height: 10 }}
                     source={Rectangle_orange} >
-                    </Avatar> AREA</Text></DataTable.Cell>
-                <DataTable.Cell numeric style={{
+                  </Avatar> SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight: -15.5,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
+                  {dataScreen4.subProcesoNombre}</Text></DataTable.Cell>
+            </DataTable.Row >
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+
+              <DataTable.Cell multiline={true} style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                  <Avatar
+                    shape={"square"}
+                    size={"tiny"}
+                    style={{ width: 10, height: 10 }}
+                    source={Rectangle_orange} >
+                  </Avatar> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight: -15.5,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
+
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
+                  shape={"square"}
+                  size={"tiny"}
+                  style={{ width: 10, height: 10 }}
+                  source={Rectangle_orange} >
+                </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
+              <DataTable.Cell numeric style={{
+                marginRight: -15.5,
+                flex: 0.45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
+
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
+                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
+                  shape={"square"}
+                  size={"tiny"}
+                  style={{ width: 10, height: 10 }}
+                  source={Rectangle_orange} >
+                </Avatar> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+              <DataTable.Cell
+
+                numeric style={{
                   marginRight: -15.5,
                   flex: 0.45,
                   justifyContent: 'center',
                   alignItems: 'center',
-                }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                    Chancado Primario</Text></DataTable.Cell>
-              </DataTable.Row>
+                  backgroundColor: variableColor,
+                  
+                }}>
+                {
+                  loading ?
+                    <ActivityIndicator
+                      //visibility of Overlay Loading Spinner
+                      visible={loading}
+                      //Text with the Spinner
+                      size="small"
+                      color="#AAAAAA"
+                      //Text style of the Spinner Text
+                      textStyle={styles.spinnerTextStyle}
+                    /> : <Text style={[styles.tittlesStyle, {color: variableColor >50 ? 'blue' :'white' , fontSize: 12 }]}>{porcentajeCumplimiento}%</Text>
+                }
 
-            </DataTable>
+              </DataTable.Cell>
+            </DataTable.Row>
+
+          </DataTable>
+        
+        <View style={{ justifyContent: 'center', backgroundColor:'white' }}>
+          <View style={{ alignSelf: 'center', marginTop: 150 }}>
+            <Button style={[styles.button, {
+              backgroundColor: '#01286B',
+            }, { color: 'white' }, { marginBottom: 25 }]}
+              onPress={() => { navigation.goBack() }}
+            >
+              Atrás
+            </Button>
+            <Button style={[styles.button, {
+              backgroundColor: '#ea3e18',
+            }, { color: 'white' }, { marginBottom: 25 }]}
+              onPress={() => showAlert()}
+            >
+              Guardar
+            </Button>
+            <AwesomeAlert
+              show={Estado}
+              showProgress={false}
+              title="Iniciando Guardado"
+              titleStyle={{ fontSize: 22, marginBottom: 10 }}
+              messageStyle={{ fontSize: 18, marginBottom: 10 }}
+              message="Esta seguro de guardar?"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={true}
+              showConfirmButton={true}
+              cancelText="No"
+              confirmText="Si"
+              cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
+              confirmButtonStyle={{ width: 100, alignItems: 'center' }}
+              confirmButtonColor="#AEDEF4"
+              cancelButtonColor="#DD6B55"
+              onCancelPressed={() => {
+                hideAlert();
+              }}
+              onConfirmPressed={() => {
+                navigation.navigate('Save')
+                hideAlert();
+              }} />
           </View>
-          <View style={{ justifyContent: 'center' }}>
-            <View style={{ alignSelf: 'center', marginTop: 150 }}>
-              <Button style={[styles.button, {
-                backgroundColor: '#01286B',
-              }, { color: 'white' }, { marginBottom: 25 }]}
-                onPress={() => { navigation.goBack() }}
-              >
-                Atrás
-              </Button>
-              <Button style={[styles.button, {
-                backgroundColor: '#ea3e18',
-              }, { color: 'white' }, { marginBottom: 25 }]}
-                onPress={() => showAlert()}
-              >
-                Guardar
-              </Button>
-              <AwesomeAlert
-                show={Estado}
-                showProgress={false}
-                title="Iniciando Guardado"
-                titleStyle={{ fontSize: 22, marginBottom: 10 }}
-                messageStyle={{ fontSize: 18, marginBottom: 10 }}
-                message="Esta seguro de guardar?"
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showCancelButton={true}
-                showConfirmButton={true}
-                cancelText="No"
-                confirmText="Si"
-                cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
-                confirmButtonStyle={{ width: 100, alignItems: 'center' }}
-                confirmButtonColor="#AEDEF4"
-                cancelButtonColor="#DD6B55"
-                onCancelPressed={() => {
-                  hideAlert();
-                }}
-                onConfirmPressed={() => {
-                  navigation.navigate('Save')
-                  hideAlert();
-                }} />
-            </View>
-            <View style={{ justifyContent: 'center' }}>
-              <View style={{ alignSelf: 'center', marginTop: 150 }}>
-                <Button style={[styles.button, {
-                  backgroundColor: '#01286B',
-                }, { color: 'white' }, { marginBottom: 25 }]}>
-                  Atrás
-                </Button>
-                <Button style={[styles.button, {
-                  backgroundColor: '#ea3e18',
-                }, { color: 'white' }, { marginBottom: 25 }]}
-                  onPress={() => showAlert()}
-                >
-                  Guardar
-                </Button>
-                <AwesomeAlert
-                  show={Estado}
-                  showProgress={false}
-                  title="Iniciando Guardado"
-                  titleStyle={{ fontSize: 22, marginBottom: 10 }}
-                  messageStyle={{ fontSize: 18, marginBottom: 10 }}
-                  message="Esta seguro de guardar?"
-                  closeOnTouchOutside={true}
-                  closeOnHardwareBackPress={false}
-                  showCancelButton={true}
-                  showConfirmButton={true}
-                  cancelText="No"
-                  confirmText="Si"
-                  cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
-                  confirmButtonStyle={{ width: 100, alignItems: 'center' }}
-                  confirmButtonColor="#AEDEF4"
-                  cancelButtonColor="#DD6B55"
-                  onCancelPressed={() => {
-                    hideAlert();
-                  }}
-                  onConfirmPressed={() => {
-                    navigation.navigate('Save')
-                    hideAlert();
-                  }} />
-              </View>
-            </View>
-          </View>
-        </Layout>
+        </View>
+      </Layout>
       </View>
     </>
   );
@@ -178,7 +243,8 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 20
+    margin: 20,
+    backgroundColor:'white'
   },
   button: {
     borderRadius: 40,

@@ -38,7 +38,7 @@ function MyStack() {
         component={Screen2} />
       <Stack.Screen name="Screen3"
         component={Screen3} />
-      <Stack.Screen name="Screen4"
+         <Stack.Screen name="Screen4"
         component={Screen4} />
     
      

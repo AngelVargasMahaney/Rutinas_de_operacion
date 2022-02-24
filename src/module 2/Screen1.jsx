@@ -22,6 +22,9 @@ const Screen1 = (props) => {
   const [tareasRutinariasPorId, setTareasRutinariasPorId] = useState([])
   const [dataScreen4, setDataScreen4] = useState({
     areaNombre: '',
+    areaId: 0,
+    processId:0,
+    taskId:0,
     subProcesoNombre: '',
     cantTareasSubproceso: 0,
     horasTotalesSubproceso: 0,
@@ -121,12 +124,13 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    console.log(idSubProcess)
+    // console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
-    console.log(subProcess)
+    // console.log(subProcess)
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
     dataScreen4.subProcesoNombre = subProcess.name
+    dataScreen4.processId = subProcess.id
     dataScreen4.cantTareasSubproceso = subProcess.tasks.length
     setPrueba(subProcess)
     setDisplayID(subProcess.id)
@@ -177,7 +181,7 @@ const Screen1 = (props) => {
     setObjetoIdParaModal(key)
     setModalMoreData(true)
   }
-  console.log(value)
+  // console.log(value)
   const [midataParaObjetoScreen2, setMidataParaObjetoScreen2] = useState([])
   const miDataParaScreen2 = (objet) => {
     setMidataParaObjetoScreen2(objet)
@@ -214,10 +218,13 @@ const Screen1 = (props) => {
                     traerSubProcesosMetodo(obj.id)
                     cambiarColor(obj.id)
                     setSelectedIndex(0)
+                    
                     setDisplayValue('Seleccione un SubProceso')
                     dataScreen4.areaNombre = obj.name
-
-                    console.log(obj)
+                    dataScreen4.areaId = obj.id
+                    dataScreen4.processId = 0
+                    dataScreen4.taskId = 0
+                    // console.log(obj)
                   }}>
                     <Avatar
                       style={[styles.logo,
@@ -271,6 +278,7 @@ const Screen1 = (props) => {
                 traerTareasRutinariasMetodo((index.row) + 1)
 
                 onSelectIdArea(estaEsMiArea, index.row)
+                dataScreen4.taskId = 0
 
               }
               }
@@ -305,7 +313,8 @@ const Screen1 = (props) => {
                 {
                   // console.log(tareasRutinariasPorId),
                   tareasRutinariasPorId.map((obj, indexT) => {
-                    console.log(obj)
+                   
+                    // console.log(obj)
                     if (obj.complete === 1) {
                       contador++
                     }
@@ -327,6 +336,7 @@ const Screen1 = (props) => {
                       displayValue === "Seleccione un SubProceso" ? null : (
                         <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
                           setValue(nextValue);
+                          dataScreen4.taskId = nextValue
                           miDataParaScreen2(obj)
                         }}>
                           {obj.complete === 1 ?

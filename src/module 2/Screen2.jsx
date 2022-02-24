@@ -11,8 +11,14 @@ import Paginator from '../module 1/Paginator';
 
 const Screen2 = (props) => {
   const dataScreen4 = props.route.params.dataScreen4
-  console.log("SOY EL SCREEN 2-> ");
-  console.log(props);
+  const miObjetoNuevo = {
+    ...dataScreen4,
+    bothPerson:0,
+    frequency:0
+  }
+  // console.log("SOY EL SCREEN 2-> ");
+  // console.log(props);
+  // console.log(miObjetoNuevo);
   // console.log(props.route.params.value);
   // console.log(props.route.params.midataParaObjetoScreen2);
   const soyLaTarea = props.route.params.value
@@ -24,8 +30,8 @@ const Screen2 = (props) => {
   useEffect(() => {
     traerTareasOpciones()
   }, [])
-  console.log(tareasOpciones)
-  console.log(props)
+  // console.log(tareasOpciones)
+  // console.log(props)
   //Propio tema, estilos, etc
   const [buttonState, setButtonState] = useState(false)
 
@@ -63,16 +69,11 @@ const Screen2 = (props) => {
             ListHeaderComponent={
               <>
                 <TemplateVersion2 />
-                <Text style={styles.tittlesStyle}>
-                  <Avatar
-                    shape={"square"}
-                    size='tiny'
-                    style={{ width: 10, height: 10 }}
-                    source={require('../../assets/icons/Rectangle_orange.png')}
-                  /> {props.route.params.midataParaObjetoScreen2.detail_tasks[0].name}
+                <Text style={[styles.tittlesStyle, { textAlign: 'center' }]}>
+                  {(dataScreen4.areaNombre).toUpperCase() + " > " + (dataScreen4.subProcesoNombre).toUpperCase()}
                 </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
-                <ItemScreen2 item={item} />
+                <ItemScreen2 item={item} miObjetoNuevo={miObjetoNuevo} />
 
               }
             keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
@@ -83,14 +84,14 @@ const Screen2 = (props) => {
               </Button>
               <Button style={[styles.button, {
                 backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', {dataScreen4}) }}>
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
                 Siguiente
               </Button>
             </View>} />
 
 
         </View>
-            
+
       </Layout>
 
     </>
@@ -114,6 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#01286B',
     fontWeight: '400',
-
+    margin:20
   },
 });

@@ -24,7 +24,7 @@ const Screen1 = (props) => {
     areaNombre: '',
     areaId: 0,
     processId:0,
-    
+    taskId:0,
     subProcesoNombre: '',
     cantTareasSubproceso: 0,
     horasTotalesSubproceso: 0,
@@ -130,6 +130,7 @@ const Screen1 = (props) => {
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
     dataScreen4.subProcesoNombre = subProcess.name
+    dataScreen4.processId = subProcess.id
     dataScreen4.cantTareasSubproceso = subProcess.tasks.length
     setPrueba(subProcess)
     setDisplayID(subProcess.id)
@@ -217,9 +218,12 @@ const Screen1 = (props) => {
                     traerSubProcesosMetodo(obj.id)
                     cambiarColor(obj.id)
                     setSelectedIndex(0)
+                    
                     setDisplayValue('Seleccione un SubProceso')
                     dataScreen4.areaNombre = obj.name
-
+                    dataScreen4.areaId = obj.id
+                    dataScreen4.processId = 0
+                    dataScreen4.taskId = 0
                     console.log(obj)
                   }}>
                     <Avatar
@@ -274,6 +278,7 @@ const Screen1 = (props) => {
                 traerTareasRutinariasMetodo((index.row) + 1)
 
                 onSelectIdArea(estaEsMiArea, index.row)
+                dataScreen4.taskId = 0
 
               }
               }
@@ -308,6 +313,7 @@ const Screen1 = (props) => {
                 {
                   // console.log(tareasRutinariasPorId),
                   tareasRutinariasPorId.map((obj, indexT) => {
+                   
                     console.log(obj)
                     if (obj.complete === 1) {
                       contador++
@@ -330,6 +336,7 @@ const Screen1 = (props) => {
                       displayValue === "Seleccione un SubProceso" ? null : (
                         <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
                           setValue(nextValue);
+                          dataScreen4.taskId = nextValue
                           miDataParaScreen2(obj)
                         }}>
                           {obj.complete === 1 ?

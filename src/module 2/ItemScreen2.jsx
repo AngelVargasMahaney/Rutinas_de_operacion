@@ -4,11 +4,13 @@ import { HStack, ScrollView, Spacer, Select } from 'native-base'
 import { Avatar, Button, Card, IndexPath, Modal, Radio, RadioGroup, Text } from '@ui-kitten/components'
 import DropDownPicker from 'react-native-dropdown-picker'
 
-const ItemScreen2 = ({ item }) => {
+const ItemScreen2 = ({ item, miObjetoNuevo }) => {
+
     const [selectedIndex, setSelectedIndex] = useState(0);
     const width = useWindowDimensions().width
     const height = useWindowDimensions().height
     const [service, setService] = useState('')
+
     const [frecuenciaSelect, setFrecuenciaSelect] = useState(0)
     console.log(frecuenciaSelect)
     const tareasDetalladas = item.detail_tasks
@@ -63,6 +65,27 @@ const ItemScreen2 = ({ item }) => {
         // console.warn(miDataFiltrada)
         setDataFiltrada(miDataFiltrada)
     }
+
+    const obtenerFrecuencia = () => {
+        let miFrecuencia = 0
+        if (item.day_times != null) {
+            miFrecuencia = item.day_times
+        } else if (item.month_times != null) {
+            miFrecuencia = item.month_times
+        } else if (item.year_times != null) {
+            miFrecuencia = item.year_times
+        } else {
+            miFrecuencia = 0
+        }
+        miObjetoNuevo.frequency = miFrecuencia
+    }
+    useEffect(() => {
+        obtenerFrecuencia()
+    }, [])
+
+    useEffect(() => {
+        console.log(miObjetoNuevo)
+    })
 
 
     return (
@@ -172,7 +195,10 @@ const ItemScreen2 = ({ item }) => {
                                 placeholder="-"
                                 _selectedItem={{
                                     bg: "#ea3e18"
-                                }} onValueChange={itemValue => setService(itemValue)}>
+                                }} onValueChange={itemValue => {
+                                    miObjetoNuevo.bothPerson = itemValue
+                                    setService(itemValue)
+                                }}>
                                 <Select.Item label="Si" value="1" />
                                 <Select.Item label="No" value="0" />
                             </Select>
@@ -302,7 +328,7 @@ const ItemScreen2 = ({ item }) => {
                 ) : (
                     <>
                         <HStack style={{ marginVertical: 15 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10}}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                 <Avatar
                                     shape={"square"}
                                     size='tiny'

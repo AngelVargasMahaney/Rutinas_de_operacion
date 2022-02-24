@@ -11,8 +11,14 @@ import Paginator from '../module 1/Paginator';
 
 const Screen2 = (props) => {
   const dataScreen4 = props.route.params.dataScreen4
+  const miObjetoNuevo = {
+    ...dataScreen4,
+    bothPerson:0,
+    frequency:0
+  }
   console.log("SOY EL SCREEN 2-> ");
   console.log(props);
+  console.log(miObjetoNuevo);
   // console.log(props.route.params.value);
   // console.log(props.route.params.midataParaObjetoScreen2);
   const soyLaTarea = props.route.params.value
@@ -67,7 +73,7 @@ const Screen2 = (props) => {
                   {(dataScreen4.areaNombre).toUpperCase() + " > " + (dataScreen4.subProcesoNombre).toUpperCase()}
                 </Text>
               </>} showsHorizontalScrollIndicator={false} data={tareasOpciones} renderItem={({ item }) =>
-                <ItemScreen2 item={item} />
+                <ItemScreen2 item={item} miObjetoNuevo={miObjetoNuevo} />
 
               }
             keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
@@ -78,7 +84,7 @@ const Screen2 = (props) => {
               </Button>
               <Button style={[styles.button, {
                 backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { dataScreen4 }) }}>
+              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
                 Siguiente
               </Button>
             </View>} />

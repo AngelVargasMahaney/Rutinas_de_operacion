@@ -5,12 +5,45 @@ import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { useNavigation } from "@react-navigation/native";
 import AwesomeAlert from 'react-native-awesome-alerts';
+
+import { postCreateData } from '../services/services';
+
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 const Screen4 = (props) => {
   const dataScreen4 = props.route.params.miObjetoNuevo
 
-  console.log(dataScreen4)
+  const dataRutina = {
+    boolean_routine: dataScreen4.boolean_routine,
+    comments: dataScreen4.comments,
+    frequency: dataScreen4.frequency,
+    area_id: dataScreen4.areaId,
+    process_id: dataScreen4.processId,
+    task_id: dataScreen4.taskId,
+    both_person: dataScreen4.bothPerson,
+  }
+
+
+  const handleSubmit = () => {
+   // startLoading()
+    postCreateData(dataRutina).then((rpta) => {
+
+      if (rpta.status === 200) {
+        //setLoading(false)
+        navigation.navigate('Save')
+
+      } else {
+        console.warn("Subida errónea")
+        //setLoading(false)
+      }
+    }).catch(err => {
+      console.log("ERROR EN EL SERVICIO CREARDATA")
+      console.warn(err)
+    })
+
+  }
+
+  console.log(dataRutina)
   const navigation = useNavigation();
 
 
@@ -57,18 +90,18 @@ const Screen4 = (props) => {
   useEffect(() => {
     calculandoPorcentaje()
     startLoading()
-  },[])
+  }, [])
   const [loading, setLoading] = useState(false);
 
-  
+
   const [buttonState, setButtonState] = useState(true)
 
   return (
     <>
       <TemplateVersion2 />
-      <View style={{backgroundColor: 'white'}}>
-      <Layout style={styles.container} level=''>
-       
+      <View style={{ backgroundColor: 'white' }}>
+        <Layout style={styles.container} level=''>
+
           <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
             <DataTable.Header style={{ backgroundColor: '#01286b' }} >
               <DataTable.Title >
@@ -167,7 +200,7 @@ const Screen4 = (props) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: variableColor,
-                  
+
                 }}>
                 {
                   loading ?
@@ -179,57 +212,57 @@ const Screen4 = (props) => {
                       color="#AAAAAA"
                       //Text style of the Spinner Text
                       textStyle={styles.spinnerTextStyle}
-                    /> : <Text style={[styles.tittlesStyle, {color: variableColor >50 ? 'blue' :'white' , fontSize: 12 }]}>{porcentajeCumplimiento}%</Text>
+                    /> : <Text style={[styles.tittlesStyle, { color: variableColor > 50 ? 'blue' : 'white', fontSize: 12 }]}>{porcentajeCumplimiento}%</Text>
                 }
 
               </DataTable.Cell>
             </DataTable.Row>
 
           </DataTable>
-        
-        <View style={{ justifyContent: 'center', backgroundColor:'white' }}>
-          <View style={{ alignSelf: 'center', marginTop: 150 }}>
-            <Button style={[styles.button, {
-              backgroundColor: '#01286B',
-            }, { color: 'white' }, { marginBottom: 25 }]}
-              onPress={() => { navigation.goBack() }}
-            >
-              Atrás
-            </Button>
-            <Button style={[styles.button, {
-              backgroundColor: '#ea3e18',
-            }, { color: 'white' }, { marginBottom: 25 }]}
-              onPress={() => showAlert()}
-            >
-              Guardar
-            </Button>
-            <AwesomeAlert
-              show={Estado}
-              showProgress={false}
-              title="Iniciando Guardado"
-              titleStyle={{ fontSize: 22, marginBottom: 10 }}
-              messageStyle={{ fontSize: 18, marginBottom: 10 }}
-              message="Esta seguro de guardar?"
-              closeOnTouchOutside={true}
-              closeOnHardwareBackPress={false}
-              showCancelButton={true}
-              showConfirmButton={true}
-              cancelText="No"
-              confirmText="Si"
-              cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
-              confirmButtonStyle={{ width: 100, alignItems: 'center' }}
-              confirmButtonColor="#AEDEF4"
-              cancelButtonColor="#DD6B55"
-              onCancelPressed={() => {
-                hideAlert();
-              }}
-              onConfirmPressed={() => {
-                navigation.navigate('Save')
-                hideAlert();
-              }} />
+
+          <View style={{ justifyContent: 'center', backgroundColor: 'white' }}>
+            <View style={{ alignSelf: 'center', marginTop: 150 }}>
+              <Button style={[styles.button, {
+                backgroundColor: '#01286B',
+              }, { color: 'white' }, { marginBottom: 25 }]}
+                onPress={() => { navigation.goBack() }}
+              >
+                Atrás
+              </Button>
+              <Button style={[styles.button, {
+                backgroundColor: '#ea3e18',
+              }, { color: 'white' }, { marginBottom: 25 }]}
+                onPress={() => showAlert()}
+              >
+                Guardar
+              </Button>
+              <AwesomeAlert
+                show={Estado}
+                showProgress={false}
+                title="Iniciando Guardado"
+                titleStyle={{ fontSize: 22, marginBottom: 10 }}
+                messageStyle={{ fontSize: 18, marginBottom: 10 }}
+                message="Esta seguro de guardar?"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText="No"
+                confirmText="Si"
+                cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
+                confirmButtonStyle={{ width: 100, alignItems: 'center' }}
+                confirmButtonColor="#AEDEF4"
+                cancelButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                  hideAlert();
+                }}
+                onConfirmPressed={() => {
+                  handleSubmit();
+                  hideAlert();
+                }} />
+            </View>
           </View>
-        </View>
-      </Layout>
+        </Layout>
       </View>
     </>
   );
@@ -244,7 +277,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     margin: 20,
-    backgroundColor:'white'
+    backgroundColor: 'white'
   },
   button: {
     borderRadius: 40,

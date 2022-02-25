@@ -10,6 +10,10 @@ import { postCreateData } from '../services/services';
 
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
+import AnimatedLoader from "react-native-animated-loader";
+
+const loader = require('../../assets/loaders/waiting.json')
+
 const Screen4 = (props) => {
   const dataScreen4 = props.route.params.miObjetoNuevo
 
@@ -25,19 +29,20 @@ const Screen4 = (props) => {
 
 
   const handleSubmit = () => {
-   // startLoading()
+    startLoader()
     postCreateData(dataRutina).then((rpta) => {
 
       if (rpta.status === 200) {
-        //setLoading(false)
+        setVisible(false)
         navigation.navigate('Save')
 
       } else {
         console.warn("Subida errónea")
-        //setLoading(false)
+        setVisible(false)
       }
     }).catch(err => {
       console.log("ERROR EN EL SERVICIO CREARDATA")
+      setVisible(false)
       console.warn(err)
     })
 
@@ -55,7 +60,7 @@ const Screen4 = (props) => {
     setEstado(false);
   };
 
-  const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(10)
+  const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(0)
   const calculandoPorcentaje = () => {
 
     const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
@@ -64,37 +69,49 @@ const Screen4 = (props) => {
   const [variableColor, setVariableColor] = useState("#FFFFFF")
 
   const verificarPorcentaje = () => {
-    if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento <= 25) {
+    if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento < 25) {
       setVariableColor("#FF0000")
     }
-    if (porcentajeCumplimiento > 25 && porcentajeCumplimiento <= 50) {
+    if (porcentajeCumplimiento >= 25 && porcentajeCumplimiento < 50) {
       setVariableColor("#FF7000")
     }
-    if (porcentajeCumplimiento > 50 && porcentajeCumplimiento <= 75) {
+    if (porcentajeCumplimiento >= 50 && porcentajeCumplimiento <=75) {
       setVariableColor("#FFE400")
     }
-    if (porcentajeCumplimiento > 75 && porcentajeCumplimiento <= 100) {
+    if (porcentajeCumplimiento >= 75 && porcentajeCumplimiento <= 100) {
       setVariableColor("#32FF00")
     }
   }
   console.log(variableColor)
   const startLoading = () => {
     setLoading(true);
-    setVariableColor('#FFFFFF')
     setTimeout(() => {
       setLoading(false)
+      setVariableColor('#FFFFFF')
+      calculandoPorcentaje()
       verificarPorcentaje()
     }, 1000);
   };
 
   useEffect(() => {
-    calculandoPorcentaje()
+    verificarPorcentaje
+    
     startLoading()
   }, [])
   const [loading, setLoading] = useState(false);
 
 
   const [buttonState, setButtonState] = useState(true)
+
+
+  //loader
+
+  const [visible, setVisible] = useState(false);
+
+  const startLoader = () => {
+    setVisible(true)
+  };
+
 
   return (
     <>
@@ -263,6 +280,15 @@ const Screen4 = (props) => {
             </View>
           </View>
         </Layout>
+
+        <AnimatedLoader
+          visible={visible}
+          overlayColor="white"
+          animationStyle={styles.lottie}
+          source={loader}
+          speed={1}>
+          <Text>Guardando Datos</Text>
+        </AnimatedLoader>
       </View>
     </>
   );
@@ -271,7 +297,10 @@ const Screen4 = (props) => {
 export default Screen4;
 
 const styles = StyleSheet.create({
-  Container: {
+  lottie: {
+    width: 100,
+    height: 100,
+  }, Container: {
     paddingTop: 20,
   },
   container: {

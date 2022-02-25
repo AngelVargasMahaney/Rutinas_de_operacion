@@ -30,7 +30,7 @@ const Screen3 = (props) => {
     }
   }
 
-  // console.log(textAreaValue + "cerdo");
+   console.log(textAreaValue + "cerdo");
   const ValueControllerTextInput = e => {
     setTextoIngresado(e.currentTarget.value);
   };
@@ -216,4 +216,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#01286B'
   },
 });
-

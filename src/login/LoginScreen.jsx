@@ -7,8 +7,12 @@ import { useAuth } from '../context/authState';
 import Asyncstorage from "@react-native-async-storage/async-storage"
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { useNavigation } from '@react-navigation/native';
+import AnimatedLoader from "react-native-animated-loader";
+
 const image = require('../../assets/backgrounds/Pantalla_login.png')
 const logo_blanco = require('../../assets/logos/Logo_blanco.png')
+
+const loader = require('../../assets/loaders/loaderCircle.json')
 const LoginScreen = () => {
 
     const [formularioDatos, setFormularioDatos] = useState({
@@ -27,16 +31,30 @@ const LoginScreen = () => {
     const navigation = useNavigation();
 
     const doLogin = () => {
+        startLoading();
         postLogin(formularioDatos).then((response) => {
             setToken(response.data.token)
             Asyncstorage.setItem('token', response.data.token).then((response) => {
-                showAlert()
+                
+                setVisible(false);
+            showAlert()
+
             })
         }, err => {
             console.warn(err)
             alert("Usuario no encontrado")
+            setVisible(false);
         })
     }
+
+
+    //loader
+    const [visible, setVisible] = useState(false);
+
+    const startLoading = () => {
+        setVisible(true)
+    };
+
 
     return (
 
@@ -60,11 +78,11 @@ const LoginScreen = () => {
             <View style={styles.bodyContainer}>
 
                 <View style={{ padding: 40 }}>
-                    <Text style={{ color: "white", fontSize: 34,  fontFamily: 'Roboto', lineHeight: 28.13, paddingTop:5}}>
+                    <Text style={{ color: "white", fontSize: 34, fontFamily: 'Roboto', lineHeight: 28.13, paddingTop: 5 }}>
                         Bienvenido
                     </Text>
 
-                    <Text style={{ color: 'white',  fontFamily: 'Roboto', fontSize: 14, lineHeight: 16.41 }}>
+                    <Text style={{ color: 'white', fontFamily: 'Roboto', fontSize: 14, lineHeight: 16.41 }}>
                         Iniciar Sesión para Continuar
                     </Text>
                     <>
@@ -72,7 +90,7 @@ const LoginScreen = () => {
                             <FormControl>
                                 <Stack space={5}>
                                     <Stack backgroundColor={"#023285"} style={styles.cajasTexto}>
-                                        <FormControl.Label _text={{ color: '#669EFF',  fontSize: 14 }}>USUARIO</FormControl.Label>
+                                        <FormControl.Label _text={{ color: '#669EFF', fontSize: 14 }}>USUARIO</FormControl.Label>
                                         <Input onChangeText={value => setFormularioDatos({ ...formularioDatos, email: value })} fontSize={16} color={'white'} variant="underlined" InputLeftElement={<Icon as={<FontAwesomeIcon name="user" style={styles.iconUser} />} size={2} />} p={2} placeholder="usuarioantapaccay1" />
                                     </Stack>
                                     <Stack backgroundColor={"#023285"} style={styles.cajasTexto}>
@@ -114,6 +132,14 @@ const LoginScreen = () => {
                     hideAlert();
                 }}
             />
+            <AnimatedLoader
+                visible={visible}
+                overlayColor="white"
+                animationStyle={styles.lottie}
+                source={loader}
+                speed={1}>
+                <Text>Iniciando Sesión</Text>
+            </AnimatedLoader>
         </ScrollView>
 
 
@@ -123,6 +149,11 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+
+    lottie: {
+        width: 100,
+        height: 100,
+    },
     cajasTexto: {
         padding: 10
     },

@@ -269,7 +269,7 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                             </View>
                             <Spacer />
                             <Text style={[styles.textRightStyle, {
-                                backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 2 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
+                                backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 1 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
                                 color: item.day_times < 1 ? '#969696' : '#FFFFFF'
                             }]}>
                                 {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import { Avatar, Button, Layout } from '@ui-kitten/components';
@@ -31,6 +31,9 @@ const Screen4 = (props) => {
   const handleSubmit = () => {
     startLoader()
     postCreateData(dataRutina).then((rpta) => {
+      console.log(dataRutina)
+      console.log("Mir respuesta")
+      console.log(rpta)
 
       if (rpta.status === 200) {
         setVisible(false)
@@ -116,7 +119,7 @@ const Screen4 = (props) => {
   return (
     <>
       <TemplateVersion2 />
-      <View style={{ backgroundColor: 'white' }}>
+      <ScrollView style={{ backgroundColor: 'white' }}>
         <Layout style={styles.container} level=''>
 
           <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
@@ -289,7 +292,7 @@ const Screen4 = (props) => {
           speed={1}>
           <Text>Guardando Datos</Text>
         </AnimatedLoader>
-      </View>
+      </ScrollView>
     </>
   );
 }

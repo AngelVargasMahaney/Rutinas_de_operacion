@@ -16,7 +16,7 @@ const Screen3 = (props) => {
   const [buttonState, setButtonState] = useState(true)
 
   const [activado, setActivado] = useState(false)
-  const [textAreaValue, setTextoIngresado] = useState('')
+  const [textAreaValue, setTextoIngresado] = useState("Ninguno")
 
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
@@ -30,9 +30,10 @@ const Screen3 = (props) => {
     }
   }
 
-   console.log(textAreaValue + "cerdo");
-  const ValueControllerTextInput = e => {
-    setTextoIngresado(e.currentTarget.value);
+  console.log(textAreaValue + "cerdo");
+  const ValueControllerTextInput = valor => {
+    console.log(valor)
+    setTextoIngresado(valor);
   };
   miObjetoNuevo.comments = textAreaValue
   const navigation = useNavigation();
@@ -108,7 +109,7 @@ const Screen3 = (props) => {
                     source={require('../../assets/icons/Rectangle_orange.png')} /> Comentarios:
                 </Text></Layout>
               <Box alignItems="center" w="100%">
-                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
+                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChangeText={ValueControllerTextInput} w="75%" maxW="300" />
               </Box></>
           ) : null
         }
@@ -124,7 +125,7 @@ const Screen3 = (props) => {
                     source={require('../../assets/icons/Rectangle_orange.png')} /> Justificación/Observaciones:
                 </Text></Layout>
               <Box alignItems="center" w="100%">
-                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={ValueControllerTextInput} w="75%" maxW="300" />
+                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={() => ValueControllerTextInput} w="75%" maxW="300" />
               </Box></>
           ) : null
         }

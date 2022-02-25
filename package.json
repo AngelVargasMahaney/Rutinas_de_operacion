@@ -30,6 +30,8 @@
     "gl-react-expo": "^4.0.1",
     "lottie-react-native": "^5.0.1",
     "native-base": "^3.3.5",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

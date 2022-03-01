@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 200,
     height: 42,
-    backgroundColor: '#01286B'
+    backgroundColor: '#01286B',
+    borderColor: 'transparent'
   },
   container: {
     justifyContent: 'center',

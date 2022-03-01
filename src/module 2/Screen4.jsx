@@ -62,26 +62,22 @@ const Screen4 = (props) => {
   const hideAlert = () => {
     setEstado(false);
   };
+  const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
 
-  const [porcentajeCumplimiento, setPorcentajeCumplimiento] = useState(0)
-  const calculandoPorcentaje = () => {
 
-    const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
-    setPorcentajeCumplimiento(porcentaje);
-  }
   const [variableColor, setVariableColor] = useState("#FFFFFF")
 
   const verificarPorcentaje = () => {
-    if (porcentajeCumplimiento >= 0 && porcentajeCumplimiento < 25) {
+    if (porcentaje >= 0 && porcentaje < 25) {
       setVariableColor("#FF0000")
     }
-    if (porcentajeCumplimiento >= 25 && porcentajeCumplimiento < 50) {
+    if (porcentaje >= 25 && porcentaje < 50) {
       setVariableColor("#FF7000")
     }
-    if (porcentajeCumplimiento >= 50 && porcentajeCumplimiento <= 75) {
+    if (porcentaje >= 50 && porcentaje <= 75) {
       setVariableColor("#FFE400")
     }
-    if (porcentajeCumplimiento >= 75 && porcentajeCumplimiento <= 100) {
+    if (porcentaje >= 75 && porcentaje <= 100) {
       setVariableColor("#32FF00")
     }
   }
@@ -91,18 +87,15 @@ const Screen4 = (props) => {
     setTimeout(() => {
       setLoading(false)
       setVariableColor('#FFFFFF')
-      calculandoPorcentaje()
       verificarPorcentaje()
     }, 1000);
   };
 
   useEffect(() => {
-    verificarPorcentaje
-
     startLoading()
+    verificarPorcentaje()
   }, [])
   const [loading, setLoading] = useState(false);
-
 
   const [buttonState, setButtonState] = useState(true)
 
@@ -133,20 +126,27 @@ const Screen4 = (props) => {
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
                 <Text
                   style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
-                  numberOfLines={3}
+
                 ><Avatar
                   shape={"square"}
                   size={"tiny"}
                   style={{ width: 10, height: 10 }}
                   source={Rectangle_orange} >
                   </Avatar> AREA</Text></DataTable.Cell>
-              <DataTable.Cell numeric style={{
+              <DataTable.Cell style={{
                 marginRight: -15.5,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text numberOfLines={3} style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                  {dataScreen4.areaNombre}</Text></DataTable.Cell>
+              }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                    {dataScreen4.areaNombre}
+                  </Text>
+                </View>
+
+
+              </DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -159,25 +159,36 @@ const Screen4 = (props) => {
                     style={{ width: 10, height: 10 }}
                     source={Rectangle_orange} >
                   </Avatar> SUB PROCESO</Text></DataTable.Cell>
-              <DataTable.Cell numeric style={{
+              <DataTable.Cell style={{
                 marginRight: -15.5,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>
-                  {dataScreen4.subProcesoNombre}</Text></DataTable.Cell>
+              }}>
+                <View style={{ flexDirection: 'row', flexShrink: 1, flexWrap: 'wrap' }}>
+                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', marginVertical: 10 }}>
+                    {dataScreen4.subProcesoNombre}
+                  </Text>
+                </View>
+              </DataTable.Cell>
             </DataTable.Row >
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
               <DataTable.Cell multiline={true} style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Avatar
                     shape={"square"}
+
                     size={"tiny"}
-                    style={{ width: 10, height: 10 }}
+                    style={{ width: 10, height: 10, marginTop: -10 }}
                     source={Rectangle_orange} >
-                  </Avatar> CANTIDAD DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+                  </Avatar>
+                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                    CANTIDAD DE TAREAS DEL SUBPROCESO
+                  </Text>
+                </View>
+              </DataTable.Cell>
               <DataTable.Cell numeric style={{
                 marginRight: -15.5,
                 flex: 0.45,
@@ -188,13 +199,20 @@ const Screen4 = (props) => {
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
-              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
-                  shape={"square"}
-                  size={"tiny"}
-                  style={{ width: 10, height: 10 }}
-                  source={Rectangle_orange} >
-                </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></DataTable.Cell>
+              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b", flexDirection: 'row' }} >
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Avatar
+                    shape={"square"}
+
+                    size={"tiny"}
+                    style={{ width: 10, height: 10, marginTop: -10 }}
+                    source={Rectangle_orange} >
+                  </Avatar>
+                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                    HORAS TOTALES DE TURNO POR PERSONA
+                  </Text>
+                </View>
+              </DataTable.Cell>
               <DataTable.Cell numeric style={{
                 marginRight: -15.5,
                 flex: 0.45,
@@ -206,12 +224,19 @@ const Screen4 = (props) => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}><Avatar
-                  shape={"square"}
-                  size={"tiny"}
-                  style={{ width: 10, height: 10 }}
-                  source={Rectangle_orange} >
-                </Avatar> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></DataTable.Cell>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Avatar
+                    shape={"square"}
+
+                    size={"tiny"}
+                    style={{ width: 10, height: 10, marginTop: -10 }}
+                    source={Rectangle_orange} >
+                  </Avatar>
+                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                    % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO
+                  </Text>
+                </View>
+              </DataTable.Cell>
               <DataTable.Cell
 
                 numeric style={{
@@ -232,7 +257,7 @@ const Screen4 = (props) => {
                       color="#AAAAAA"
                       //Text style of the Spinner Text
                       textStyle={styles.spinnerTextStyle}
-                    /> : <Text style={[styles.tittlesStyle, { color: variableColor > 50 ? 'blue' : 'white', fontSize: 12 }]}>{porcentajeCumplimiento}%</Text>
+                    /> : <Text style={[styles.tittlesStyle, { color: variableColor == '#FFE400' ? 'blue' : 'white', fontSize: 12 }]}>{porcentaje}%</Text>
                 }
 
               </DataTable.Cell>
@@ -320,6 +345,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 200,
     height: 42,
-    backgroundColor: '#01286B'
+    backgroundColor: '#01286B',
+    borderColor: 'transparent'
   },
 });

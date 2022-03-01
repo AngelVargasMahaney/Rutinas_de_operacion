@@ -16,7 +16,7 @@ const Screen3 = (props) => {
   const [buttonState, setButtonState] = useState(true)
 
   const [activado, setActivado] = useState(false)
-  const [textAreaValue, setTextoIngresado] = useState("Ninguno")
+  const [textAreaValue, setTextoIngresado] = useState('')
 
   const [botonSi, setBotonSi] = useState(false)
   const [botonNo, setBotonNo] = useState(false)
@@ -61,8 +61,8 @@ const Screen3 = (props) => {
   return (
     <>
 
-      <ScrollView style={{ backgroundColor: "white",marginTop:22 }}>
-      <TemplateVersion2 />
+      <ScrollView style={{ backgroundColor: "white", marginTop: 22 }}>
+        <TemplateVersion2 />
         <Layout style={styles.container} level='1'>
           <View>
             <Text style={styles.tittlesStyle}>
@@ -97,38 +97,29 @@ const Screen3 = (props) => {
 
           </View>
         </Layout>
-        {botonSi ?
-          (
-            <>
-              <Layout style={styles.container} level='1'>
-                <Text style={styles.tittlesStyle}>
-                  <Avatar
-                    shape={"square"}
-                    size='tiny'
-                    style={{ width: 10, height: 10 }}
-                    source={require('../../assets/icons/Rectangle_orange.png')} /> Comentarios:
-                </Text></Layout>
-              <Box alignItems="center" w="100%">
-                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChangeText={ValueControllerTextInput} w="75%" maxW="300" />
-              </Box></>
-          ) : null
-        }
-        {botonNo ?
-          (
-            <>
-              <Layout style={styles.container} level='1'>
-                <Text style={styles.tittlesStyle}>
-                  <Avatar
-                    shape={"square"}
-                    size='tiny'
-                    style={{ width: 10, height: 10 }}
-                    source={require('../../assets/icons/Rectangle_orange.png')} /> Justificación/Observaciones:
-                </Text></Layout>
-              <Box alignItems="center" w="100%">
-                <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChange={() => ValueControllerTextInput} w="75%" maxW="300" />
-              </Box></>
-          ) : null
-        }
+
+        <>
+          <Layout style={styles.container} level='1'>
+            <Text style={styles.tittlesStyle}>
+              <Avatar
+                shape={"square"}
+                size='tiny'
+                style={{ width: 10, height: 10 }}
+                source={require('../../assets/icons/Rectangle_orange.png')} />
+              <Text>
+                {
+                  botonSi ? '  Comentarios: ' : '  Justificación/Observaciones'
+                }
+              </Text>
+
+            </Text></Layout>
+          <Box alignItems="center" w="100%">
+            <TextArea placeholder="Escribe aqui..." value={textAreaValue} onChangeText={(valor) => ValueControllerTextInput(valor)} w="75%" maxW="300" />
+          </Box>
+
+        </>
+
+
 
         <View style={{ justifyContent: 'center' }}>
           <View style={{ alignSelf: 'center', marginTop: 150 }}>
@@ -144,7 +135,13 @@ const Screen3 = (props) => {
             </Button>
           </View>
         </View>
+        <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+          <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+            Pág. 3 / 4
+          </Text>
+        </View>
       </ScrollView>
+
     </>
   );
 };

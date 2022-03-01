@@ -78,7 +78,7 @@ const Screen4 = (props) => {
     if (porcentajeCumplimiento >= 25 && porcentajeCumplimiento < 50) {
       setVariableColor("#FF7000")
     }
-    if (porcentajeCumplimiento >= 50 && porcentajeCumplimiento <=75) {
+    if (porcentajeCumplimiento >= 50 && porcentajeCumplimiento <= 75) {
       setVariableColor("#FFE400")
     }
     if (porcentajeCumplimiento >= 75 && porcentajeCumplimiento <= 100) {
@@ -98,7 +98,7 @@ const Screen4 = (props) => {
 
   useEffect(() => {
     verificarPorcentaje
-    
+
     startLoading()
   }, [])
   const [loading, setLoading] = useState(false);
@@ -118,8 +118,8 @@ const Screen4 = (props) => {
 
   return (
     <>
-      <ScrollView style={{ backgroundColor: 'white',marginTop:22 }}>
-      <TemplateVersion2 />
+      <ScrollView style={{ backgroundColor: 'white', marginTop: 22 }}>
+        <TemplateVersion2 />
         <Layout style={styles.container} level=''>
 
           <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
@@ -251,7 +251,7 @@ const Screen4 = (props) => {
               </Button>
               <Button style={[styles.button, {
                 backgroundColor: '#ea3e18',
-              }, { color: 'white' }, { marginBottom: 25 }]}
+              }, { color: 'white' }, { marginBottom: 15 }]}
                 onPress={() => showAlert()}
               >
                 Guardar
@@ -292,6 +292,11 @@ const Screen4 = (props) => {
           speed={1}>
           <Text>Guardando Datos</Text>
         </AnimatedLoader>
+        <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+          <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+            Pág. 4 / 4
+          </Text>
+        </View>
       </ScrollView>
     </>
   );

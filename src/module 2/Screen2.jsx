@@ -13,8 +13,8 @@ const Screen2 = (props) => {
   const dataScreen4 = props.route.params.dataScreen4
   const miObjetoNuevo = {
     ...dataScreen4,
-    bothPerson:0,
-    frequency:0
+    bothPerson: 0,
+    frequency: 0
   }
   // console.log("SOY EL SCREEN 2-> ");
   // console.log(props);
@@ -76,7 +76,8 @@ const Screen2 = (props) => {
                 <ItemScreen2 item={item} miObjetoNuevo={miObjetoNuevo} />
 
               }
-            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 150 }}>
+            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 145, marginBottom: 10 }}>
+
               <Button onPress={() => navigation.goBack()} style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}>
@@ -87,6 +88,11 @@ const Screen2 = (props) => {
               }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
                 Siguiente
               </Button>
+              <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, marginTop:35, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+                <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+                  Pág. 2 / 4
+                </Text>
+              </View>
             </View>} />
 
 
@@ -110,12 +116,13 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     margin: 10,
-    marginTop:22
+    marginTop: 22,
+    backgroundColor: 'white'
   },
   tittlesStyle: {
     fontSize: 16,
     color: '#01286B',
     fontWeight: '400',
-    margin:20
+    margin: 20
   },
 });

@@ -11,7 +11,7 @@ const ScreenSave = () => {
     const navigation = useNavigation();
     return (
         <>
-            <ScrollView style={[styles.Container, { marginTop: 22 }]} >
+            <ScrollView style={[styles.Container]} >
                 <TemplateVersion2Oscuro />
                 <StatusBar barStyle="light-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" translucent={true} animated={true} />
 
@@ -40,7 +40,7 @@ const ScreenSave = () => {
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
                             }, { marginBottom: 25 }]}
-                                onPress={() => navigation.navigate('Login')}
+                                onPress={() => navigation.navigate('Home')}
                             >
                                 <Text style={{ color: '#EA3E18' }}>Finalizar</Text>
                             </Button>

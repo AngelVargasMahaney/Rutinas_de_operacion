@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem, RadioGroup } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
-import { Checkbox, Radio, Icon, ScrollView } from 'native-base';
+import { Checkbox, Radio, ScrollView, Icon } from 'native-base';
 import { getAllAreas } from '../services/services';
 import { AuthContext } from '../context/authState';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -53,9 +53,7 @@ const Screen1 = (props) => {
 
   const [esteEsMiId, setEsteEsMiId] = useState("");
   const [selected, setSelected] = useState(false);
-  const StarIcon = (props) => (
-    <Icon {...props} name='user' />
-  );
+
   const cambiarColor = (idCard) => {
     setEsteEsMiId(idCard)
     const despintarOtros = areasData.map((obj, i) => {
@@ -336,7 +334,7 @@ const Screen1 = (props) => {
 
                   return (
                     displayValue === "Seleccione un SubProceso" ? null : (
-                      <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
+                      <Radio.Group style={{ marginVertical: 5 }} key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
                         setValue(nextValue);
                         dataScreen4.taskId = nextValue
                         miDataParaScreen2(obj)
@@ -355,12 +353,12 @@ const Screen1 = (props) => {
                               displayValue === 'Seleccione un SubProceso' ? null :
                                 (
                                   tamano > 1 ? (
-                                    <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
                                       <Button
                                         style={{ width: 1.2 }, { height: 1.2 }}
                                         appearance='ghost'
                                         status='danger'
-                                        accessoryLeft={StarIcon}
+                                        accessoryLeft={<Icon as={<FontAwesomeIcon name="plus" style={{ textAlign: 'center' }} />} size={2} />}
                                         onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
                                       />
                                     </Text>
@@ -368,7 +366,7 @@ const Screen1 = (props) => {
                                     //   {myHope}
                                     // </Button>
                                   ) :
-                                    <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
                                 )}
                           </Radio>)}
 
@@ -411,8 +409,11 @@ const Screen1 = (props) => {
 
       {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
 
-
-
+      <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+        <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+          Pág. 1 / 4
+        </Text>
+      </View>
 
     </ScrollView>
   )

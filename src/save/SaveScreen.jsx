@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { Avatar, Layout } from '@ui-kitten/components'
 import TemplateVersion2Oscuro from '../Template/TemplateVersion2Oscuro'
@@ -8,10 +8,13 @@ import { Button } from 'native-base'
 
 const ScreenSave = () => {
     const [buttonState, setButtonState] = useState(false)
-    const navigation =useNavigation();
+    const navigation = useNavigation();
     return (
-        <><TemplateVersion2Oscuro />
-            <ScrollView style={styles.Container} >
+        <>
+            <ScrollView style={[styles.Container, { marginTop: 22 }]} >
+                <TemplateVersion2Oscuro />
+                <StatusBar barStyle="light-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" translucent={true} animated={true} />
+
                 <Layout style={styles.container, { backgroundColor: '#01286b' }} level='1'>
                     <View style={
                         {
@@ -24,7 +27,7 @@ const ScreenSave = () => {
                             size='giant'
                             style={{ width: 52.5, height: 52.5 }}
                             source={require('../../assets/icons/Icono_guardar.png')} />
-                        <Text style={styles.tittlesStyle, { color: 'white', fontSize:22 }}>
+                        <Text style={styles.tittlesStyle, { color: 'white', fontSize: 22 }}>
                             GUARDADO
                         </Text>
                         <Icon
@@ -37,7 +40,7 @@ const ScreenSave = () => {
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
                             }, { marginBottom: 25 }]}
-                            onPress={() => navigation.navigate('Login')}
+                                onPress={() => navigation.navigate('Login')}
                             >
                                 <Text style={{ color: '#EA3E18' }}>Finalizar</Text>
                             </Button>
@@ -68,5 +71,5 @@ const styles = StyleSheet.create({
     iconCheck: {
         color: "rgba(255,255,255,1)",
         fontSize: 25,
-      }
+    }
 })

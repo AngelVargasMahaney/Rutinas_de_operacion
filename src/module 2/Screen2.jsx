@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 10
+    margin: 10,
+    marginTop:22
   },
   tittlesStyle: {
     fontSize: 16,

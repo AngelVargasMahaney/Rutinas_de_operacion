@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, useWindowDimensions, ImageBackground, Dimensions, ScrollView, Image, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions, ImageBackground, Dimensions, ScrollView, Image, KeyboardAvoidingView, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { Box, Button, FormControl, Icon, Input, NativeBaseProvider, Stack, WarningOutlineIcon } from 'native-base';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -35,9 +35,9 @@ const LoginScreen = () => {
         postLogin(formularioDatos).then((response) => {
             setToken(response.data.token)
             Asyncstorage.setItem('token', response.data.token).then((response) => {
-                
+
                 setVisible(false);
-            showAlert()
+                showAlert()
 
             })
         }, err => {
@@ -59,6 +59,8 @@ const LoginScreen = () => {
     return (
 
         <ScrollView style={{ flex: 1, backgroundColor: '#02286B' }}>
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" translucent={true} animated={true} />
+
 
             <ImageBackground source={image} style={styles.image}>
 

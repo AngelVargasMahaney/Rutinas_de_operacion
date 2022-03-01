@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Icon, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import { useNavigation } from '@react-navigation/native';
 
 
 const MenuIcon = (props) => (
@@ -22,9 +25,27 @@ const TemplateVersion2 = () => {
     };
 
     const renderMenuAction = () => (
-        <TopNavigationAction style={{ marginTop: 51 }} icon={MenuIcon} onPress={toggleMenu} />
+        <TopNavigationAction style={{ marginTop: 41 }} icon={MenuIcon} onPress={toggleMenu} />
     );
+    const navigation = useNavigation();
 
+    const cerrarSesion = async () => {
+        try {
+            await AsyncStorage.removeItem('token')
+            navigation.navigate('Login')
+        } catch (e) {
+            console.log(e)
+        }
+
+        console.log('Done.')
+    }
+    const [Estado, setEstado] = useState(false);
+    const showAlert = () => {
+        setEstado(true);
+    };
+    const hideAlert = () => {
+        setEstado(false);
+    };
     const renderOverflowMenuAction = () => (
         <React.Fragment>
             <Avatar
@@ -36,9 +57,38 @@ const TemplateVersion2 = () => {
             <OverflowMenu
                 anchor={renderMenuAction}
                 visible={menuVisible}
-                onBackdropPress={toggleMenu}>
-                <MenuItem accessoryLeft={LogoutIcon} title='Logout' />
+                onBackdropPress={toggleMenu}
+            >
+                <MenuItem accessoryLeft={LogoutIcon} title='Logout' onPress={()=>{showAlert();}}/>
             </OverflowMenu>
+            <AwesomeAlert
+                show={Estado}
+                showProgress={false}
+                title="Confirmación"
+                titleStyle={{ fontSize: 22, marginBottom: 10 }}
+                messageStyle={{ fontSize: 18, marginBottom: 10 }}
+                message="Está seguro que desea cerrar sesión?"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText="No"
+                confirmText="Si"
+                cancelButtonStyle={{ width: 100, alignItems: 'center', marginTop: 10 }}
+                confirmButtonStyle={{ width: 100, alignItems: 'center' }}
+                confirmButtonColor="#AEDEF4"
+                cancelButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                    hideAlert();
+                }
+                }
+                onConfirmPressed={() => {
+                    hideAlert();
+                    cerrarSesion()
+                    // navigation.navigate('Login')
+                }}
+
+            />
         </React.Fragment>
     );
 
@@ -62,7 +112,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        marginTop: 61,
+        marginTop: 51,
         width: 89,
         height: 50,
     },
@@ -71,6 +121,6 @@ const styles = StyleSheet.create({
         // fontFamily: "roboto-700",
         fontSize: 30,
         marginLeft: 25,
-        marginTop: 61
+        marginTop: 51
     },
 });

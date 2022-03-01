@@ -27,6 +27,7 @@ const ModalComponent = (props) => {
         <View style={styles.container}>
 
             <Modal
+            style={{ width: 300, height: 550}}
                 visible={props.visible}
                 backdropStyle={styles.backdrop}
                 onBackdropPress={props.onClose}>

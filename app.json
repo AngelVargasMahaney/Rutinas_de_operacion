@@ -4,11 +4,11 @@
     "slug": "rutinas_operacion",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/icons/icono_andorid2.png",
     "splash": {
-      "image": "./assets/icons/splash.png",
+      "image": "./assets/icons/icono_andorid2.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#293039"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,9 +21,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/icons/icono_andorid2.png",
+        "backgroundColor": "#293039"
+      },
+      "package": "com.avargasm.rutinas_operacion"
     },
     "web": {
       "favicon": "./assets/icons/favicon.png"

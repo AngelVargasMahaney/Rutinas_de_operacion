@@ -1,4 +1,4 @@
-import { StyleSheet, useWindowDimensions, View, Image, Animated } from 'react-native';
+import { StyleSheet, useWindowDimensions, View, Image, Animated, StatusBar } from 'react-native';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem, RadioGroup } from '@ui-kitten/components';
@@ -23,8 +23,8 @@ const Screen1 = (props) => {
   const [dataScreen4, setDataScreen4] = useState({
     areaNombre: '',
     areaId: 0,
-    processId:0,
-    taskId:0,
+    processId: 0,
+    taskId: 0,
     subProcesoNombre: '',
     cantTareasSubproceso: 0,
     horasTotalesSubproceso: 0,
@@ -54,7 +54,7 @@ const Screen1 = (props) => {
   const [esteEsMiId, setEsteEsMiId] = useState("");
   const [selected, setSelected] = useState(false);
   const StarIcon = (props) => (
-    <Icon {...props} name='star' />
+    <Icon {...props} name='user' />
   );
   const cambiarColor = (idCard) => {
     setEsteEsMiId(idCard)
@@ -160,10 +160,10 @@ const Screen1 = (props) => {
 
   const comprobarButtonState = () => {
     // console.log(groupValue)
-    if (value === 0) {
-      setButtonState(true);
+    if (value != 0) {
+      setButtonState(false)
     } else {
-      setButtonState(false);
+      setButtonState(true)
     }
   }
 
@@ -190,208 +190,210 @@ const Screen1 = (props) => {
 
   const navigation = useNavigation();
   useEffect(() => {
-    console.log(dataScreen4)
+    console.log(value)
   })
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
-      <ScrollView>
 
-        <Layout style={styles.container} level='1'>
-          <TemplateVersion2 />
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              ÁREA
-            </Text>
+    <ScrollView style={{ marginTop: 22, backgroundColor: 'white' }}>
+      <StatusBar barStyle="dark-content" />
+      <Layout style={styles.container} level='1'>
+        <TemplateVersion2 />
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            <Text>  </Text>ÁREA
+          </Text>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-              {areasData.map((obj, i) => {
-                return (
+          <ScrollView horizontal>
+            {areasData.map((obj, i) => {
+              return (
 
-                  <Card key={obj.id} style={styles.card} onPress={() => {
-                    traerSubProcesosMetodo(obj.id)
-                    cambiarColor(obj.id)
-                    setSelectedIndex(0)
-                    
-                    setDisplayValue('Seleccione un SubProceso')
-                    dataScreen4.areaNombre = obj.name
-                    dataScreen4.areaId = obj.id
-                    dataScreen4.processId = 0
-                    dataScreen4.taskId = 0
-                    // console.log(obj)
-                  }}>
-                    <Avatar
-                      style={[styles.logo,
-                      {
-                        opacity: obj.selected ? 1 : 0.3,
-                      }
-                      ]}
+                <Card key={obj.id} style={styles.card} onPress={() => {
+                  traerSubProcesosMetodo(obj.id)
+                  cambiarColor(obj.id)
+                  setSelectedIndex(0)
+                  setValue(0)
+                  setDisplayValue('Seleccione un SubProceso')
 
-                      size='giant'
-                      resizeMode="contain"
-                      source={{ uri: obj.url_image }} />
-
-                    <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
-                      {obj.name}
-                    </Text>
-                  </Card>
-                )
-              })
-              }
-
-            </View>
-
-          </View>
-          {/* View de los SubProcesos */}
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              SUB PROCESO
-            </Text>
-            <Select
-              placeholder='Seleccione un SubProceso'
-              value={displayValue}
-              selectedIndex={selectedIndex}
-              onSelect={(index, i) => {
-                // console.log((index.row) + 1);
-
-                setSelectedIndex(index)
-
-                if (estaEsMiArea === 1) {
-                  listarSubprocesos((index.row) + 1)
-                } else if (estaEsMiArea === 2) {
-                  listarSubprocesos((index.row) + 5)
-                } else if (estaEsMiArea === 3) {
-                  listarSubprocesos((index.row) + 14)
-                }
-                traerTareasRutinariasMetodo((index.row) + 1)
-
-                onSelectIdArea(estaEsMiArea, index.row)
-                dataScreen4.taskId = 0
-
-              }
-              }
-            >
-              {
-                // console.log(subProcesosPorId),
-                // subProcesosPorId.map((obj, index) =>{
-                //   console.log(obj)
-                //   renderOption(obj.name)
-                // })
-                subProcesosPorId.map((obj) => renderOption(obj))
-              }
-            </Select>
-          </View>
-          {/* View de las Tareas Rutinarias */}
-          <View>
-            <Text style={styles.tittlesStyle}>
-              <Avatar
-                shape={"square"}
-                size='tiny'
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/icons/Rectangle_orange.png')}
-              />
-              TAREAS RUTINARIAS
-
-            </Text>
-            <>
-
-
-
-              <View>
-                {
-                  // console.log(tareasRutinariasPorId),
-                  tareasRutinariasPorId.map((obj, indexT) => {
-                   
-                    // console.log(obj)
-                    if (obj.complete === 1) {
-                      contador++
+                  dataScreen4.areaNombre = obj.name
+                  dataScreen4.areaId = obj.id
+                  dataScreen4.processId = 0
+                  dataScreen4.taskId = 0
+                  // console.log(obj)
+                }}>
+                  <Avatar
+                    style={[styles.logo,
+                    {
+                      opacity: obj.selected ? 1 : 0.3,
                     }
-                    dataScreen4.cantTareasCompletas = contador
-                    // console.log("Mi contador es = " + contador)
-                    let todeArray = obj.detail_tasks
-                    let tamano = todeArray.length
-                    // console.log(todeArray)
+                    ]}
 
-                    // let myHope = []
-                    // todeArray.forEach((element, index) => {
+                    size='giant'
+                    resizeMode="contain"
+                    source={{ uri: obj.url_image }} />
 
-                    //   myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
-                    //   // console.log(element)
-                    //   // console.log("----------------------< BARRA SEPARADORA >----------------------------")
-                    // });
+                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
+                    {obj.name}
+                  </Text>
+                </Card>
+              )
+            })
+            }
 
-                    return (
-                      displayValue === "Seleccione un SubProceso" ? null : (
-                        <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
-                          setValue(nextValue);
-                          dataScreen4.taskId = nextValue
-                          miDataParaScreen2(obj)
-                        }}>
-                          {obj.complete === 1 ?
-                            (
-                              <Checkbox key={obj.id} colorScheme="orange" isDisabled defaultIsChecked value="two">
-                                {(indexT + 1) + ". " + todeArray[0].name}
-                              </Checkbox>
-                            ) :
-                            (<Radio key={obj.id} value={obj.id}
+          </ScrollView>
 
-                              colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
-                              {
+        </View>
+        {/* View de los SubProcesos */}
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            <Text>  </Text>SUB PROCESO
+          </Text>
+          <Select
+            placeholder='Seleccione un SubProceso'
+            value={displayValue}
+            selectedIndex={selectedIndex}
+            onSelect={(index, i) => {
+              // console.log((index.row) + 1);
 
-                                displayValue === 'Seleccione un SubProceso' ? null :
-                                  (
-                                    tamano > 1 ? (
-                                      <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
-                                        <Button
-                                          style={{ width: 2 }, { height: 2 }}
-                                          appearance='ghost'
-                                          status='danger'
-                                          accessoryLeft={StarIcon}
-                                          onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
-                                        />
-                                      </Text>
-                                      // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
-                                      //   {myHope}
-                                      // </Button>
-                                    ) :
-                                      <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
-                                  )}
-                            </Radio>)}
+              setSelectedIndex(index)
+              setValue(0)
+
+              if (estaEsMiArea === 1) {
+                listarSubprocesos((index.row) + 1)
+              } else if (estaEsMiArea === 2) {
+                listarSubprocesos((index.row) + 5)
+              } else if (estaEsMiArea === 3) {
+                listarSubprocesos((index.row) + 14)
+              }
+              traerTareasRutinariasMetodo((index.row) + 1)
+
+              onSelectIdArea(estaEsMiArea, index.row)
+              dataScreen4.taskId = 0
+
+            }
+            }
+          >
+            {
+              // console.log(subProcesosPorId),
+              // subProcesosPorId.map((obj, index) =>{
+              //   console.log(obj)
+              //   renderOption(obj.name)
+              // })
+              subProcesosPorId.map((obj) => renderOption(obj))
+            }
+          </Select>
+        </View>
+        {/* View de las Tareas Rutinarias */}
+        <View>
+          <Text style={styles.tittlesStyle}>
+            <Avatar
+              shape={"square"}
+              size='tiny'
+              style={{ width: 10, height: 10 }}
+              source={require('../../assets/icons/Rectangle_orange.png')}
+            />
+            <Text>  </Text>TAREAS RUTINARIAS
+
+          </Text>
+          <>
 
 
-                        </Radio.Group>
-                      )
-                      // )
 
+            <View>
+              {
+                // console.log(tareasRutinariasPorId),
+                tareasRutinariasPorId.map((obj, indexT) => {
+
+                  // console.log(obj)
+                  if (obj.complete === 1) {
+                    contador++
+                  }
+                  dataScreen4.cantTareasCompletas = contador
+                  // console.log("Mi contador es = " + contador)
+                  let todeArray = obj.detail_tasks
+                  let tamano = todeArray.length
+                  // console.log(todeArray)
+
+                  // let myHope = []
+                  // todeArray.forEach((element, index) => {
+
+                  //   myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
+                  //   // console.log(element)
+                  //   // console.log("----------------------< BARRA SEPARADORA >----------------------------")
+                  // });
+
+                  return (
+                    displayValue === "Seleccione un SubProceso" ? null : (
+                      <Radio.Group key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
+                        setValue(nextValue);
+                        dataScreen4.taskId = nextValue
+                        miDataParaScreen2(obj)
+                      }}>
+                        {obj.complete === 1 ?
+                          (
+                            <Checkbox key={obj.id} colorScheme="orange" isDisabled defaultIsChecked value="two">
+                              {(indexT + 1) + ". " + todeArray[0].name}
+                            </Checkbox>
+                          ) :
+                          (<Radio key={obj.id} value={obj.id}
+
+                            colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
+                            {
+
+                              displayValue === 'Seleccione un SubProceso' ? null :
+                                (
+                                  tamano > 1 ? (
+                                    <Text key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                      <Button
+                                        style={{ width: 1.2 }, { height: 1.2 }}
+                                        appearance='ghost'
+                                        status='danger'
+                                        accessoryLeft={StarIcon}
+                                        onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
+                                      />
+                                    </Text>
+                                    // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
+                                    //   {myHope}
+                                    // </Button>
+                                  ) :
+                                    <Text key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                )}
+                          </Radio>)}
+
+
+                      </Radio.Group>
                     )
-                  })
-                }
-              </View>
+                    // )
 
-            </>
-
-
-            <View style={{ alignSelf: 'center', marginTop: 50 }}>
-              <Button style={[styles.button, {
-                backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2, dataScreen4 }) }}>
-                Siguiente
-              </Button>
-              {/* <NextButton/> */}
+                  )
+                })
+              }
             </View>
-            {/* {
+
+          </>
+
+
+          <View style={{ alignSelf: 'center', marginTop: 50 }}>
+            <Button style={[styles.button, {
+              backgroundColor: buttonState ? '#ECECEC' : '#01286B'
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2, dataScreen4 }) }}>
+              Siguiente
+            </Button>
+            {/* <NextButton/> */}
+          </View>
+          {/* {
               tareasRutinariasPorId.map((obj, index) => {
 
                 return (
@@ -402,18 +404,17 @@ const Screen1 = (props) => {
                 )
               })
             } */}
-          </View>
+        </View>
 
 
-        </Layout>
+      </Layout>
 
-        {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
-
-
+      {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
 
 
-      </ScrollView>
-    </View>
+
+
+    </ScrollView>
   )
 
 }
@@ -438,7 +439,8 @@ const styles = StyleSheet.create({
   tittlesStyle: {
     fontSize: 17,
     color: '#01286B',
-    fontWeight: '600'
+    fontWeight: '600',
+    marginVertical: 10
   },
   container: {
     justifyContent: 'center',

@@ -11,6 +11,7 @@ import { postCreateData } from '../services/services';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 import AnimatedLoader from "react-native-animated-loader";
+import TextTicker from 'react-native-text-ticker'
 
 const loader = require('../../assets/loaders/waiting.json')
 
@@ -125,13 +126,12 @@ const Screen4 = (props) => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
                 <Text
-                  style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
-
-                ><Avatar
-                  shape={"square"}
-                  size={"tiny"}
-                  style={{ width: 10, height: 10 }}
-                  source={Rectangle_orange} >
+                  style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                  <Avatar
+                    shape={"square"}
+                    size={"tiny"}
+                    style={{ width: 10, height: 10 }}
+                    source={Rectangle_orange} >
                   </Avatar> AREA</Text></DataTable.Cell>
               <DataTable.Cell style={{
                 marginRight: -15.5,
@@ -140,9 +140,23 @@ const Screen4 = (props) => {
                 alignItems: 'center',
               }}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                  <TextTicker style={[styles.tittlesStyle,
+                  {
+                    color: '#01286b',
+                    fontSize: 12,
+                    textAlign: 'center',
+                    flexShrink: 1,
+                    flexWrap: 'wrap',
+                    marginVertical: 10
+                  }]}
+                    duration={4000}
+                    loop
+                    bounce
+                    repeatSpacer={50}
+                    marqueeDelay={1000}
+                  >
                     {dataScreen4.areaNombre}
-                  </Text>
+                  </TextTicker>
                 </View>
 
 
@@ -152,7 +166,7 @@ const Screen4 = (props) => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
                   <Avatar
                     shape={"square"}
                     size={"tiny"}
@@ -166,7 +180,13 @@ const Screen4 = (props) => {
                 alignItems: 'center',
               }}>
                 <View style={{ flexDirection: 'row', flexShrink: 1, flexWrap: 'wrap' }}>
-                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', marginVertical: 10 }}>
+                  <Text style={[styles.tittlesStyle,
+                  {
+                    color: '#01286b',
+                    fontSize: 12,
+                    textAlign: 'center',
+                    marginVertical: 10
+                  }]}>
                     {dataScreen4.subProcesoNombre}
                   </Text>
                 </View>
@@ -194,7 +214,8 @@ const Screen4 = (props) => {
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
+              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                  {dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -218,7 +239,8 @@ const Screen4 = (props) => {
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
+              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                  {dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
@@ -266,7 +288,7 @@ const Screen4 = (props) => {
           </DataTable>
 
           <View style={{ justifyContent: 'center', backgroundColor: 'white' }}>
-            <View style={{ alignSelf: 'center', marginTop: 150 }}>
+            <View style={{ alignSelf: 'center', marginTop: '50%' }}>
               <Button style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}
@@ -317,12 +339,14 @@ const Screen4 = (props) => {
           speed={1}>
           <Text>Guardando Datos</Text>
         </AnimatedLoader>
+      </ScrollView>
+      <View style={{ backgroundColor: 'white' }}>
         <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
           <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
             Pág. 4 / 4
           </Text>
         </View>
-      </ScrollView>
+      </View>
     </>
   );
 }

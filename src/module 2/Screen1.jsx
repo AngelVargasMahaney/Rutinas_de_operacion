@@ -193,7 +193,7 @@ const Screen1 = (props) => {
 
   return (
 
-    <ScrollView style={{ marginTop: 22, backgroundColor: 'white' }}>
+    <><ScrollView style={{ marginTop: 22, backgroundColor: 'white' }}>
       <StatusBar barStyle="dark-content" />
       <Layout style={styles.container} level='1'>
         <TemplateVersion2 />
@@ -203,8 +203,7 @@ const Screen1 = (props) => {
               shape={"square"}
               size='tiny'
               style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
+              source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>ÁREA
           </Text>
 
@@ -213,16 +212,16 @@ const Screen1 = (props) => {
               return (
 
                 <Card key={obj.id} style={styles.card} onPress={() => {
-                  traerSubProcesosMetodo(obj.id)
-                  cambiarColor(obj.id)
-                  setSelectedIndex(0)
-                  setValue(0)
-                  setDisplayValue('Seleccione un SubProceso')
+                  traerSubProcesosMetodo(obj.id);
+                  cambiarColor(obj.id);
+                  setSelectedIndex(0);
+                  setValue(0);
+                  setDisplayValue('Seleccione un SubProceso');
 
-                  dataScreen4.areaNombre = obj.name
-                  dataScreen4.areaId = obj.id
-                  dataScreen4.processId = 0
-                  dataScreen4.taskId = 0
+                  dataScreen4.areaNombre = obj.name;
+                  dataScreen4.areaId = obj.id;
+                  dataScreen4.processId = 0;
+                  dataScreen4.taskId = 0;
                   // console.log(obj)
                 }}>
                   <Avatar
@@ -240,9 +239,8 @@ const Screen1 = (props) => {
                     {obj.name}
                   </Text>
                 </Card>
-              )
-            })
-            }
+              );
+            })}
 
           </ScrollView>
 
@@ -254,8 +252,7 @@ const Screen1 = (props) => {
               shape={"square"}
               size='tiny'
               style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
+              source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>SUB PROCESO
           </Text>
           <Select
@@ -264,24 +261,22 @@ const Screen1 = (props) => {
             selectedIndex={selectedIndex}
             onSelect={(index, i) => {
               // console.log((index.row) + 1);
-
-              setSelectedIndex(index)
-              setValue(0)
+              setSelectedIndex(index);
+              setValue(0);
 
               if (estaEsMiArea === 1) {
-                listarSubprocesos((index.row) + 1)
+                listarSubprocesos((index.row) + 1);
               } else if (estaEsMiArea === 2) {
-                listarSubprocesos((index.row) + 5)
+                listarSubprocesos((index.row) + 5);
               } else if (estaEsMiArea === 3) {
-                listarSubprocesos((index.row) + 14)
+                listarSubprocesos((index.row) + 14);
               }
-              traerTareasRutinariasMetodo((index.row) + 1)
+              traerTareasRutinariasMetodo((index.row) + 1);
 
-              onSelectIdArea(estaEsMiArea, index.row)
-              dataScreen4.taskId = 0
+              onSelectIdArea(estaEsMiArea, index.row);
+              dataScreen4.taskId = 0;
 
-            }
-            }
+            }}
           >
             {
               // console.log(subProcesosPorId),
@@ -289,8 +284,7 @@ const Screen1 = (props) => {
               //   console.log(obj)
               //   renderOption(obj.name)
               // })
-              subProcesosPorId.map((obj) => renderOption(obj))
-            }
+              subProcesosPorId.map((obj) => renderOption(obj))}
           </Select>
         </View>
         {/* View de las Tareas Rutinarias */}
@@ -300,8 +294,7 @@ const Screen1 = (props) => {
               shape={"square"}
               size='tiny'
               style={{ width: 10, height: 10 }}
-              source={require('../../assets/icons/Rectangle_orange.png')}
-            />
+              source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>TAREAS RUTINARIAS
 
           </Text>
@@ -316,28 +309,25 @@ const Screen1 = (props) => {
 
                   // console.log(obj)
                   if (obj.complete === 1) {
-                    contador++
+                    contador++;
                   }
-                  dataScreen4.cantTareasCompletas = contador
+                  dataScreen4.cantTareasCompletas = contador;
                   // console.log("Mi contador es = " + contador)
-                  let todeArray = obj.detail_tasks
-                  let tamano = todeArray.length
+                  let todeArray = obj.detail_tasks;
+                  let tamano = todeArray.length;
                   // console.log(todeArray)
-
                   // let myHope = []
                   // todeArray.forEach((element, index) => {
-
                   //   myHope.push(<MenuItem key={index} title={indexT + "." + (index + 1) + " " + element.name} />)
                   //   // console.log(element)
                   //   // console.log("----------------------< BARRA SEPARADORA >----------------------------")
                   // });
-
                   return (
                     displayValue === "Seleccione un SubProceso" ? null : (
                       <Radio.Group style={{ marginVertical: 5 }} key={obj.id} name="myRadioGroup" accessibilityLabel="favorite number" value={value} onChange={nextValue => {
                         setValue(nextValue);
-                        dataScreen4.taskId = nextValue
-                        miDataParaScreen2(obj)
+                        dataScreen4.taskId = nextValue;
+                        miDataParaScreen2(obj);
                       }}>
                         {obj.complete === 1 ?
                           (
@@ -348,36 +338,31 @@ const Screen1 = (props) => {
                           (<Radio key={obj.id} value={obj.id}
 
                             colorScheme={'orange'} icon={<Icon as={<FontAwesomeIcon name="check" />} />}>
-                            {
-
-                              displayValue === 'Seleccione un SubProceso' ? null :
-                                (
-                                  tamano > 1 ? (
-                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
-                                      <Button
-                                        style={{ width: 1.2 }, { height: 1.2 }}
-                                        appearance='ghost'
-                                        status='danger'
-                                        accessoryLeft={<Icon as={<FontAwesomeIcon name="plus" style={{ textAlign: 'center' }} />} size={2} />}
-                                        onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }}
-                                      />
-                                    </Text>
-                                    // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
-                                    //   {myHope}
-                                    // </Button>
-                                  ) :
-                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
-                                )}
+                            {displayValue === 'Seleccione un SubProceso' ? null :
+                              (
+                                tamano > 1 ? (
+                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                    <Button
+                                      style={{ width: 1.2 }, { height: 1.2 }}
+                                      appearance='ghost'
+                                      status='danger'
+                                      accessoryLeft={<Icon as={<FontAwesomeIcon name="plus" style={{ textAlign: 'center' }} />} size={2} />}
+                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }} />
+                                  </Text>
+                                  // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
+                                  //   {myHope}
+                                  // </Button>
+                                ) :
+                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                              )}
                           </Radio>)}
 
 
                       </Radio.Group>
                     )
                     // )
-
-                  )
-                })
-              }
+                  );
+                })}
             </View>
 
           </>
@@ -386,22 +371,22 @@ const Screen1 = (props) => {
           <View style={{ alignSelf: 'center', marginTop: 50 }}>
             <Button style={[styles.button, {
               backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2, dataScreen4 }) }}>
+            }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen2', { value, midataParaObjetoScreen2, dataScreen4 }); }}>
               Siguiente
             </Button>
             {/* <NextButton/> */}
           </View>
           {/* {
-              tareasRutinariasPorId.map((obj, index) => {
+  tareasRutinariasPorId.map((obj, index) => {
 
-                return (
-                  // displayValue === undefined ? null :
-                  //   <Text key={index}>{index + 1}. {obj.description}</Text>
-                  
+    return (
+      // displayValue === undefined ? null :
+      //   <Text key={index}>{index + 1}. {obj.description}</Text>
+      
 
-                )
-              })
-            } */}
+    )
+  })
+} */}
         </View>
 
 
@@ -409,13 +394,18 @@ const Screen1 = (props) => {
 
       {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
 
-      <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
-        <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
-          Pág. 1 / 4
-        </Text>
-      </View>
+
 
     </ScrollView>
+      <View style={{ backgroundColor: 'white'}}>
+        <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+          <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+            Pág. 1 / 4
+          </Text>
+        </View>
+      </View>
+    </>
+
   )
 
 }

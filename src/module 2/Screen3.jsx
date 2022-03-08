@@ -119,10 +119,8 @@ const Screen3 = (props) => {
 
         </>
 
-
-
         <View style={{ justifyContent: 'center' }}>
-          <View style={{ alignSelf: 'center', marginTop: 150 }}>
+          <View style={{ alignSelf: 'center', marginTop: "40%" }}>
             <Button style={[styles.button, {
               backgroundColor: '#01286B',
             }, { color: 'white' }, { marginBottom: 25 }]} onPress={() => { navigation.goBack() }}>
@@ -135,13 +133,15 @@ const Screen3 = (props) => {
             </Button>
           </View>
         </View>
+       
+      </ScrollView>
+      <View style={{ backgroundColor: 'white'}}>
         <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
           <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
             Pág. 3 / 4
           </Text>
         </View>
-      </ScrollView>
-
+      </View>
     </>
   );
 };
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 30
+    margin: 30,
+    marginBottom: 0
   },
   card: {
     justifyContent: 'center',

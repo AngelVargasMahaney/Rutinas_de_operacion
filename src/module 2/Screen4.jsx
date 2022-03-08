@@ -11,6 +11,7 @@ import { postCreateData } from '../services/services';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 import AnimatedLoader from "react-native-animated-loader";
+import TextTicker from 'react-native-text-ticker';
 
 const loader = require('../../assets/loaders/waiting.json')
 
@@ -139,10 +140,22 @@ const Screen4 = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }]}>
+                <View style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+
+                  <TextTicker
+                    style={{ fontSize: 24 }}
+                    duration={3000}
+                    loop
+                    bounce
+                    repeatSpacer={50}
+                    marqueeDelay={1000}
+                  >
                     {dataScreen4.areaNombre}
-                  </Text>
+                  </TextTicker>
                 </View>
 
 

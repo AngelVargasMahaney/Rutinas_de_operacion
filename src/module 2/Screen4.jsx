@@ -64,7 +64,7 @@ const Screen4 = (props) => {
   const hideAlert = () => {
     setEstado(false);
   };
-  const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso)
+  const porcentaje = (((dataScreen4.cantTareasCompletas + dataScreen4.boolean_routine) * 100) / dataScreen4.cantTareasSubproceso).toFixed(2)
 
 
   const [variableColor, setVariableColor] = useState("#FFFFFF")
@@ -122,14 +122,14 @@ const Screen4 = (props) => {
             <Grid>
               <Row >
                 <Col style={styles.cellHeader}>
-                  <Text style={{ color: '#ffffff', fontSize: 14 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
+                  <Text style={{ color: '#ffffff', fontSize: 16 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
                 </Col>
               </Row>
               <Row >
                 <Col
-                  style={[styles.cell, { flex: 2.5 }]}>
+                  style={[styles.cell, { flex: 1.6 }]}>
                   <Text
-                    style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}
+                    style={[styles.tittlesStyle, { color: '#01286b', fontSize: 14 }]}
 
                   ><Avatar
                     shape={"square"}
@@ -146,8 +146,8 @@ const Screen4 = (props) => {
               </Row>
               <Row >
                 <Col
-                  style={[styles.cell, { flex: 2.5 }]}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                  style={[styles.cell, { flex: 1.6 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 14 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -161,8 +161,8 @@ const Screen4 = (props) => {
                   </Text></Col>
               </Row><Row >
                 <Col
-                  style={[styles.cell, { flex: 2.5 }]}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                  style={[styles.cell, { flex: 1.6 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 14 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -171,14 +171,14 @@ const Screen4 = (props) => {
                     </Avatar> CANTIDAD DE TAREAS DEL SUBPROCESO</Text></Col>
                 <Col
                   style={styles.cell2}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 18 }]}>
                     {dataScreen4.cantTareasSubproceso}
                   </Text></Col>
               </Row>
               <Row >
                 <Col
-                  style={[styles.cell, { flex: 2.5 }]}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                  style={[styles.cell, { flex: 1.6 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 14 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -187,13 +187,13 @@ const Screen4 = (props) => {
                     </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></Col>
                 <Col
                   style={styles.cell2}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 18 }]}>
                     {dataScreen4.horasTotalesSubproceso}
                   </Text></Col>
               </Row><Row >
                 <Col
-                  style={[styles.cell, { flex: 2.5 }]}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                  style={[styles.cell, { flex: 1.6 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 14 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -213,7 +213,7 @@ const Screen4 = (props) => {
                         //Text style of the Spinner Text
                         textStyle={styles.spinnerTextStyle}
                       /> :
-                      <Text style={[{ color: variableColor === '#FFE400'||'#32FF00' ? '#01286b' : 'white', fontSize: 12 }]}>
+                      <Text style={[{ color: porcentaje < 50 ? 'white' : '#01286b', fontSize: 18 }]}>
                         {porcentaje}%
                       </Text>
                   }

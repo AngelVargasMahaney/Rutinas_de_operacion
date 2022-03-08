@@ -40,7 +40,7 @@ const ScreenSave = () => {
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
                             }, { marginBottom: 25 }]}
-                                onPress={() => navigation.navigate('Home')}
+                                onPress={() => navigation.navigate('Login')}
                             >
                                 <Text style={{ color: '#EA3E18' }}>Finalizar</Text>
                             </Button>
@@ -50,7 +50,7 @@ const ScreenSave = () => {
             </ScrollView></>
     )
 }
-
+    
 export default ScreenSave
 
 const styles = StyleSheet.create({

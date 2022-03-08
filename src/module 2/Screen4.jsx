@@ -125,7 +125,7 @@ const Screen4 = (props) => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
                 <Text
-                  style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}
+                  style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}
 
                 ><Avatar
                   shape={"square"}
@@ -140,7 +140,7 @@ const Screen4 = (props) => {
                 alignItems: 'center',
               }}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }]}>
                     {dataScreen4.areaNombre}
                   </Text>
                 </View>
@@ -152,7 +152,7 @@ const Screen4 = (props) => {
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
-                <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 13 }}>
+                <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
                   <Avatar
                     shape={"square"}
                     size={"tiny"}
@@ -166,7 +166,7 @@ const Screen4 = (props) => {
                 alignItems: 'center',
               }}>
                 <View style={{ flexDirection: 'row', flexShrink: 1, flexWrap: 'wrap' }}>
-                  <Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', marginVertical: 10 }}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', marginVertical: 10 }]}>
                     {dataScreen4.subProcesoNombre}
                   </Text>
                 </View>
@@ -179,7 +179,6 @@ const Screen4 = (props) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Avatar
                     shape={"square"}
-
                     size={"tiny"}
                     style={{ width: 10, height: 10, marginTop: -10 }}
                     source={Rectangle_orange} >
@@ -189,12 +188,12 @@ const Screen4 = (props) => {
                   </Text>
                 </View>
               </DataTable.Cell>
-              <DataTable.Cell numeric style={{
+              <DataTable.Cell multiline={true} numeric style={{
                 marginRight: -15.5,
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
+              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
             <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
@@ -218,10 +217,10 @@ const Screen4 = (props) => {
                 flex: 0.45,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}><Text style={styles.tittlesStyle, { color: '#01286b', fontSize: 12 }}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
+              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
             </DataTable.Row>
 
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} style={{ border: "1px solid #01286b" }}>
+            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b", border: "1px solid #01286b" }} >
 
               <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>

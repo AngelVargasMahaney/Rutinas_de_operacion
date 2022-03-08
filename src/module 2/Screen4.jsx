@@ -11,8 +11,9 @@ import { postCreateData } from '../services/services';
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
 import AnimatedLoader from "react-native-animated-loader";
+import MarqueeText from 'react-native-marquee';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import TextTicker from 'react-native-text-ticker';
-
 const loader = require('../../assets/loaders/waiting.json')
 
 const Screen4 = (props) => {
@@ -41,7 +42,7 @@ const Screen4 = (props) => {
         navigation.navigate('Save')
 
       } else {
-        console.warn("Subida errónea")
+        console.warn("Subida errÃ³nea")
         setVisible(false)
       }
     }).catch(err => {
@@ -112,173 +113,118 @@ const Screen4 = (props) => {
 
   return (
     <>
-      <ScrollView style={{ backgroundColor: 'white', marginTop: 22 }}>
+      <ScrollView style={{ backgroundColor: 'white' }}>
         <TemplateVersion2 />
         <Layout style={styles.container} level=''>
 
-          <DataTable style={{ borderWidth: 1, borderColor: "#01286b" }}>
-            <DataTable.Header style={{ backgroundColor: '#01286b' }} >
-              <DataTable.Title >
-                <Text style={{ color: '#ffffff', fontSize: 14 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
-              </DataTable.Title>
-            </DataTable.Header>
+          {/*Nueva tabla que si funciona*/}
+          <View style={styles.containerGrid}>
+            <Grid>
+              <Row >
+                <Col style={styles.cellHeader}>
+                  <Text style={{ color: '#ffffff', fontSize: 14 }} >RESUMEN DE LAS TAREAS REALIZADAS</Text>
+                </Col>
+              </Row>
+              <Row >
+                <Col
+                  style={[styles.cell, { flex: 2.5 }]}>
+                  <Text
+                    style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}
 
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
-                <Text
-                  style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}
-
-                ><Avatar
-                  shape={"square"}
-                  size={"tiny"}
-                  style={{ width: 10, height: 10 }}
-                  source={Rectangle_orange} >
-                  </Avatar> AREA</Text></DataTable.Cell>
-              <DataTable.Cell style={{
-                marginRight: -15.5,
-                flex: 0.45,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-                <View style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-
-                  <TextTicker
-                    style={{ fontSize: 24 }}
-                    duration={3000}
-                    loop
-                    bounce
-                    repeatSpacer={50}
-                    marqueeDelay={1000}
-                  >
-                    {dataScreen4.areaNombre}
-                  </TextTicker>
-                </View>
-
-
-              </DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-
-              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }}>
-                <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
-                  <Avatar
+                  ><Avatar
                     shape={"square"}
                     size={"tiny"}
                     style={{ width: 10, height: 10 }}
                     source={Rectangle_orange} >
-                  </Avatar> SUB PROCESO</Text></DataTable.Cell>
-              <DataTable.Cell style={{
-                marginRight: -15.5,
-                flex: 0.45,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-                <View style={{ flexDirection: 'row', flexShrink: 1, flexWrap: 'wrap' }}>
-                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center', marginVertical: 10 }]}>
+                    </Avatar> AREA</Text></Col>
+                <Col
+                  style={styles.cell2}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center' }]}>
+                    {dataScreen4.areaNombre}
+                  </Text>
+                </Col>
+              </Row>
+              <Row >
+                <Col
+                  style={[styles.cell, { flex: 2.5 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                    <Avatar
+                      shape={"square"}
+                      size={"tiny"}
+                      style={{ width: 10, height: 10 }}
+                      source={Rectangle_orange} >
+                    </Avatar> SUB PROCESO</Text></Col>
+                <Col
+                  style={styles.cell2}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12, textAlign: 'center' }]}>
                     {dataScreen4.subProcesoNombre}
-                  </Text>
-                </View>
-              </DataTable.Cell>
-            </DataTable.Row >
+                  </Text></Col>
+              </Row><Row >
+                <Col
+                  style={[styles.cell, { flex: 2.5 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                    <Avatar
+                      shape={"square"}
+                      size={"tiny"}
+                      style={{ width: 10, height: 10 }}
+                      source={Rectangle_orange} >
+                    </Avatar> CANTIDAD DE TAREAS DEL SUBPROCESO</Text></Col>
+                <Col
+                  style={styles.cell2}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                    {dataScreen4.cantTareasSubproceso}
+                  </Text></Col>
+              </Row>
+              <Row >
+                <Col
+                  style={[styles.cell, { flex: 2.5 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                    <Avatar
+                      shape={"square"}
+                      size={"tiny"}
+                      style={{ width: 10, height: 10 }}
+                      source={Rectangle_orange} >
+                    </Avatar> HORAS TOTALES DE TURNO POR PERSONA</Text></Col>
+                <Col
+                  style={styles.cell2}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>
+                    {dataScreen4.horasTotalesSubproceso}
+                  </Text></Col>
+              </Row><Row >
+                <Col
+                  style={[styles.cell, { flex: 2.5 }]}>
+                  <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 13 }]}>
+                    <Avatar
+                      shape={"square"}
+                      size={"tiny"}
+                      style={{ width: 10, height: 10 }}
+                      source={Rectangle_orange} >
+                    </Avatar> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></Col>
+                <Col
+                  style={[styles.cell2, {backgroundColor:variableColor}]}>
+                  {
+                    loading ?
+                      <ActivityIndicator
+                        //visibility of Overlay Loading Spinner
+                        visible={loading}
+                        //Text with the Spinner
+                        size="small"
+                        color="#01286b"
+                        //Text style of the Spinner Text
+                        textStyle={styles.spinnerTextStyle}
+                      /> :
+                      <Text style={[{ color: variableColor === '#FFE400'||'#32FF00' ? '#01286b' : 'white', fontSize: 12 }]}>
+                        {porcentaje}%
+                      </Text>
+                  }
+                </Col>
+              </Row>
+            </Grid>
+          </View>
 
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-
-              <DataTable.Cell multiline={true} style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Avatar
-                    shape={"square"}
-                    size={"tiny"}
-                    style={{ width: 10, height: 10, marginTop: -10 }}
-                    source={Rectangle_orange} >
-                  </Avatar>
-                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
-                    CANTIDAD DE TAREAS DEL SUBPROCESO
-                  </Text>
-                </View>
-              </DataTable.Cell>
-              <DataTable.Cell multiline={true} numeric style={{
-                marginRight: -15.5,
-                flex: 0.45,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>{dataScreen4.cantTareasSubproceso}</Text></DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b" }} >
-
-              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b", flexDirection: 'row' }} >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Avatar
-                    shape={"square"}
-
-                    size={"tiny"}
-                    style={{ width: 10, height: 10, marginTop: -10 }}
-                    source={Rectangle_orange} >
-                  </Avatar>
-                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
-                    HORAS TOTALES DE TURNO POR PERSONA
-                  </Text>
-                </View>
-              </DataTable.Cell>
-              <DataTable.Cell numeric style={{
-                marginRight: -15.5,
-                flex: 0.45,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}><Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 12 }]}>{dataScreen4.horasTotalesSubproceso}</Text></DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row style={{ borderBottomWidth: 1, borderBottomColor: "#01286b", border: "1px solid #01286b" }} >
-
-              <DataTable.Cell style={{ borderRightWidth: 1, borderRightColor: "#01286b" }} >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Avatar
-                    shape={"square"}
-
-                    size={"tiny"}
-                    style={{ width: 10, height: 10, marginTop: -10 }}
-                    source={Rectangle_orange} >
-                  </Avatar>
-                  <Text style={{ color: '#01286b', fontSize: 12, marginHorizontal: 3, flexShrink: 1, flexWrap: 'wrap', marginVertical: 10 }}>
-                    % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO
-                  </Text>
-                </View>
-              </DataTable.Cell>
-              <DataTable.Cell
-
-                numeric style={{
-                  marginRight: -15.5,
-                  flex: 0.45,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: variableColor,
-
-                }}>
-                {
-                  loading ?
-                    <ActivityIndicator
-                      //visibility of Overlay Loading Spinner
-                      visible={loading}
-                      //Text with the Spinner
-                      size="small"
-                      color="#AAAAAA"
-                      //Text style of the Spinner Text
-                      textStyle={styles.spinnerTextStyle}
-                    /> : <Text style={[styles.tittlesStyle, { color: variableColor == '#FFE400' ? 'blue' : 'white', fontSize: 12 }]}>{porcentaje}%</Text>
-                }
-
-              </DataTable.Cell>
-            </DataTable.Row>
-
-          </DataTable>
 
           <View style={{ justifyContent: 'center', backgroundColor: 'white' }}>
-            <View style={{ alignSelf: 'center', marginTop: 150 }}>
+            <View style={{ alignSelf: 'center', marginTop: '45%' }}>
               <Button style={[styles.button, {
                 backgroundColor: '#01286B',
               }, { color: 'white' }, { marginBottom: 25 }]}
@@ -318,6 +264,9 @@ const Screen4 = (props) => {
                   hideAlert();
                 }} />
             </View>
+
+
+
           </View>
         </Layout>
 
@@ -329,12 +278,15 @@ const Screen4 = (props) => {
           speed={1}>
           <Text>Guardando Datos</Text>
         </AnimatedLoader>
+
+      </ScrollView>
+      <View style={{ backgroundColor: 'white' }}>
         <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
           <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
             Pág. 4 / 4
           </Text>
         </View>
-      </ScrollView>
+      </View>
     </>
   );
 }
@@ -353,11 +305,42 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white'
   },
+  containerGrid: {
+    width: '100%',
+    height: 300,
+    paddingTop: 10,
+    backgroundColor: '#fff',
+  },
   button: {
     borderRadius: 40,
     width: 200,
     height: 42,
     backgroundColor: '#01286B',
     borderColor: 'transparent'
+  },
+  cell: {
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderColor: '#01286b',
+    justifyContent: 'center',
+    paddingLeft: 10,
+    flex: 1,
+  },
+  cell2: {
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    borderColor: '#01286b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  cellHeader: {
+    backgroundColor: '#01286b',
+    borderWidth: 1,
+    justifyContent: 'center',
+    paddingLeft: 10,
+    borderColor: '#01286b',
+    flex: 1,
   },
 });

@@ -59,7 +59,7 @@ const LoginScreen = () => {
     return (
 
         <ScrollView style={{ flex: 1, backgroundColor: '#02286B' }}>
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" translucent={true} animated={true} />
+            <StatusBar barStyle="dark-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" animated={true} />
 
 
             <ImageBackground source={image} style={styles.image}>

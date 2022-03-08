@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        marginTop: 51,
+        marginTop: 40,
         width: 89,
         height: 50,
     },
@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
         // fontFamily: "roboto-700",
         fontSize: 30,
         marginLeft: 25,
-        marginTop: 51
+        marginTop: 40
     },
 });

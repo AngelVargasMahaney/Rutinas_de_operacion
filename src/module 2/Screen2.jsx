@@ -76,7 +76,7 @@ const Screen2 = (props) => {
                 <ItemScreen2 item={item} miObjetoNuevo={miObjetoNuevo} />
 
               }
-            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 145, marginBottom: 10 }}>
+            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 40, marginBottom: 10 }}>
 
               <Button onPress={() => navigation.goBack()} style={[styles.button, {
                 backgroundColor: '#01286B',
@@ -88,14 +88,16 @@ const Screen2 = (props) => {
               }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
                 Siguiente
               </Button>
-              <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, marginTop:35, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
-                <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
-                  Pág. 2 / 4
-                </Text>
-              </View>
+
             </View>} />
 
-
+          <View style={{ backgroundColor: 'white', marginBottom: '15%' }}>
+            <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
+              <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
+                Pág. 2 / 4
+              </Text>
+            </View>
+          </View>
         </View>
 
       </Layout>
@@ -116,8 +118,9 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    margin: 10,
-    marginTop: 22,
+    marginRight: 10,
+    marginLeft: 10,
+    marginTop: 10,
     backgroundColor: 'white'
   },
   tittlesStyle: {

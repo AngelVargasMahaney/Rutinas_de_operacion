@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     marginTop: 10,
-    marginTop: 22,
     backgroundColor: 'white'
   },
   tittlesStyle: {

@@ -61,7 +61,7 @@ const Screen3 = (props) => {
   return (
     <>
 
-      <ScrollView style={{ backgroundColor: "white", marginTop: 22 }}>
+      <ScrollView style={{ backgroundColor: "white"}}>
         <TemplateVersion2 />
         <Layout style={styles.container} level='1'>
           <View>

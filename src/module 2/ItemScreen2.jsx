@@ -84,9 +84,9 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
         obtenerFrecuencia()
     }, [])
 
-    useEffect(() => {
-        console.log(miObjetoNuevo)
-    })
+    // useEffect(() => {
+    //     console.log(miObjetoNuevo)
+    // })
     const [buttonState, setButtonState] = useState(true)
 
     const comprobarButtonState = () => {

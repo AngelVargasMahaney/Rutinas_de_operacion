@@ -7,12 +7,10 @@ import { useAuth } from '../context/authState';
 import Asyncstorage from "@react-native-async-storage/async-storage"
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { useNavigation } from '@react-navigation/native';
-import AnimatedLoader from "react-native-animated-loader";
 
 const image = require('../../assets/backgrounds/Pantalla_login.png')
 const logo_blanco = require('../../assets/logos/Logo_blanco.png')
 
-const loader = require('../../assets/loaders/loaderCircle.json')
 const LoginScreen = () => {
 
     const [formularioDatos, setFormularioDatos] = useState({
@@ -134,14 +132,7 @@ const LoginScreen = () => {
                     hideAlert();
                 }}
             />
-            <AnimatedLoader
-                visible={visible}
-                overlayColor="white"
-                animationStyle={styles.lottie}
-                source={loader}
-                speed={1}>
-                <Text>Iniciando Sesión</Text>
-            </AnimatedLoader>
+           
         </ScrollView>
 
 

@@ -34,10 +34,10 @@ const TemplateVersion2 = () => {
             await AsyncStorage.removeItem('token')
             navigation.navigate('Login')
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
 
-        console.log('Done.')
+        // console.log('Done.')
     }
     const [Estado, setEstado] = useState(false);
     const showAlert = () => {

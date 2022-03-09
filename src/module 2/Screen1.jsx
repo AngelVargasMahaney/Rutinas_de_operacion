@@ -1,9 +1,9 @@
 import { StyleSheet, useWindowDimensions, View, Image, Animated, StatusBar } from 'react-native';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TemplateVersion2 from '../Template/TemplateVersion2';
-import { Card, Layout, Text, Avatar, Button, Select, SelectItem, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem, RadioGroup } from '@ui-kitten/components';
+import { Card, Layout, Text, Avatar, Button, ButtonGroup, useTheme, Menu, MenuGroup, MenuItem, RadioGroup } from '@ui-kitten/components';
 import { areasBd, subProcesosBd, tareaRutinariasBD } from '../services/areasLista';
-import { Checkbox, Radio, ScrollView, Icon } from 'native-base';
+import { Checkbox, Radio, ScrollView, Icon, Select } from 'native-base';
 import { getAllAreas } from '../services/services';
 import { AuthContext } from '../context/authState';
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -96,7 +96,16 @@ const Screen1 = (props) => {
 
   const [prueba, setPrueba] = useState([])
   const onSelectIdArea = (idArea, index) => {
-    let dataFiltrada = subProcesosPorId[index].tasks
+    console.log(index)
+    console.log(subProcesosPorId)
+    let dataFiltrada
+    subProcesosPorId.forEach(element =>{
+      if(element.id == index){
+        dataFiltrada = element.tasks
+      }
+    })
+    console.log(dataFiltrada)
+    // let dataFiltrada = subProcesosPorId[index].tasks
     // console.log(dataFiltrada)
     setTareasRutinariasPorId(dataFiltrada)
 
@@ -122,9 +131,9 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    // console.log(idSubProcess)
-    const subProcess = subProcesosPorId.find((e) => (e.id) === idSubProcess)
-    // console.log(subProcess)
+     console.log(idSubProcess)
+    const subProcess = subProcesosPorId.find((e) => (e.id) == idSubProcess)
+    console.log(subProcess)
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
     dataScreen4.subProcesoNombre = subProcess.name
@@ -144,7 +153,7 @@ const Screen1 = (props) => {
   const renderOption = (title) => (
     //  traerTareasRutinariasMetodo(displayValue)
     // console.log(title),
-    <SelectItem key={title.id} title={title.name} />
+    <Select.Item value={title.id} label={title.name} />
   );
 
   // checks
@@ -255,7 +264,8 @@ const Screen1 = (props) => {
               source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>SUB PROCESO
           </Text>
-          <Select
+
+          {/* <Select
             placeholder='Seleccione un SubProceso'
             value={displayValue}
             selectedIndex={selectedIndex}
@@ -263,19 +273,19 @@ const Screen1 = (props) => {
               // console.log((index.row) + 1);
               setSelectedIndex(index);
               setValue(0);
-
-              if (estaEsMiArea === 1) {
-                listarSubprocesos((index.row) + 1);
-              } else if (estaEsMiArea === 2) {
-                listarSubprocesos((index.row) + 5);
-              } else if (estaEsMiArea === 3) {
-                listarSubprocesos((index.row) + 14);
-              }
+              console.log("MI ROW ES");
+              console.log(displayValue);
+              listarSubprocesos(index.row)
+              // if (estaEsMiArea === 1) {
+              //   listarSubprocesos((index.row) + 1);
+              // } else if (estaEsMiArea === 2) {
+              //   listarSubprocesos((index.row) + 5);
+              // } else if (estaEsMiArea === 3) {
+              //   listarSubprocesos((index.row) + 14);
+              // }
               traerTareasRutinariasMetodo((index.row) + 1);
-
               onSelectIdArea(estaEsMiArea, index.row);
               dataScreen4.taskId = 0;
-
             }}
           >
             {
@@ -285,7 +295,36 @@ const Screen1 = (props) => {
               //   renderOption(obj.name)
               // })
               subProcesosPorId.map((obj) => renderOption(obj))}
+          </Select> */}
+
+          <Select selectedValue={selectedIndex}
+            
+            _dark={{
+              bg: "#F9F9F9"
+            }}
+            _light={{
+              bg: "#F9F9F9"
+            }}
+            color="black"
+            accessibilityLabel="-"
+            
+            placeholder="Seleccione un SubProceso"
+            _selectedItem={{
+              bg: "white"
+            }} onValueChange={itemValue => {
+              setSelectedIndex(itemValue)
+              setValue(0)
+              listarSubprocesos(itemValue)
+              onSelectIdArea(estaEsMiArea, itemValue);
+              dataScreen4.taskId = 0;
+              console.log("Mi valor es:" + itemValue)
+            }}>
+            {
+              subProcesosPorId.map((obj) => renderOption(obj))
+            }
+
           </Select>
+
         </View>
         {/* View de las Tareas Rutinarias */}
         <View>
@@ -345,7 +384,7 @@ const Screen1 = (props) => {
                                     <Text
                                       // style={[{ width: 1.2 }, { height: 1.2 }]}
                                       status='basic'
-                                      style={{backgroundColor:'black', borderRadius:100, color: 'white', height:20,width:20}}
+                                      style={{ backgroundColor: 'black', color: 'white' }}
                                       onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> +</Text>
                                   </Text>
                                   // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
@@ -396,7 +435,7 @@ const Screen1 = (props) => {
 
 
     </ScrollView>
-      <View style={{ backgroundColor: 'white'}}>
+      <View style={{ backgroundColor: 'white' }}>
         <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>
           <Text style={{ color: '#01286B', textAlign: 'center', fontSize: 14 }}>
             Pág. 1 / 4

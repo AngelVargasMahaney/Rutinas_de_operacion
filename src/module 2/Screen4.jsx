@@ -10,11 +10,9 @@ import { postCreateData } from '../services/services';
 
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
 
-import AnimatedLoader from "react-native-animated-loader";
 import MarqueeText from 'react-native-marquee';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import TextTicker from 'react-native-text-ticker';
-const loader = require('../../assets/loaders/waiting.json')
 
 const Screen4 = (props) => {
   const dataScreen4 = props.route.params.miObjetoNuevo
@@ -31,11 +29,10 @@ const Screen4 = (props) => {
 
 
   const handleSubmit = () => {
-    startLoader()
     postCreateData(dataRutina).then((rpta) => {
-      console.log(dataRutina)
-      console.log("Mir respuesta")
-      console.log(rpta)
+      // console.log(dataRutina)
+      // console.log("Mir respuesta")
+      // console.log(rpta)
 
       if (rpta.status === 200) {
         setVisible(false)
@@ -46,14 +43,14 @@ const Screen4 = (props) => {
         setVisible(false)
       }
     }).catch(err => {
-      console.log("ERROR EN EL SERVICIO CREARDATA")
+      // console.log("ERROR EN EL SERVICIO CREARDATA")
       setVisible(false)
-      console.warn(err)
+      // console.warn(err)
     })
 
   }
 
-  console.log(dataRutina)
+  // console.log(dataRutina)
   const navigation = useNavigation();
 
 
@@ -83,7 +80,7 @@ const Screen4 = (props) => {
       setVariableColor("#32FF00")
     }
   }
-  console.log(variableColor)
+  // console.log(variableColor)
   const startLoading = () => {
     setLoading(true);
     setTimeout(() => {
@@ -106,10 +103,7 @@ const Screen4 = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const startLoader = () => {
-    setVisible(true)
-  };
-
+  
 
   return (
     <>
@@ -270,14 +264,7 @@ const Screen4 = (props) => {
           </View>
         </Layout>
 
-        <AnimatedLoader
-          visible={visible}
-          overlayColor="white"
-          animationStyle={styles.lottie}
-          source={loader}
-          speed={1}>
-          <Text>Guardando Datos</Text>
-        </AnimatedLoader>
+      
 
       </ScrollView>
       <View style={{ backgroundColor: 'white' }}>

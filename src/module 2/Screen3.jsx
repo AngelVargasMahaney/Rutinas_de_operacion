@@ -30,9 +30,9 @@ const Screen3 = (props) => {
     }
   }
 
-  console.log(textAreaValue + "cerdo");
+  // console.log(textAreaValue + "cerdo");
   const ValueControllerTextInput = valor => {
-    console.log(valor)
+    // console.log(valor)
     setTextoIngresado(valor);
   };
   miObjetoNuevo.comments = textAreaValue
@@ -54,7 +54,7 @@ const Screen3 = (props) => {
 
   useEffect(() => {
     completoRutina()
-    console.log(miObjetoNuevo)
+    // console.log(miObjetoNuevo)
   })
 
   // console.log(botonSi);

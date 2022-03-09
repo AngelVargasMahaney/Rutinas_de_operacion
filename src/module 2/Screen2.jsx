@@ -33,21 +33,7 @@ const Screen2 = (props) => {
   // console.log(tareasOpciones)
   // console.log(props)
   //Propio tema, estilos, etc
-  const [buttonState, setButtonState] = useState(false)
-
-  const comprobarButtonState = () => {
-    // console.log(groupValue)
-    // if (groupValue.length !== 0) {
-    //   setButtonState(false);
-    // } else {
-    //   setButtonState(true);
-    // }
-  }
-
-  useEffect(() => {
-    comprobarButtonState()
-  }, [])
-  const navigation = useNavigation();
+ 
 
   return (
     <>
@@ -76,20 +62,7 @@ const Screen2 = (props) => {
                 <ItemScreen2 item={item} miObjetoNuevo={miObjetoNuevo} />
 
               }
-            keyExtractor={item => item.id} ListFooterComponent={<View style={{ alignSelf: 'center', marginTop: 40, marginBottom: 10 }}>
-
-              <Button onPress={() => navigation.goBack()} style={[styles.button, {
-                backgroundColor: '#01286B',
-              }, { color: 'white' }, { marginBottom: 25 }]}>
-                Atrás
-              </Button>
-              <Button style={[styles.button, {
-                backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-              }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
-                Siguiente
-              </Button>
-
-            </View>} />
+            keyExtractor={item => item.id} />
 
           <View style={{ backgroundColor: 'white', marginBottom: '15%' }}>
             <View style={{ alignSelf: 'center', width: 90, height: 30, borderRadius: 40, margin: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ECECEC', borderRadius: 40, }}>

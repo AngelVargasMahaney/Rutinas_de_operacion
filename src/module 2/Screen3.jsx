@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     margin: 30,
-    marginBottom: 0
+    marginBottom: 15
   },
   card: {
     justifyContent: 'center',

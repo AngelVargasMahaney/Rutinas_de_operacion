@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { HStack, ScrollView, Spacer, Select } from 'native-base'
 import { Avatar, Button, Card, IndexPath, Modal, Radio, RadioGroup, Text } from '@ui-kitten/components'
 import DropDownPicker from 'react-native-dropdown-picker'
+import { useNavigation } from '@react-navigation/native'
 
 const ItemScreen2 = ({ item, miObjetoNuevo }) => {
 
@@ -86,7 +87,20 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
     useEffect(() => {
         console.log(miObjetoNuevo)
     })
+    const [buttonState, setButtonState] = useState(true)
 
+    const comprobarButtonState = () => {
+        if (frecuenciaSelect != '0') {
+            setButtonState(false)
+        } else {
+            setButtonState(true)
+        }
+    }
+
+    useEffect(() => {
+        comprobarButtonState()
+    }, [frecuenciaSelect])
+    const navigation = useNavigation();
 
     return (
         <View space={1} justifyContent="space-between">
@@ -348,7 +362,7 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                 <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                    Esta tarea posee 3 Subtareas, presione el botón + para mayor información</Text>
+                                    Esta tarea posee {item.detail_tasks.length} Subtareas, presione el botón + para mayor información</Text>
                             </View>
                             <Spacer />
                             <Text style={[styles.textRightStyle, { marginTop: 5 }]} onPress={() => setModalMasInfo(true)}>
@@ -394,76 +408,83 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                 </Text>
 
                             </HStack>
-                            <HStack style={{ marginVertical: 15 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                                    <Avatar
-                                        shape={"square"}
-                                        size='tiny'
-                                        style={{ width: 10, height: 10, marginTop: 5 }}
-                                        source={require('../../assets/icons/Rectangle_orange.png')}
-                                    />
-                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                            {
+                                item.day_times != null ? (
+                                    <HStack style={{ marginVertical: 15 }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                            <Avatar
+                                                shape={"square"}
+                                                size='tiny'
+                                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                                source={require('../../assets/icons/Rectangle_orange.png')}
+                                            />
+                                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                        N° de veces al Día</Text>
-                                </View>
-                                <Spacer />
-                                <Text style={[styles.textRightStyle, {
-                                    backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 2 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
-                                    color: item.day_times < 1 ? '#969696' : '#FFFFFF'
-                                }]}>
-                                    {
-                                        (frecuenciaSelect == 1 && item.day_times >= 1) ?
-                                            (item.day_times) : ('-')
-                                    }
-                                </Text>
-                            </HStack>
-                            <HStack style={{ marginVertical: 15 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                                    <Avatar
-                                        shape={"square"}
-                                        size='tiny'
-                                        style={{ width: 10, height: 10, marginTop: 5 }}
-                                        source={require('../../assets/icons/Rectangle_orange.png')}
-                                    />
-                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                                                N° de veces al Día</Text>
+                                        </View>
+                                        <Spacer />
+                                        <Text style={[styles.textRightStyle, {
+                                            backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 2 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
+                                            color: item.day_times < 1 ? '#969696' : '#FFFFFF'
+                                        }]}>
+                                            {
+                                                (frecuenciaSelect == 1 && item.day_times >= 1) ?
+                                                    (item.day_times) : ('-')
+                                            }
+                                        </Text>
+                                    </HStack>
+
+                                ) : (item.week_times != null ? (
+                                    <HStack style={{ marginVertical: 15 }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                            <Avatar
+                                                shape={"square"}
+                                                size='tiny'
+                                                style={{ width: 10, height: 10, marginTop: 5 }}
+                                                source={require('../../assets/icons/Rectangle_orange.png')}
+                                            />
+                                            <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                        N° de veces a la Semana</Text>
-                                </View>
-                                <Spacer />
-                                <Text style={[styles.textRightStyle, {
-                                    backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
-                                    color: item.week_times < 1 ? '#969696' : '#FFFFFF'
-                                }]}>
-                                    {
-                                        (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
-                                    }
-                                </Text>
-                            </HStack>
-                            <HStack style={{ marginVertical: 15 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                                    <Avatar
-                                        shape={"square"}
-                                        size='tiny'
-                                        style={{ width: 10, height: 10, marginTop: 5 }}
-                                        source={require('../../assets/icons/Rectangle_orange.png')}
-                                    />
-                                    <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                                                N° de veces a la Semana</Text>
+                                        </View>
+                                        <Spacer />
+                                        <Text style={[styles.textRightStyle, {
+                                            backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
+                                            color: item.week_times < 1 ? '#969696' : '#FFFFFF'
+                                        }]}>
+                                            {
+                                                (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
+                                            }
+                                        </Text>
+                                    </HStack>
+                                ) : (<HStack style={{ marginVertical: 15 }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                        <Avatar
+                                            shape={"square"}
+                                            size='tiny'
+                                            style={{ width: 10, height: 10, marginTop: 5 }}
+                                            source={require('../../assets/icons/Rectangle_orange.png')}
+                                        />
+                                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                        N° de veces al Mes</Text>
-                                </View>
-                                <Spacer />
-                                <Text style={[styles.textRightStyle, {
-                                    backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
-                                    color: item.month_times < 1 ? '#969696' : '#FFFFFF'
-                                }]}>
-                                    {
-                                        (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
-                                    }
-                                </Text>
-                            </HStack>
+                                            N° de veces al Mes</Text>
+                                    </View>
+                                    <Spacer />
+                                    <Text style={[styles.textRightStyle, {
+                                        backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
+                                        color: item.month_times < 1 ? '#969696' : '#FFFFFF'
+                                    }]}>
+                                        {
+                                            (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
+                                        }
+                                    </Text>
+                                </HStack>))
+                            }
+
+
                         </>
                     </>
                 )
@@ -645,7 +666,20 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                     </Button>
                 </Card>
             </Modal>
+            <View style={{ alignSelf: 'center', marginTop: 40, marginBottom: 10 }}>
 
+                <Button onPress={() => navigation.goBack()} style={[styles.button, {
+                    backgroundColor: '#01286B',
+                }, { color: 'white' }, { marginBottom: 25 }]}>
+                    Atrás
+                </Button>
+                <Button style={[styles.button, {
+                    backgroundColor: buttonState ? '#ECECEC' : '#01286B'
+                }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
+                    Siguiente
+                </Button>
+
+            </View>
 
         </View>
     )
@@ -654,6 +688,13 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
 export default ItemScreen2
 
 const styles = StyleSheet.create({
+    button: {
+        borderRadius: 40,
+        width: 200,
+        height: 42,
+        backgroundColor: '#01286B',
+        borderColor: 'transparent'
+    },
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },

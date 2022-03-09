@@ -342,12 +342,11 @@ const Screen1 = (props) => {
                               (
                                 tamano > 1 ? (
                                   <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
-                                    <Button
+                                    <Text
                                       // style={[{ width: 1.2 }, { height: 1.2 }]}
-                                      appearance='ghost'
-                                      status='danger'
-                                      accessoryLeft={<Icon as={<FontAwesomeIcon name="plus" style={{ textAlign: 'center'}} />} size={2} />}
-                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }} />
+                                      status='basic'
+                                      style={{backgroundColor:'black', borderRadius:100, color: 'white', height:20,width:20}}
+                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> +</Text>
                                   </Text>
                                   // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
                                   //   {myHope}

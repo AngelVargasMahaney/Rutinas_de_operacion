@@ -20,7 +20,7 @@ const ScreenSave = () => {
                         {
                             justifyContent: 'center',
                             alignItems: 'center',
-                            backgroundColor: '#01286b', marginTop: "65%"
+                            backgroundColor: '#01286b', marginTop: "60%"
                         }}>
                         <Avatar
                             shape={"square"}
@@ -36,13 +36,13 @@ const ScreenSave = () => {
                         ></Icon>
                     </View>
                     <View style={{ justifyContent: 'center', backgroundColor: '#01286b' }}>
-                        <View style={{ alignSelf: 'center', marginTop: 150 }}>
+                        <View style={{ alignSelf: 'center', marginTop: '60%' }}>
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
                             }, { marginBottom: 25 }]}
                                 onPress={() => navigation.navigate('Login')}
                             >
-                                <Text style={{ color: '#EA3E18' }}>Finalizar</Text>
+                                <Text style={{ color: '#EA3E18', fontSize: 16 }}>FINALIZAR</Text>
                             </Button>
                         </View>
                     </View>
@@ -55,7 +55,7 @@ export default ScreenSave
 
 const styles = StyleSheet.create({
     Container: {
-        paddingTop: 20,
+        paddingTop:10,
         backgroundColor: '#01286b',
     },
     container: {

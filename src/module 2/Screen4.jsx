@@ -5,11 +5,11 @@ import { Avatar, Button, Layout } from '@ui-kitten/components';
 import TemplateVersion2 from '../Template/TemplateVersion2';
 import { useNavigation } from "@react-navigation/native";
 import AwesomeAlert from 'react-native-awesome-alerts';
-
+import AnimatedLoader from "react-native-animated-loader";
 import { postCreateData } from '../services/services';
 
 const Rectangle_orange = require('../../assets/icons/Rectangle_orange.png')
-
+const loader = require('../../assets/loaders/waiting.json')
 import MarqueeText from 'react-native-marquee';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import TextTicker from 'react-native-text-ticker';
@@ -29,6 +29,7 @@ const Screen4 = (props) => {
 
 
   const handleSubmit = () => {
+    startLoader()
     postCreateData(dataRutina).then((rpta) => {
       // console.log(dataRutina)
       // console.log("Mir respuesta")
@@ -103,7 +104,9 @@ const Screen4 = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  
+  const startLoader = () => {
+    setVisible(true)
+  };
 
   return (
     <>
@@ -156,7 +159,7 @@ const Screen4 = (props) => {
               </Row><Row >
                 <Col
                   style={[styles.cell, { flex: 1.6 }]}>
-                  <View style={[{ flexDirection: 'row', alignItems: 'center',marginRight:5}]}>
+                  <View style={[{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -172,7 +175,7 @@ const Screen4 = (props) => {
               <Row >
                 <Col
                   style={[styles.cell, { flex: 1.6 }]}>
-                  <View style={[{ flexDirection: 'row', alignItems: 'center',marginRight:5 }]}>
+                  <View style={[{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
@@ -187,13 +190,13 @@ const Screen4 = (props) => {
               </Row><Row >
                 <Col
                   style={[styles.cell, { flex: 1.6 }]}>
-                  <View style={[{ flexDirection: 'row', alignItems: 'center',marginRight:5}]}>
+                  <View style={[{ flexDirection: 'row', alignItems: 'center', marginRight: 5 }]}>
                     <Avatar
                       shape={"square"}
                       size={"tiny"}
                       style={{ width: 10, height: 10 }}
                       source={Rectangle_orange} >
-                    </Avatar><Text style={{ color: '#01286b', fontSize: 12, marginLeft: 5}}> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></View></Col>
+                    </Avatar><Text style={{ color: '#01286b', fontSize: 12, marginLeft: 5 }}> % DE CUMPLIMIENTO DE TAREAS DEL SUB PROCESO</Text></View></Col>
                 <Col
                   style={[styles.cell2, { backgroundColor: variableColor }]}>
                   {
@@ -263,8 +266,15 @@ const Screen4 = (props) => {
 
           </View>
         </Layout>
+        <AnimatedLoader
+          visible={visible}
+          overlayColor="white"
+          animationStyle={styles.lottie}
+          source={loader}
+          speed={1}>
+          <Text>Guardando Datos</Text>
+        </AnimatedLoader>
 
-      
 
       </ScrollView>
       <View style={{ backgroundColor: 'white' }}>

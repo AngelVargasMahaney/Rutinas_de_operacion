@@ -487,7 +487,8 @@ const styles = StyleSheet.create({
     // filter: 'grayscale(100%)',
     width: 100,
     height: 100,
-    borderRadius: 18
+    borderRadius: 18, 
+    resizeMode: "cover",
   }
 
 });

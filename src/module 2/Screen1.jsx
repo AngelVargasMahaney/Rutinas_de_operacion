@@ -11,6 +11,7 @@ import ModalComponent from '../modals/ModalComponent';
 import { useNavigation } from '@react-navigation/native';
 import NextButton from '../module 1/NextButton';
 import Paginator from '../module 1/Paginator';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 const Screen1 = (props) => {
@@ -33,11 +34,13 @@ const Screen1 = (props) => {
   const width = useWindowDimensions().width
 
   const traerAreas = () => {
+    startLoading()
     //Aquí obtener las áreas desde el servicio
     getAllAreas().then((rpta) => {
       // console.log(rpta)
       console.log(rpta.data.data)
       setAreasData(rpta.data.data)
+      setLoading(false)
     })
   }
   const traerSubProcesos = () => {
@@ -99,8 +102,8 @@ const Screen1 = (props) => {
     console.log(index)
     console.log(subProcesosPorId)
     let dataFiltrada
-    subProcesosPorId.forEach(element =>{
-      if(element.id == index){
+    subProcesosPorId.forEach(element => {
+      if (element.id == index) {
         dataFiltrada = element.tasks
       }
     })
@@ -131,7 +134,7 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-     console.log(idSubProcess)
+    console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) == idSubProcess)
     console.log(subProcess)
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
@@ -200,6 +203,17 @@ const Screen1 = (props) => {
     console.log(value)
   })
 
+
+  const [loading, setLoading] = useState(false);
+
+  const startLoading = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 10000);
+  };
+
+
   return (
 
     <><ScrollView style={{ backgroundColor: 'white' }}>
@@ -217,40 +231,55 @@ const Screen1 = (props) => {
           </Text>
 
           <ScrollView horizontal>
-            {areasData.map((obj, i) => {
-              return (
+            {loading ? (
+             
+                <ActivityIndicator
 
-                <Card key={obj.id} style={styles.card} onPress={() => {
-                  traerSubProcesosMetodo(obj.id);
-                  cambiarColor(obj.id);
-                  setSelectedIndex(0);
-                  setValue(0);
-                  setDisplayValue('Seleccione un SubProceso');
+                  //visibility of Overlay Loading Spinner
+                  visible={loading}
+                  //Text with the Spinner
+                  size="small"
+                  color="#f4c47c"
+                  //Text style of the Spinner Text
+                  textStyle={styles.spinnerTextStyle}
+                />
+            ) : (
+              <>
+                {areasData.map((obj, i) => {
+                  return (
 
-                  dataScreen4.areaNombre = obj.name;
-                  dataScreen4.areaId = obj.id;
-                  dataScreen4.processId = 0;
-                  dataScreen4.taskId = 0;
-                  // console.log(obj)
-                }}>
-                  <Avatar
-                    style={[styles.logo,
-                    {
-                      opacity: obj.selected ? 1 : 0.3,
-                    }
-                    ]}
+                    <Card key={obj.id} style={styles.card} onPress={() => {
+                      traerSubProcesosMetodo(obj.id);
+                      cambiarColor(obj.id);
+                      setSelectedIndex(0);
+                      setValue(0);
+                      setDisplayValue('Seleccione un SubProceso');
 
-                    size='giant'
-                    resizeMode="contain"
-                    source={{ uri: obj.url_image }} />
+                      dataScreen4.areaNombre = obj.name;
+                      dataScreen4.areaId = obj.id;
+                      dataScreen4.processId = 0;
+                      dataScreen4.taskId = 0;
+                      // console.log(obj)
+                    }}>
+                      <Avatar
+                        style={[styles.logo,
+                        {
+                          opacity: obj.selected ? 1 : 0.3,
+                        }
+                        ]}
 
-                  <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
-                    {obj.name}
-                  </Text>
-                </Card>
-              );
-            })}
+                        size='giant'
+                        resizeMode="contain"
+                        source={{ uri: obj.url_image }} />
 
+                      <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
+                        {obj.name}
+                      </Text>
+                    </Card>
+                  );
+                })}
+              </>
+            )}
           </ScrollView>
 
         </View>
@@ -298,7 +327,7 @@ const Screen1 = (props) => {
           </Select> */}
 
           <Select selectedValue={selectedIndex}
-            
+
             _dark={{
               bg: "#F9F9F9"
             }}
@@ -307,7 +336,7 @@ const Screen1 = (props) => {
             }}
             color="black"
             accessibilityLabel="-"
-            
+
             placeholder="Seleccione un SubProceso"
             _selectedItem={{
               bg: "white"
@@ -380,12 +409,13 @@ const Screen1 = (props) => {
                             {displayValue === 'Seleccione un SubProceso' ? null :
                               (
                                 tamano > 1 ? (
-                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en + para mayor información
+                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }}
+                                    key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en "+" para mayor información
                                     <Text
                                       // style={[{ width: 1.2 }, { height: 1.2 }]}
                                       status='basic'
-                                      style={{ backgroundColor: 'black', color: 'white' }}
-                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> +</Text>
+                                      style={{ backgroundColor: 'white', color: '#ea3e18', fontWeight: 'bold', fontSize: 20 }}
+                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> + </Text>
                                   </Text>
                                   // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
                                   //   {myHope}
@@ -487,7 +517,7 @@ const styles = StyleSheet.create({
     // filter: 'grayscale(100%)',
     width: 100,
     height: 100,
-    borderRadius: 18, 
+    borderRadius: 18,
     resizeMode: "cover",
   }
 

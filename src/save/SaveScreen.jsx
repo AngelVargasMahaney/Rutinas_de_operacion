@@ -15,7 +15,7 @@ const ScreenSave = () => {
                 <TemplateVersion2Oscuro />
                 <StatusBar barStyle="light-content" hidden={false} backgroundColor="rgba(200, 200, 200, 0.29)" translucent={true} animated={true} />
 
-                <Layout style={styles.container, { backgroundColor: '#01286b' }} level='1'>
+                <Layout style={[styles.container, { backgroundColor: '#01286b' }]} level='1'>
                     <View style={
                         {
                             justifyContent: 'center',
@@ -27,7 +27,7 @@ const ScreenSave = () => {
                             size='giant'
                             style={{ width: 52.5, height: 52.5 }}
                             source={require('../../assets/icons/Icono_guardar.png')} />
-                        <Text style={styles.tittlesStyle, { color: 'white', fontSize: 22 }}>
+                        <Text style={[styles.tittlesStyle, { color: 'white', fontSize: 22 }]}>
                             GUARDADO
                         </Text>
                         <Icon
@@ -40,7 +40,7 @@ const ScreenSave = () => {
                             <Button style={[styles.button, {
                                 backgroundColor: 'white',
                             }, { marginBottom: 25 }]}
-                                onPress={() => navigation.navigate('Login')}
+                                onPress={() => navigation.replace('Home')}
                             >
                                 <Text style={{ color: '#EA3E18', fontSize: 16 }}>FINALIZAR</Text>
                             </Button>

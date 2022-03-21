@@ -1,9 +1,7 @@
 {
   "expo": {
-    "name":
-    "Rutinas de Operación",
-    "slug": 
-    "Rutinas de Operación",
+    "name":"Rutinas de Operación",
+    "slug":"Rutinas_de_Operacion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icono_andorid2.png",

@@ -185,7 +185,7 @@ const Screen4 = (props) => {
                 <Col
                   style={styles.cell2}>
                   <Text style={[styles.tittlesStyle, { color: '#01286b', fontSize: 16 }]}>
-                    {dataScreen4.horasTotalesSubproceso}
+                    {(dataScreen4.horasTotalesSubproceso).toFixed(2)  }
                   </Text></Col>
               </Row><Row >
                 <Col

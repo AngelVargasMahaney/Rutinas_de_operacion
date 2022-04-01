@@ -218,8 +218,9 @@ const Screen1 = (props) => {
 
     <><ScrollView style={{ backgroundColor: 'white' }}>
       <StatusBar barStyle="dark-content" />
+      <TemplateVersion2 />
       <Layout style={styles.container} level='1'>
-        <TemplateVersion2 />
+
         <View>
           <Text style={styles.tittlesStyle}>
             <Avatar
@@ -230,19 +231,19 @@ const Screen1 = (props) => {
             <Text>  </Text>ÁREA
           </Text>
 
-          <ScrollView horizontal>
+          <ScrollView horizontal style={{ alignSelf: loading ? 'center' : 'flex-start' }}>
             {loading ? (
-             
-                <ActivityIndicator
+              <ActivityIndicator
 
-                  //visibility of Overlay Loading Spinner
-                  visible={loading}
-                  //Text with the Spinner
-                  size="small"
-                  color="#f4c47c"
-                  //Text style of the Spinner Text
-                  textStyle={styles.spinnerTextStyle}
-                />
+                //visibility of Overlay Loading Spinner
+                visible={loading}
+                //Text with the Spinner
+                size="small"
+                color="#f4c47c"
+                //Text style of the Spinner Text
+                textStyle={styles.spinnerTextStyle}
+              />
+
             ) : (
               <>
                 {areasData.map((obj, i) => {
@@ -460,7 +461,11 @@ const Screen1 = (props) => {
 
       </Layout>
 
-      {<ModalComponent visible={modalMoreData} onClose={() => setModalMoreData(false)} objetoParaModal={objetoParaModal} objetoIdParaModal={objetoIdParaModal} />}
+      {<ModalComponent
+        visible={modalMoreData}
+        onClose={() => setModalMoreData(false)}
+        objetoParaModal={objetoParaModal}
+        objetoIdParaModal={objetoIdParaModal} />}
 
 
 
@@ -484,7 +489,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
     width: 200,
-    height: 42,
+   
     backgroundColor: '#01286B',
     borderColor: 'transparent'
   },

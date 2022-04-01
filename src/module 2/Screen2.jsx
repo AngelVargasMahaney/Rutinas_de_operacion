@@ -41,7 +41,7 @@ const Screen2 = (props) => {
 
       <Layout style={styles.container} level='1'>
 
-        <View style={{ justifyContent: 'center' }}>
+        <View style={{ justifyContent: 'center' , marginTop: 20 }}>
           {/* <Text style={styles.tittlesStyle}>
             <Avatar
               shape={"square"}

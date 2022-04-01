@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const MenuIcon = (props) => (
-    <Icon {...props} name='more-vertical' />
+    <Icon {...props} name='more-vertical' fill='#01286b'/>
 );
 
 
@@ -25,7 +25,7 @@ const TemplateVersion2 = () => {
     };
 
     const renderMenuAction = () => (
-        <TopNavigationAction style={{ marginTop: 41 }} icon={MenuIcon} onPress={toggleMenu} />
+        <TopNavigationAction style={{ marginTop: 11 }} icon={MenuIcon} onPress={toggleMenu} />
     );
     const navigation = useNavigation();
 
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        marginTop: 40,
+        marginTop: 10,
         width: 89,
         height: 50,
     },
@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
         // fontFamily: "roboto-700",
         fontSize: 30,
         marginLeft: 25,
-        marginTop: 40
+        marginTop: 10
     },
 });

@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import NextButton from '../module 1/NextButton';
 import Paginator from '../module 1/Paginator';
 import { ActivityIndicator } from 'react-native-paper';
-
+import cerdo from '../../assets/logos/Logo_color.png'
 
 const Screen1 = (props) => {
   let contador = 0
@@ -223,6 +223,7 @@ const Screen1 = (props) => {
 
         <View>
           <Text style={styles.tittlesStyle}>
+          <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
@@ -247,6 +248,8 @@ const Screen1 = (props) => {
             ) : (
               <>
                 {areasData.map((obj, i) => {
+                  console.log("MI DATA DEL OBJETO")
+                  console.log(obj)
                   return (
 
                     <Card key={obj.id} style={styles.card} onPress={() => {
@@ -271,7 +274,7 @@ const Screen1 = (props) => {
 
                         size='giant'
                         resizeMode="contain"
-                        source={{ uri: obj.url_image }} />
+                        source={obj.url_image == null ? require('../../assets/icons/icono_andorid2.png') : { uri: obj.url_image }} />
 
                       <Text style={{ textAlign: 'center', maxWidth: 100, color: obj.selected ? '#01286B' : '#969696', fontSize: 14, fontWeight: "400", marginTop: 5 }}>
                         {obj.name}
@@ -287,10 +290,11 @@ const Screen1 = (props) => {
         {/* View de los SubProcesos */}
         <View>
           <Text style={styles.tittlesStyle}>
+          <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
-              style={{ width: 10, height: 10 }}
+              style={{ width: 10, height: 10}}
               source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>SUB PROCESO
           </Text>
@@ -359,6 +363,7 @@ const Screen1 = (props) => {
         {/* View de las Tareas Rutinarias */}
         <View>
           <Text style={styles.tittlesStyle}>
+          <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
@@ -489,7 +494,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
     width: 200,
-   
+
     backgroundColor: '#01286B',
     borderColor: 'transparent'
   },
@@ -505,7 +510,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#01286B',
     fontWeight: '600',
-    marginVertical: 10
+    marginVertical: 10,
+    
   },
   container: {
     justifyContent: 'center',

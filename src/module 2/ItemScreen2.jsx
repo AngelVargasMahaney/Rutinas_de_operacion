@@ -1,12 +1,12 @@
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { HStack, ScrollView, Spacer, Select } from 'native-base'
+import { HStack, ScrollView, Spacer, Select, useToast } from 'native-base'
 import { Avatar, Button, Card, IndexPath, Modal, Radio, RadioGroup, Text } from '@ui-kitten/components'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { useNavigation } from '@react-navigation/native'
 
 const ItemScreen2 = ({ item, miObjetoNuevo }) => {
-
+    const toast = useToast()
     const [selectedIndex, setSelectedIndex] = useState(0);
     const width = useWindowDimensions().width
     const height = useWindowDimensions().height
@@ -88,12 +88,24 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
     //     console.log(miObjetoNuevo)
     // })
     const [buttonState, setButtonState] = useState(true)
-
+    const [secondButtonState, setSecondButtonState] = useState(false)
     const comprobarButtonState = () => {
         if (frecuenciaSelect != '0') {
             setButtonState(false)
         } else {
             setButtonState(true)
+        }
+        if (frecuenciaSelect == item.frequency) {
+            setSecondButtonState(true)
+        }else{
+            setSecondButtonState(false)
+        }
+        if(frecuenciaSelect !=item.frequency){
+            toast.show({
+                title: "Frecuencia incorrecta",
+                status: "danger",
+                description: "Debe elegir la frecuencia correcta"
+            })
         }
     }
 
@@ -103,7 +115,7 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
     const navigation = useNavigation();
 
     return (
-        <View space={1} justifyContent="space-between" style={{marginLeft:15}}>
+        <View space={1} justifyContent="space-between" style={{ marginLeft: 15 }}>
 
             <Modal
                 visible={visible}
@@ -252,12 +264,12 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                         bg: "#ea3e18"
                                     }}
                                     _light={{
-                                        bg: "#ea3e18"
+                                        bg: frecuenciaSelect == 0 ? "white" : "#ea3e18"
                                     }}
                                     color="white"
                                     accessibilityLabel="-"
                                     dropdownCloseIcon={true}
-                                    placeholder="-"
+                                    placeholder="   -   "
                                     _selectedItem={{
                                         bg: "#ea3e18"
                                     }} onValueChange={itemValue => setFrecuenciaSelect(itemValue)}>
@@ -266,36 +278,11 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                     <Select.Item label="Mensual" value="3" />
                                 </Select>
                             </Text>
-
                         </HStack>
-                        {
-                            item.day_times != null ?
-                                (<HStack style={{ marginVertical: 15 }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                                        <Avatar
-                                            shape={"square"}
-                                            size='tiny'
-                                            style={{ width: 10, height: 10, marginTop: 5 }}
-                                            source={require('../../assets/icons/Rectangle_orange.png')}
-                                        />
-                                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
-
-
-                                            N° de veces al Día</Text>
-                                    </View>
-                                    <Spacer />
-                                    <Text style={[styles.textRightStyle, {
-                                        backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 1 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
-                                        color: item.day_times < 1 ? '#969696' : '#FFFFFF'
-                                    }]}>
-                                        {
-                                            (frecuenciaSelect == 1 && item.day_times >= 1) ?
-                                                (item.day_times) : ('-')
-                                        }
-                                    </Text>
-                                </HStack>) :
+                        {frecuenciaSelect == 0 ? null :
+                            frecuenciaSelect == item.frequency ?
                                 (
-                                    item.week_times != null ?
+                                    item.day_times != null ?
                                         (<HStack style={{ marginVertical: 15 }}>
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                                                 <Avatar
@@ -307,47 +294,71 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                                 <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                                    N° de veces a la Semana</Text>
+                                                    N° de veces al Día</Text>
                                             </View>
                                             <Spacer />
                                             <Text style={[styles.textRightStyle, {
-                                                backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
-                                                color: item.week_times < 1 ? '#969696' : '#FFFFFF'
+                                                backgroundColor: (frecuenciaSelect != 1 || (frecuenciaSelect == 1 && item.day_times == null)) ? '#ECECEC' : '#EA3E18',
+                                                color: item.day_times < 1 ? '#969696' : '#FFFFFF'
                                             }]}>
                                                 {
-                                                    (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
+                                                    (frecuenciaSelect == 1 && item.day_times >= 1) ?
+                                                        (item.day_times) : ('-')
                                                 }
                                             </Text>
                                         </HStack>) :
-                                        <HStack style={{ marginVertical: 15 }}>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                                                <Avatar
-                                                    shape={"square"}
-                                                    size='tiny'
-                                                    style={{ width: 10, height: 10, marginTop: 5 }}
-                                                    source={require('../../assets/icons/Rectangle_orange.png')}
-                                                />
-                                                <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
+                                        (
+                                            item.week_times != null ?
+                                                (<HStack style={{ marginVertical: 15 }}>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                                        <Avatar
+                                                            shape={"square"}
+                                                            size='tiny'
+                                                            style={{ width: 10, height: 10, marginTop: 5 }}
+                                                            source={require('../../assets/icons/Rectangle_orange.png')}
+                                                        />
+                                                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
 
-                                                    N° de veces al Mes</Text>
-                                            </View>
-                                            <Spacer />
-                                            <Text style={[styles.textRightStyle, {
-                                                backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
-                                                color: item.month_times < 1 ? '#969696' : '#FFFFFF'
-                                            }]}>
-                                                {
-                                                    (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
-                                                }
-                                            </Text>
-                                        </HStack>
+                                                            N° de veces a la Semana</Text>
+                                                    </View>
+                                                    <Spacer />
+                                                    <Text style={[styles.textRightStyle, {
+                                                        backgroundColor: (frecuenciaSelect != 2 || (frecuenciaSelect == 2 && item.week_times == null)) ? '#ECECEC' : '#EA3E18',
+                                                        color: item.week_times < 1 ? '#969696' : '#FFFFFF'
+                                                    }]}>
+                                                        {
+                                                            (frecuenciaSelect == 2 && item.week_times >= 1) ? item.week_times : ('-')
+                                                        }
+                                                    </Text>
+                                                </HStack>) :
+                                                <HStack style={{ marginVertical: 15 }}>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
+                                                        <Avatar
+                                                            shape={"square"}
+                                                            size='tiny'
+                                                            style={{ width: 10, height: 10, marginTop: 5 }}
+                                                            source={require('../../assets/icons/Rectangle_orange.png')}
+                                                        />
+                                                        <Text style={[styles.tittlesStyle, { width: width / 2 }]} >
 
+
+                                                            N° de veces al Mes</Text>
+                                                    </View>
+                                                    <Spacer />
+                                                    <Text style={[styles.textRightStyle, {
+                                                        backgroundColor: (frecuenciaSelect != 3 || (frecuenciaSelect == 3 && item.month_times == null)) ? '#ECECEC' : '#EA3E18',
+                                                        color: item.month_times < 1 ? '#969696' : '#FFFFFF'
+                                                    }]}>
+                                                        {
+                                                            (frecuenciaSelect == 3 && item.month_times >= 1) ? item.month_times : ('-')
+                                                        }
+                                                    </Text>
+                                                </HStack>
+                                        )
                                 )
+                                : null
                         }
-
-
-
                     </>
                 ) : (
                     <>
@@ -674,8 +685,8 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                     Atrás
                 </Button>
                 <Button style={[styles.button, {
-                    backgroundColor: buttonState ? '#ECECEC' : '#01286B'
-                }]} disabled={buttonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
+                    backgroundColor: !secondButtonState ? '#ECECEC' : '#01286B'
+                }]} disabled={!secondButtonState} onPress={() => { navigation.navigate('Screen3', { miObjetoNuevo }) }}>
                     Siguiente
                 </Button>
 

@@ -96,15 +96,20 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
             setButtonState(true)
         }
         if (frecuenciaSelect == item.frequency) {
+            toast.show({
+                title: "Frecuencia válida",
+                status: "sucess",
+               
+            })
             setSecondButtonState(true)
         }else{
             setSecondButtonState(false)
         }
         if(frecuenciaSelect !=item.frequency){
             toast.show({
-                title: "Frecuencia incorrecta",
-                status: "danger",
-                description: "Debe elegir la frecuencia correcta"
+                title: "Elegir frecuencia válida",
+                status: "warning",
+                description: "Debe elegir una frecuencia correcta"
             })
         }
     }
@@ -412,9 +417,9 @@ const ItemScreen2 = ({ item, miObjetoNuevo }) => {
                                         _selectedItem={{
                                             bg: "#ea3e18"
                                         }} onValueChange={itemValue => setFrecuenciaSelect(itemValue)}>
-                                        <Select.Item label="D" value="1" />
-                                        <Select.Item label="S" value="2" />
-                                        <Select.Item label="M" value="3" />
+                                        <Select.Item label="Diaria" value="1" />
+                                        <Select.Item label="Semanal" value="2" />
+                                        <Select.Item label="Mensual" value="3" />
                                     </Select>
                                 </Text>
 

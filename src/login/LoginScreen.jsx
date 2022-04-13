@@ -43,7 +43,11 @@ const LoginScreen = () => {
             })
         }, err => {
             console.warn(err)
-            alert("Usuario no encontrado")
+            toast.show({
+                title: "Usuario no encontrado",
+                status: "danger",
+                description: "Intente nuevamente o ingrese otros datos"
+            })
             setVisible(false);
         })
     }

@@ -38,7 +38,7 @@ const Screen1 = (props) => {
     //Aquí obtener las áreas desde el servicio
     getAllAreas().then((rpta) => {
       // console.log(rpta)
-      console.log(rpta.data.data)
+      //console.log(rpta.data.data)
       setAreasData(rpta.data.data)
       setLoading(false)
     })
@@ -99,15 +99,15 @@ const Screen1 = (props) => {
 
   const [prueba, setPrueba] = useState([])
   const onSelectIdArea = (idArea, index) => {
-    console.log(index)
-    console.log(subProcesosPorId)
+    //console.log(index)
+    //console.log(subProcesosPorId)
     let dataFiltrada
     subProcesosPorId.forEach(element => {
       if (element.id == index) {
         dataFiltrada = element.tasks
       }
     })
-    console.log(dataFiltrada)
+    // console.log(dataFiltrada)
     // let dataFiltrada = subProcesosPorId[index].tasks
     // console.log(dataFiltrada)
     setTareasRutinariasPorId(dataFiltrada)
@@ -134,9 +134,9 @@ const Screen1 = (props) => {
   const [displayID, setDisplayID] = useState(0)
 
   const listarSubprocesos = (idSubProcess) => {
-    console.log(idSubProcess)
+    //console.log(idSubProcess)
     const subProcess = subProcesosPorId.find((e) => (e.id) == idSubProcess)
-    console.log(subProcess)
+    // console.log(subProcess)
     dataScreen4.horasTotalesSubproceso = subProcess.tasks_sum_person_turn
     setDisplayValue(subProcess.name)
     dataScreen4.subProcesoNombre = subProcess.name
@@ -200,7 +200,7 @@ const Screen1 = (props) => {
 
   const navigation = useNavigation();
   useEffect(() => {
-    console.log(value)
+    //console.log(value)
   })
 
 
@@ -223,7 +223,7 @@ const Screen1 = (props) => {
 
         <View>
           <Text style={styles.tittlesStyle}>
-          <Text>    </Text>
+            <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
@@ -248,8 +248,8 @@ const Screen1 = (props) => {
             ) : (
               <>
                 {areasData.map((obj, i) => {
-                  console.log("MI DATA DEL OBJETO")
-                  console.log(obj)
+                  //console.log("MI DATA DEL OBJETO")
+                  //console.log(obj)
                   return (
 
                     <Card key={obj.id} style={styles.card} onPress={() => {
@@ -290,11 +290,11 @@ const Screen1 = (props) => {
         {/* View de los SubProcesos */}
         <View>
           <Text style={styles.tittlesStyle}>
-          <Text>    </Text>
+            <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
-              style={{ width: 10, height: 10}}
+              style={{ width: 10, height: 10 }}
               source={require('../../assets/icons/Rectangle_orange.png')} />
             <Text>  </Text>SUB PROCESO
           </Text>
@@ -363,7 +363,7 @@ const Screen1 = (props) => {
         {/* View de las Tareas Rutinarias */}
         <View>
           <Text style={styles.tittlesStyle}>
-          <Text>    </Text>
+            <Text>    </Text>
             <Avatar
               shape={"square"}
               size='tiny'
@@ -376,7 +376,7 @@ const Screen1 = (props) => {
 
 
 
-            <View>
+            <View style={{  marginHorizontal:10 }}>
               {
                 // console.log(tareasRutinariasPorId),
                 tareasRutinariasPorId.map((obj, indexT) => {
@@ -415,19 +415,24 @@ const Screen1 = (props) => {
                             {displayValue === 'Seleccione un SubProceso' ? null :
                               (
                                 tamano > 1 ? (
-                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }}
-                                    key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en "+" para mayor información
-                                    <Text
-                                      // style={[{ width: 1.2 }, { height: 1.2 }]}
-                                      status='basic'
-                                      style={{ backgroundColor: 'white', color: '#ea3e18', fontWeight: 'bold', fontSize: 20 }}
-                                      onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> + </Text>
-                                  </Text>
+
+                                  <View style={{ width: (width - 50) }}>
+                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify' }}
+                                      key={obj.id}>Esta tarea posee: {tamano} Subtareas, presione en "+" para mayor información
+                                      <Text
+                                        // style={[{ width: 1.2 }, { height: 1.2 }]}
+                                        status='basic'
+                                        style={{ backgroundColor: 'white', color: '#ea3e18', fontWeight: 'bold', fontSize: 20 }}
+                                        onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id); }}> + </Text>
+                                    </Text>
+                                  </View>
                                   // <Button onPress={() => { activarModalDataExtra(obj.detail_tasks, obj.id) }} key={obj.id} title={"Esta tarea posee: " + tamano + " Subtareas, despliegue para más información"}>
                                   //   {myHope}
                                   // </Button>
                                 ) :
-                                  <Text style={{ marginHorizontal: 5, textAlign: 'justify', width: (width - 50) }} key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                  <View style={{ width: (width - 50) }}>
+                                    <Text style={{ marginHorizontal: 5, textAlign: 'justify' }} key={obj.id}>{(indexT + 1) + ". " + todeArray[0].name}</Text>
+                                  </View>
                               )}
                           </Radio>)}
 
@@ -511,7 +516,7 @@ const styles = StyleSheet.create({
     color: '#01286B',
     fontWeight: '600',
     marginVertical: 10,
-    
+
   },
   container: {
     justifyContent: 'center',
